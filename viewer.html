@@ -1,0 +1,387 @@
+<html>
+
+<head>
+	<script src="http://mozilla.github.io/pdf.js/build/pdf.js"></script>
+	<style>
+		body {
+			text-align: center;
+		}
+		#buttons {
+			margin: 1%;
+		}
+		canvas {
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='content'>
+		<h3> music score viewer </h3>
+
+		<div>
+		  <!--
+		  <button id="prev">Previous</button>
+		  <button id="next">Next</button>
+		  &nbsp; &nbsp;
+		  -->
+		  <span>page: <span id="page_num"></span> / <span id="page_count"></span></span>
+		</div>
+
+		<canvas id="the-canvas"></canvas>
+		
+		<div id="buttons">
+			<button id='playMusic' data-playing="false" role="switch" aria-checked="false">
+				play
+			</button>
+			<button id='stopMusic' aria-checked="false">
+				stop
+			</button>
+		</div>
+	</div>
+</body>
+
+<script>
+	// copy-pasted from https://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
+	
+	// If absolute URL from the remote server is provided, configure the CORS
+	// header on that server.
+	var url = 'music/rustic_inn_bgm/rustic inn bgm idea.pdf'; // bpm: 165
+
+	// Loaded via <script> tag, create shortcut to access PDF.js exports.
+	var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+	// The workerSrc property shall be specified.
+	pdfjsLib.GlobalWorkerOptions.workerSrc = 'http://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+	var pdfDoc = null,
+		pageNum = 1,
+		pageRendering = false,
+		pageNumPending = null,
+		scale = 1.1,
+		canvas = document.getElementById('the-canvas'),
+		ctx = canvas.getContext('2d');
+
+	/**
+	 * Get page info from document, resize canvas accordingly, and render page.
+	 * @param num Page number.
+	 */
+	function renderPage(num) {
+	  pageRendering = true;
+	  // Using promise to fetch the page
+	  pdfDoc.getPage(num).then(function(page) {
+		var viewport = page.getViewport({scale});
+		canvas.height = viewport.height;
+		canvas.width = viewport.width;
+
+		// Render PDF page into canvas context
+		var renderContext = {
+		  canvasContext: ctx,
+		  viewport: viewport
+		};
+		var renderTask = page.render(renderContext);
+
+		// Wait for rendering to finish
+		renderTask.promise.then(function() {
+		  pageRendering = false;
+		  if (pageNumPending !== null) {
+			// New page rendering is pending
+			renderPage(pageNumPending);
+			pageNumPending = null;
+		  }
+		});
+	  });
+
+	  // Update page counters
+	  document.getElementById('page_num').textContent = num;
+	}
+
+	/**
+	 * If another page rendering in progress, waits until the rendering is
+	 * finished. Otherwise, executes rendering immediately.
+	 */
+	function queueRenderPage(num) {
+	  if (pageRendering) {
+		pageNumPending = num;
+	  } else {
+		renderPage(num);
+	  }
+	}
+
+	/**
+	 * Displays previous page.
+	function onPrevPage() {
+	  if (pageNum <= 1) {
+		return;
+	  }
+	  pageNum--;
+	  queueRenderPage(pageNum);
+	}
+	document.getElementById('prev').addEventListener('click', onPrevPage);
+	*/
+	
+	/**
+	 * Displays next page.
+	function onNextPage() {
+	  if (pageNum >= pdfDoc.numPages) {
+		return;
+	  }
+	  pageNum++;
+	  queueRenderPage(pageNum);
+	}
+	document.getElementById('next').addEventListener('click', onNextPage);
+	*/
+	
+	/**
+	 * Asynchronously downloads PDF.
+	 */
+	pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+	  pdfDoc = pdfDoc_;
+	  document.getElementById('page_count').textContent = pdfDoc.numPages;
+
+	  // Initial/first page rendering
+	  renderPage(pageNum);
+	});
+	
+	
+	// manage multiple audio tracks - the stuff here and below is my own code :)
+	class AudioManager {
+		constructor(trackPaths, playButton){
+			this.instruments = {};
+			this.audioContext = new AudioContext();
+		
+			// import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
+			for(let instrument in trackPaths){
+				// get the audio data
+				let newAudioElement = document.createElement('audio');
+				newAudioElement.src = trackPaths[instrument];
+				
+				// TODO: don't do this? seems kinda awkward. it also assumes things about the play button :/
+				newAudioElement.addEventListener("ended", () => {
+					playButton.dataset.playing = 'false';
+					playButton.textContent = "play";
+				}, false);
+				
+				let newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
+				let newGainNode = this.audioContext.createGain();
+				let newPanNode = this.audioContext.createStereoPanner();
+				
+				newMediaElementSrcNode.connect(newGainNode);
+				newGainNode.connect(newPanNode);
+				newPanNode.connect(this.audioContext.destination);
+				
+				this.instruments[instrument] = {
+					'name': instrument,
+					'node': newMediaElementSrcNode,
+					'vol': newGainNode,
+					'pan': newPanNode,
+					'gainVal': 0.5, // maybe make a json to hold this info + the audio file path and other metadata
+					'panVal': 0.0,
+					'audioElement': newAudioElement,
+				};
+			}
+		}
+		
+		updateDOM(){
+			for(let instrument in this.instruments){
+				this._createSliders(this.instruments[instrument]);
+			}
+		}
+		
+		play(){
+			for(let instrument in this.instruments){
+				this.instruments[instrument].vol.gain.setValueAtTime(this.instruments[instrument].gainVal, 0);
+				this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
+				this.instruments[instrument].audioElement.play();
+			}
+		}
+		
+		pause(){
+			for(let instrument in this.instruments){
+				this.instruments[instrument].audioElement.pause();
+			}
+		}
+		
+		stop(){
+			for(let instrument in this.instruments){
+				this.instruments[instrument].audioElement.pause();
+				this.instruments[instrument].audioElement.currentTime = 0;
+				this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
+			}
+		}
+		
+		reset(){
+			// TODO: remove everything
+		}
+		
+		_createSliders(instrumentObject){
+			// pass in this.instruments[instrument]
+			const newInstrumentSection = document.createElement("div");
+			newInstrumentSection.style.marginBottom = "2%";
+			
+			const instrumentLabel = document.createElement("label");
+			instrumentLabel.textContent = instrumentObject.name;
+			instrumentLabel.style.marginRight = "2%";
+			newInstrumentSection.append(instrumentLabel);
+			
+			const volSlider = this._createSlider(0, 1.5, instrumentObject.gainVal, 0.1);
+			volSlider.id = instrumentObject.name + "_vol_slider";
+			
+			const volLabel = document.createElement("label");
+			volLabel.textContent = "vol: ";
+			volLabel.for = volSlider.id;
+			
+			const volValueLabel = document.createElement("label");
+			volValueLabel.textContent = instrumentObject.gainVal;
+			volValueLabel.id = instrumentObject.name + "_vol_value";
+			
+			volSlider.addEventListener("change", (evt) => {
+				// update volume value
+				const newVal = evt.target.value;
+				volValueLabel.textContent = newVal;
+				instrumentObject.gainVal = newVal;
+				instrumentObject.vol.gain.setValueAtTime(newVal, 0);
+			});
+			
+			const panSlider = this._createSlider(-1.0, 1.0, instrumentObject.panVal, 0.1);
+			panSlider.id = instrumentObject.name + "_pan_slider";
+			
+			const panLabel = document.createElement("label");
+			panLabel.textContent = "pan: ";
+			panLabel.for = panSlider.id;
+			panLabel.style.marginLeft = "2%";
+			
+			const panValueLabel = document.createElement("label");
+			panValueLabel.textContent = instrumentObject.panVal;
+			panValueLabel.id = instrumentObject.name + "_pan_value";
+			
+			panSlider.addEventListener("change", (evt) => {
+				// update pan value
+				const newVal = evt.target.value;
+				panValueLabel.textContent = newVal;
+				instrumentObject.panVal = newVal;
+				instrumentObject.pan.pan.setValueAtTime(newVal, 0);
+			});
+			
+			newInstrumentSection.appendChild(volLabel);
+			newInstrumentSection.appendChild(volSlider);
+			newInstrumentSection.appendChild(volValueLabel);
+			newInstrumentSection.appendChild(panLabel);
+			newInstrumentSection.appendChild(panSlider);
+			newInstrumentSection.appendChild(panValueLabel);
+			
+			// just append to the body for now
+			document.body.appendChild(newInstrumentSection);
+		}
+		
+		_createSlider(min, max, defaultVal, step){
+			const newSlider = document.createElement("input");
+			newSlider.type = "range";
+			newSlider.min = min;
+			newSlider.max = max;
+			newSlider.value = defaultVal;
+			newSlider.step = step;
+			return newSlider;
+		}
+	}
+	
+	const trackPaths = {
+		"flute": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-flute.wav",
+		"piccolo": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-piccolo.wav",
+		"violin": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-violin.wav",
+		"guitar": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-guitar.wav",
+		"harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.wav",
+	};
+	
+	// sync page flipping with time progressed for music playback
+	let reqAnimFrame = window.requestAnimationFrame;
+	let cancelAnimFrame = window.cancelAnimationFrame;
+	let reqId;
+	let lastTime;
+	let currTimeDiff = 0;
+	let currPage = 1;
+	
+	// when to go to next page
+	const timeMarkers = {
+		1: 13,
+		2: 24,
+		3: 33,
+		4: 44,
+		5: 54,
+		6: 61,
+		7: 72,
+		8: 81,
+	};
+	
+	function step(timestamp){
+		// we don't care about the timestamp requestAnimationFrame uses
+		// since we'll rely on audioContext's timer instead
+		let diff = audioContext.currentTime - lastTime;
+
+		if(diff >= timeMarkers[currPage]){
+			console.log("" + timeMarkers[currPage] + ": need to go to page " + currPage + "!");
+			if(currPage < Object.keys(timeMarkers).length){
+				queueRenderPage(++currPage); // make sure render calls don't collide, which would cause errors
+			}else{
+				// we're at the last page. stop the cycle.
+				console.log("reached the end of the score");
+				cancelAnimFrame(reqId);
+				currTimeDiff = 0;
+				currPage = 1;
+				return;
+			}
+		}
+		reqId = reqAnimFrame(step);
+	}
+	
+	const playButton = document.querySelector('#playMusic');
+	
+	const audioManager = new AudioManager(trackPaths, playButton);
+	audioManager.updateDOM();
+	
+	const audioContext = audioManager.audioContext;
+	
+	playButton.addEventListener("click", function(evt){
+		if(audioContext.state === 'suspended'){
+			audioContext.resume();
+		}
+		if(this.dataset.playing === 'false'){
+			this.dataset.playing = 'true';
+			evt.target.textContent = "pause";
+			
+			// check if currTimeDiff is 0. if yes, set lastTime to currentTime
+			// if not, use currTimeDiff to set lastTime
+			if(currTimeDiff){
+				lastTime = audioContext.currentTime - currTimeDiff;
+			}else{
+				// starting from the beginning
+				queueRenderPage(currPage); // should be page 1
+				lastTime = audioContext.currentTime;
+			}
+			
+			audioManager.play();//audioElement.play();
+			reqId = reqAnimFrame(step);
+		}else{
+			audioManager.pause();//audioElement.pause();
+			this.dataset.playing = 'false';
+			evt.target.textContent = "play";
+			cancelAnimFrame(reqId);
+			
+			// get curr time diff
+			currTimeDiff = audioContext.currentTime - lastTime;
+		}
+	}, false);
+	
+	const stopButton = document.querySelector('#stopMusic');
+	stopButton.addEventListener("click", function(evt){
+		// stop playing and rewind audio to the beginning
+		cancelAnimFrame(reqId);
+		currTimeDiff = 0;
+		currPage = 1;
+		audioManager.stop();//audioElement.pause();
+		//audioElement.dispatchEvent(new Event("ended"));
+	}, false);
+	
+</script>
+
+</html>
