@@ -1,0 +1,15 @@
+references:
+https://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
+https://stackoverflow.com/questions/36803176/how-to-prevent-the-play-request-was-interrupted-by-a-call-to-pause-error -> maybe helpful?
+https://stackoverflow.com/questions/40878414/html5-audio-tag-doenst-refresh-content-on-page-refresh -> maybe helpful?
+
+I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
+- I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
+- The audio for some instruments will get out of sync randomly. It'll appear to 'jump' to other parts of the music, or lag or just disappear. toggling the vol or pan slider seems to trigger this.
+
+
+todo:
+- be able to seek? (saw a few threads with ppl having issues with seek and syncing multiple tracks though)
+- add more scores
+- have a json file for each score containing any notes about the score, the list of paths to each instrument's audio data, the mapping for when to turn the page, etc.
+- clean up code/refactor

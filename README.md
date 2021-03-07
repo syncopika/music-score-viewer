@@ -8,3 +8,6 @@ I was inspired to make this after reaching my free limit on MuseScore and wanted
     
 ### dependencies:    
 pdf.js (https://mozilla.github.io/pdf.js/)    
+    
+### running locally:    
+Run `python -m http.server` from this directory and go to `localhost:8000`.    
