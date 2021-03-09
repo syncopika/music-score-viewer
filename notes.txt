@@ -2,6 +2,8 @@ references:
 https://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
 https://stackoverflow.com/questions/36803176/how-to-prevent-the-play-request-was-interrupted-by-a-call-to-pause-error -> maybe helpful?
 https://stackoverflow.com/questions/40878414/html5-audio-tag-doenst-refresh-content-on-page-refresh -> maybe helpful?
+https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css/5369951-set-columns-depending-on-screen-size
+https://css-tricks.com/introduction-fr-css-unit/
 
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
 - I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)

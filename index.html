@@ -19,15 +19,7 @@
 		
 		#container {
 			display: grid;
-			grid-template-columns: 50% 50%; /* 2 columns */
-		}
-		
-		#content {
-			grid-column-start: 1;
-		}
-		
-		#toolbar {
-			grid-column-start: 2;
+			grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 		}
 		
 		span {
@@ -69,7 +61,7 @@
 	
 	// If absolute URL from the remote server is provided, configure the CORS
 	// header on that server.
-	var url = 'music/rustic_inn_bgm/rustic inn bgm idea.pdf'; // bpm: 165
+	//var url = 'music/rustic_inn_bgm/rustic inn bgm idea.pdf'; // bpm: 165
 
 	// Loaded via <script> tag, create shortcut to access PDF.js exports.
 	var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -81,7 +73,7 @@
 		pageNum = 1,
 		pageRendering = false,
 		pageNumPending = null,
-		scale = 1.1,
+		scale = 1.0,
 		canvas = document.getElementById('the-canvas'),
 		ctx = canvas.getContext('2d');
 
@@ -157,7 +149,7 @@
 	
 	/**
 	 * Asynchronously downloads PDF.
-	 */
+	 
 	pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
 	  pdfDoc = pdfDoc_;
 	  document.getElementById('page_count').textContent = pdfDoc.numPages;
@@ -166,109 +158,107 @@
 	  renderPage(pageNum);
 	});
 	
-	const trackPaths = {
-		"flute": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-flute.ogg",
-		"piccolo": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-piccolo.ogg",
-		"violin": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-violin.ogg",
-		"guitar": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-guitar.ogg",
-		"harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.ogg",
-	};
+	*/
 	
-	const notes = [
-		"This piece was composed as background music for an inn in an upcoming MMORPG.",
-		"The score was generated from a mmp file (LMMS) via my <a href=\"https://github.com/syncopika/mmp-to-MusicXML\">converter</a> and exported as .pdf from MuseScore without any modifications.",
-		"As you can see, the score definitely needs some cleanup :)",
-	];
-	
-	// sync page flipping with time progressed for music playback
-	let reqAnimFrame = window.requestAnimationFrame;
-	let cancelAnimFrame = window.cancelAnimationFrame;
-	let reqId;
-	let lastTime;
-	let currTimeDiff = 0;
-	let currPage = 1;
-	
-	// when to go to next page
-	const timeMarkers = {
-		1: 13,
-		2: 24,
-		3: 33,
-		4: 44,
-		5: 54,
-		6: 61,
-		7: 72,
-		8: 81,
-	};
-	
-	function step(timestamp){
-		// we don't care about the timestamp requestAnimationFrame uses
-		// since we'll rely on audioContext's timer instead
-		let diff = audioContext.currentTime - lastTime;
+	async function loadScore(scorePath){
+		return pdfjsLib.getDocument(scorePath).promise.then(function(pdfDoc_) {
+		  pdfDoc = pdfDoc_;
+		  document.getElementById('page_count').textContent = pdfDoc.numPages;
 
-		if(diff >= timeMarkers[currPage]){
-			console.log("" + timeMarkers[currPage] + ": need to go to page " + currPage + "!");
-			if(currPage < Object.keys(timeMarkers).length){
-				queueRenderPage(++currPage); // make sure render calls don't collide, which would cause errors
-			}else{
-				// we're at the last page. stop the cycle.
-				console.log("reached the end of the score");
-				cancelAnimFrame(reqId);
-				currTimeDiff = 0;
-				currPage = 1;
-				return;
+		  // Initial/first page rendering
+		  renderPage(pageNum);
+		  
+		  return true;
+		});
+	}
+
+	async function main(){
+		const audioManager = new AudioManager();
+		const audioContext = audioManager.audioContext;
+		
+		const data = await audioManager.loadScoreJson("music/rustic_inn_bgm/rustic_inn_bgm.json");
+		await loadScore(data.scorePath); // this just returns a boolean
+		
+		const trackPaths = data.trackPaths;
+		const notes = data.notes;
+		const timeMarkers = data.timeMarkers;
+		const playButton = document.querySelector('#playMusic');
+		
+		audioManager.loadInstrumentParts(trackPaths, playButton);
+		audioManager.updateDOM(document.getElementById("toolbar"));
+		audioManager.addNotes(document.getElementById("toolbar"), notes);
+		
+		// sync page flipping with time progressed for music playback
+		const reqAnimFrame = window.requestAnimationFrame;
+		const cancelAnimFrame = window.cancelAnimationFrame;
+		let reqId;
+		let lastTime;
+		let currTimeDiff = 0;
+		let currPage = 1;
+		
+		function step(timestamp){
+			// we don't care about the timestamp requestAnimationFrame uses
+			// since we'll rely on audioContext's timer instead
+			const diff = audioContext.currentTime - lastTime;
+
+			if(diff >= timeMarkers[currPage]){
+				console.log("" + timeMarkers[currPage] + ": need to go to page " + currPage + "!");
+				if(currPage < Object.keys(timeMarkers).length){
+					queueRenderPage(++currPage); // make sure render calls don't collide, which would cause errors
+				}else{
+					// we're at the last page. stop the cycle.
+					console.log("reached the end of the score");
+					cancelAnimFrame(reqId);
+					currTimeDiff = 0;
+					currPage = 1;
+					return;
+				}
 			}
+			reqId = reqAnimFrame(step);
 		}
-		reqId = reqAnimFrame(step);
+		
+		playButton.addEventListener("click", function(evt){
+			if(audioContext.state === 'suspended'){
+				audioContext.resume();
+			}
+			if(this.dataset.playing === 'false'){
+				this.dataset.playing = 'true';
+				evt.target.textContent = "pause";
+				
+				// check if currTimeDiff is 0. if yes, set lastTime to currentTime
+				// if not, use currTimeDiff to set lastTime
+				if(currTimeDiff){
+					lastTime = audioContext.currentTime - currTimeDiff;
+				}else{
+					// starting from the beginning
+					queueRenderPage(currPage); // should be page 1
+					lastTime = audioContext.currentTime;
+				}
+				
+				audioManager.play();
+				reqId = reqAnimFrame(step);
+			}else{
+				audioManager.pause();
+				this.dataset.playing = 'false';
+				evt.target.textContent = "play";
+				cancelAnimFrame(reqId);
+				
+				// get curr time diff
+				currTimeDiff = audioContext.currentTime - lastTime;
+			}
+		}, false);
+		
+		const stopButton = document.querySelector('#stopMusic');
+		stopButton.addEventListener("click", function(evt){
+			// stop playing and rewind audio to the beginning
+			cancelAnimFrame(reqId);
+			currTimeDiff = 0;
+			currPage = 1;
+			audioManager.stop();
+		}, false);
 	}
 	
-	const playButton = document.querySelector('#playMusic');
-	
-	const audioManager = new AudioManager(trackPaths, playButton);
-	audioManager.updateDOM(document.getElementById("toolbar"));
-	audioManager.addNotes(document.getElementById("toolbar"), notes);
-	
-	const audioContext = audioManager.audioContext;
-	
-	playButton.addEventListener("click", function(evt){
-		if(audioContext.state === 'suspended'){
-			audioContext.resume();
-		}
-		if(this.dataset.playing === 'false'){
-			this.dataset.playing = 'true';
-			evt.target.textContent = "pause";
-			
-			// check if currTimeDiff is 0. if yes, set lastTime to currentTime
-			// if not, use currTimeDiff to set lastTime
-			if(currTimeDiff){
-				lastTime = audioContext.currentTime - currTimeDiff;
-			}else{
-				// starting from the beginning
-				queueRenderPage(currPage); // should be page 1
-				lastTime = audioContext.currentTime;
-			}
-			
-			audioManager.play();
-			reqId = reqAnimFrame(step);
-		}else{
-			audioManager.pause();
-			this.dataset.playing = 'false';
-			evt.target.textContent = "play";
-			cancelAnimFrame(reqId);
-			
-			// get curr time diff
-			currTimeDiff = audioContext.currentTime - lastTime;
-		}
-	}, false);
-	
-	const stopButton = document.querySelector('#stopMusic');
-	stopButton.addEventListener("click", function(evt){
-		// stop playing and rewind audio to the beginning
-		cancelAnimFrame(reqId);
-		currTimeDiff = 0;
-		currPage = 1;
-		audioManager.stop();
-	}, false);
-	
+	main();
 </script>
 
 </html>

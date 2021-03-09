@@ -1,0 +1,26 @@
+{
+	"name": "rustic_inn_bgm",
+	"scorePath": "music/rustic_inn_bgm/rustic inn bgm idea.pdf",
+	"trackPaths": {
+		"flute": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-flute.ogg",
+		"piccolo": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-piccolo.ogg",
+		"violin": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-violin.ogg",
+		"guitar": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-guitar.ogg",
+		"harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.ogg"
+	},
+	"notes": [
+		"This piece was composed as background music for an inn in an upcoming MMORPG.",
+		"The score was generated from a mmp file (LMMS) via my <a href='https://github.com/syncopika/mmp-to-MusicXML'>converter</a> and exported as .pdf from MuseScore without any modifications.",
+		"As you can see, the score definitely needs some cleanup :)"
+	],
+	"timeMarkers": {
+		"1": 13,
+		"2": 24,
+		"3": 33,
+		"4": 44,
+		"5": 54,
+		"6": 61,
+		"7": 72,
+		"8": 81
+	}
+}
