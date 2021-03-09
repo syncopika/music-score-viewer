@@ -1,13 +1,18 @@
 class AudioManager {
-	constructor(trackPaths, playButton){
+	constructor(){
 		this.instruments = {};
 		this.audioContext = new AudioContext();
-	
+	}
+
+	loadInstrumentParts(trackPaths, playButton){
+		this.instruments = {}; // TODO: clear any previous instruments first?
+
 		// import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
 		for(let instrument in trackPaths){
 			// get the audio data
-			let newAudioElement = document.createElement('audio');
+			const newAudioElement = document.createElement('audio');
 			newAudioElement.src = trackPaths[instrument];
+			newAudioElement.currentTime = 0;
 			
 			// TODO: don't do this? seems kinda awkward. it also assumes things about the play button :/
 			newAudioElement.addEventListener("ended", () => {
@@ -15,9 +20,9 @@ class AudioManager {
 				playButton.textContent = "play";
 			}, false);
 			
-			let newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
-			let newGainNode = this.audioContext.createGain();
-			let newPanNode = this.audioContext.createStereoPanner();
+			const newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
+			const newGainNode = this.audioContext.createGain();
+			const newPanNode = this.audioContext.createStereoPanner();
 			
 			newMediaElementSrcNode.connect(newGainNode);
 			newGainNode.connect(newPanNode);
@@ -87,6 +92,12 @@ class AudioManager {
 	
 	reset(){
 		// TODO: remove everything
+	}
+
+	async loadScoreJson(path){
+		return fetch(path).then(res => {
+			return res.json();
+		});
 	}
 	
 	// container should be the html element node to put the sliders in

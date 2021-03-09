@@ -6,6 +6,8 @@ This application serves as a way for me to share my music scores from MuseScore.
     
 I was inspired to make this after reaching my free limit on MuseScore and wanted a way to continue sharing my work. Although this isn't as nice as whatever MuseScore offers, I think it's an interesting substitute. One neat feature is that you can change the volume and panning of individual instrument parts. However, there is no score highlighting and the user (i.e. me) is responsible for providing the audio data for whatever instrument parts they want to display, as well as determining when the score pages should be turned.    
     
+Please note that if, on the initial page load you experience hearing the instruments out of sync, stopping and pressing play again or refreshing the page should stop that. I'm currently trying to figure out why that is.    
+    
 ### dependencies:    
 pdf.js (https://mozilla.github.io/pdf.js/)    
     
