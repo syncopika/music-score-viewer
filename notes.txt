@@ -7,7 +7,7 @@ https://css-tricks.com/introduction-fr-css-unit/
 
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
 - I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
-- The audio for some instruments will get out of sync randomly. It'll appear to 'jump' to other parts of the music, or lag or just disappear. toggling the vol or pan slider seems to trigger this.
+- The audio for some instruments will get out of sync randomly. This seems to always happen when loading the app the first time. after refreshing it's fine (or after stopping and pressing play again).
 
 
 todo:
