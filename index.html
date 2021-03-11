@@ -30,17 +30,20 @@
 
 <body>
 	<h3> music score viewer <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
+	
+	<select id="scoreOptions">
+		<option selected>rustic_inn_bgm</option>
+		<option>fun_piano</option>
+	</select>
+	
 	<div id="container">
 		<div id='content'>
 			<div>
-			  <!--
-			  <button id="prev">Previous</button>
-			  <button id="next">Next</button>
-			  &nbsp; &nbsp;
-			  -->
+			  <button id="prev">previous</button>
 			  <span>page: <span id="page_num"></span> / <span id="page_count"></span></span>
+			  <button id="next">next</button>
 			</div>
-
+			<br />
 			<canvas id="the-canvas"></canvas>
 		</div>
 		<div id='toolbar'>
@@ -125,6 +128,7 @@
 
 	/**
 	 * Displays previous page.
+	*/
 	function onPrevPage() {
 	  if (pageNum <= 1) {
 		return;
@@ -132,11 +136,10 @@
 	  pageNum--;
 	  queueRenderPage(pageNum);
 	}
-	document.getElementById('prev').addEventListener('click', onPrevPage);
-	*/
 	
 	/**
 	 * Displays next page.
+	*/
 	function onNextPage() {
 	  if (pageNum >= pdfDoc.numPages) {
 		return;
@@ -144,8 +147,6 @@
 	  pageNum++;
 	  queueRenderPage(pageNum);
 	}
-	document.getElementById('next').addEventListener('click', onNextPage);
-	*/
 	
 	/**
 	 * Asynchronously downloads PDF.
@@ -175,14 +176,46 @@
 	async function main(){
 		const audioManager = new AudioManager();
 		const audioContext = audioManager.audioContext;
-		
-		const data = await audioManager.loadScoreJson("music/rustic_inn_bgm/rustic_inn_bgm.json");
-		await loadScore(data.scorePath); // this just returns a boolean
-		
-		const trackPaths = data.trackPaths;
-		const notes = data.notes;
-		const timeMarkers = data.timeMarkers;
 		const playButton = document.querySelector('#playMusic');
+		
+		const prevPageButton = document.getElementById('prev');
+		const nextPageButton = document.getElementById('next');
+		prevPageButton.addEventListener('click', onPrevPage);
+		nextPageButton.addEventListener('click', onNextPage);
+		
+		const optionSelect = document.getElementById('scoreOptions');
+		const options = {
+			"fun_piano": "music/fun_piano/fun_piano.json",
+			"rustic_inn_bgm": "music/rustic_inn_bgm/rustic_inn_bgm.json",
+		};
+		
+		let data, trackPaths, notes, timeMarkers;
+		
+		async function selectScore(evt){
+			const selected = evt.target.options[evt.target.selectedIndex].value;
+			audioManager.reset();
+			data = await audioManager.loadScoreJson(options[selected]);
+			await loadScore(data.scorePath); // this just returns a boolean
+			
+			trackPaths = data.trackPaths;
+			notes = data.notes;
+			timeMarkers = data.timeMarkers;
+			
+			audioManager.loadInstrumentParts(trackPaths, playButton);
+			audioManager.updateDOM(document.getElementById("toolbar"));
+			audioManager.addNotes(document.getElementById("toolbar"), notes);
+			currPage = 1;
+			currTimeDiff = 0;
+		}
+		optionSelect.addEventListener('change', selectScore);
+		
+		// load first score
+		data = await audioManager.loadScoreJson("music/rustic_inn_bgm/rustic_inn_bgm.json");
+		await loadScore(data.scorePath);
+		
+		trackPaths = data.trackPaths;
+		notes = data.notes;
+		timeMarkers = data.timeMarkers;
 		
 		audioManager.loadInstrumentParts(trackPaths, playButton);
 		audioManager.updateDOM(document.getElementById("toolbar"));
@@ -225,12 +258,21 @@
 				this.dataset.playing = 'true';
 				evt.target.textContent = "pause";
 				
+				prevPageButton.disabled = true;
+				nextPageButton.disabled = true;
+				optionSelect.disabled = true;
+				
 				// check if currTimeDiff is 0. if yes, set lastTime to currentTime
 				// if not, use currTimeDiff to set lastTime
 				if(currTimeDiff){
+					// TODO: if pageNum !== currPage, adjust
+					if(currPage !== pageNum){
+						queueRenderPage(currPage);
+					}
 					lastTime = audioContext.currentTime - currTimeDiff;
 				}else{
 					// starting from the beginning
+					currPage = 1;
 					queueRenderPage(currPage); // should be page 1
 					lastTime = audioContext.currentTime;
 				}
@@ -242,6 +284,10 @@
 				this.dataset.playing = 'false';
 				evt.target.textContent = "play";
 				cancelAnimFrame(reqId);
+				
+				prevPageButton.disabled = false;
+				nextPageButton.disabled = false;
+				optionSelect.disabled = false;
 				
 				// get curr time diff
 				currTimeDiff = audioContext.currentTime - lastTime;
@@ -255,6 +301,10 @@
 			currTimeDiff = 0;
 			currPage = 1;
 			audioManager.stop();
+			
+			prevPageButton.disabled = false;
+			nextPageButton.disabled = false;
+			optionSelect.disabled = false;
 		}, false);
 	}
 	

@@ -1,0 +1,22 @@
+{
+	"name": "fun_piano",
+	"scorePath": "music/fun_piano/080415pianobgm3popver-edit.pdf",
+	"trackPaths": {
+		"piano": "music/fun_piano/080415pianobgm3popver-edit-piano.ogg",
+		"violin": "music/fun_piano/080415pianobgm3popver-edit-violin.ogg",
+		"flute": "music/fun_piano/080415pianobgm3popver-edit-flute.ogg",
+		"drums": "music/fun_piano/080415pianobgm3popver-edit-drums.ogg"
+	},
+	"notes": [
+		"This is a fun, random piano/violin/flute piece (with optional drum part) I came up with, apparently around 08/04/15.",
+		"Thanks for listening!"
+	],
+	"timeMarkers": {
+		"1": 11,
+		"2": 22,
+		"3": 39,
+		"4": 54,
+		"5": 68,
+		"6": 81
+	}
+}

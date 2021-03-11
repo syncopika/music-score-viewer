@@ -11,7 +11,7 @@ I have some issues that only seem to appear sometimes on the GitHub page of the 
 
 
 todo:
-- be able to seek? (saw a few threads with ppl having issues with seek and syncing multiple tracks though)
 - add more scores
-- have a json file for each score containing any notes about the score, the list of paths to each instrument's audio data, the mapping for when to turn the page, etc.
+- be able to seek? (saw a few threads with ppl having issues with seek and syncing multiple tracks though)
 - clean up code/refactor
+  - manage the pdf stuff in another class? something like PdfManager?

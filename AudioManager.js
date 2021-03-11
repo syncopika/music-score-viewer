@@ -50,6 +50,7 @@ class AudioManager {
 		container.appendChild(document.createElement("br"));
 		
 		const notesContainer = document.createElement("div");
+		notesContainer.id = "notesContainer";
 		notesContainer.style.textAlign = "left";
 		//notesContainer.style.paddingLeft = "5%";
 		//notesContainer.style.paddingRight = "5%";
@@ -91,7 +92,22 @@ class AudioManager {
 	}
 	
 	reset(){
-		// TODO: remove everything
+		for(let instrument in this.instruments){
+			const inst = this.instruments[instrument];
+			inst.node.disconnect();
+		}
+		
+		// remove notes
+		const notes = document.getElementById("notesContainer");
+		notes.parentNode.removeChild(notes);
+		
+		// remove all instrument sliders
+		const sliders = document.querySelectorAll(".instrumentSlider");
+		Array.from(sliders).forEach((slider) => {
+			slider.parentNode.removeChild(slider);
+		});
+		
+		this.instruments = {};
 	}
 
 	async loadScoreJson(path){
@@ -104,6 +120,7 @@ class AudioManager {
 	// pass in this.instruments[instrument] for instrumentObject
 	_createSliders(instrumentObject, container){
 		const newInstrumentSection = document.createElement("div");
+		newInstrumentSection.className = "instrumentSlider";
 		newInstrumentSection.style.marginBottom = "2%";
 		
 		const instrumentLabel = document.createElement("label");

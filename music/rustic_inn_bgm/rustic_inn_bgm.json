@@ -9,7 +9,7 @@
 		"harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.ogg"
 	},
 	"notes": [
-		"This piece was composed as background music for an inn in an upcoming MMORPG.",
+		"This piece was composed as background music for an inn in an upcoming fantasy MMORPG.",
 		"The score was generated from a mmp file (LMMS) via my <a href='https://github.com/syncopika/mmp-to-MusicXML'>converter</a> and exported as .pdf from MuseScore without any modifications.",
 		"As you can see, the score definitely needs some cleanup :)"
 	],
