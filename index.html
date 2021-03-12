@@ -244,6 +244,11 @@
 					cancelAnimFrame(reqId);
 					currTimeDiff = 0;
 					currPage = 1;
+					
+					prevPageButton.disabled = false;
+					nextPageButton.disabled = false;
+					optionSelect.disabled = false;
+					
 					return;
 				}
 			}
