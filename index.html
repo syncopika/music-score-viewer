@@ -243,13 +243,12 @@
 		const cancelAnimFrame = window.cancelAnimationFrame;
 		let reqId;
 		let lastTime;
-		let currTimeDiff = 0;
 		let currPage = 1;
 		
 		function step(timestamp){
 			// we don't care about the timestamp requestAnimationFrame uses
 			// since we'll rely on audioContext's timer instead
-			const diff = audioContext.currentTime - lastTime;
+			const diff = audioContext.currentTime - lastTime; // updating audioManager's seekTime is dependent on this
 			const seekSlider = document.getElementById("playbackSeekSlider");
 			seekSlider.value = diff;
 			seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated
@@ -262,7 +261,7 @@
 					// we're at the last page. stop the cycle.
 					//console.log("reached the end of the score");
 					cancelAnimFrame(reqId);
-					currTimeDiff = 0;
+					audioManager.seekTime = 0;
 					currPage = 1;
 					
 					prevPageButton.disabled = false;
@@ -287,10 +286,7 @@
 				nextPageButton.disabled = true;
 				optionSelect.disabled = true;
 				
-				if(currTimeDiff){
-				
-					// TODO: use seekTime stored in audioManager (which should correspond with the seek slider)
-					// to figure out the page it should be on using the timeMarkers variable
+				if(audioManager.seekTime > 0){
 					const pageToBeOn = findScorePage(audioManager.seekTime, timeMarkers);
 				
 					if(pageToBeOn !== pageNum){
@@ -298,9 +294,10 @@
 						// if they play again, we need to move the page back to where they paused
 						queueRenderPage(pageToBeOn);
 						currPage = pageToBeOn;
-						console.log("need to be on page: " + pageToBeOn);
+						pageNum = currPage;
+						//console.log("need to be on page: " + pageToBeOn);
 					}
-					lastTime = audioContext.currentTime - audioManager.seekTime;//currTimeDiff;
+					lastTime = audioContext.currentTime - audioManager.seekTime;
 				}else{
 					// starting from the beginning
 					currPage = 1;
@@ -319,9 +316,6 @@
 				prevPageButton.disabled = false;
 				nextPageButton.disabled = false;
 				optionSelect.disabled = false;
-				
-				// get curr time diff
-				currTimeDiff = audioContext.currentTime - lastTime;
 			}
 		}, false);
 		
@@ -329,10 +323,8 @@
 		stopButton.addEventListener("click", function(evt){
 			// stop playing and rewind audio to the beginning
 			cancelAnimFrame(reqId);
-			currTimeDiff = 0;
 			currPage = 1;
 			audioManager.stop();
-			audioManager.seekTime = 0;
 			
 			prevPageButton.disabled = false;
 			nextPageButton.disabled = false;

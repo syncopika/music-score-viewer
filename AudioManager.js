@@ -110,6 +110,7 @@ class AudioManager {
 			this.instruments[instrument].audioElement.currentTime = 0;
 			this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
 		}
+		this.seekTime = 0;
 	}
 	
 	reset(){
