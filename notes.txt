@@ -5,6 +5,8 @@ https://stackoverflow.com/questions/40878414/html5-audio-tag-doenst-refresh-cont
 https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css/5369951-set-columns-depending-on-screen-size
 https://css-tricks.com/introduction-fr-css-unit/
 
+interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
+
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
 - I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
 - The audio for some instruments will get out of sync randomly. This seems to always happen when loading the app the first time. after refreshing it's fine (or after stopping and pressing play again).
