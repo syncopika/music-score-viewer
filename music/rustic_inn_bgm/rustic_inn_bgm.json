@@ -13,6 +13,7 @@
 		"The score was generated from a mmp file (LMMS) via my <a href='https://github.com/syncopika/mmp-to-MusicXML'>converter</a> and exported as .pdf from MuseScore without any modifications.",
 		"As you can see, the score definitely needs some cleanup :)"
 	],
+	"duration": 81,
 	"timeMarkers": {
 		"1": 13,
 		"2": 24,
