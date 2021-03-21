@@ -28,7 +28,7 @@ class AudioManager {
 			newAudioElement.addEventListener('canplaythrough', (evt) => {
 				const instruments = this.instruments;
 				const thisInstrument = evt.target.id;
-				console.log("Audio data for " + thisInstrument +  " has been loaded! setting readyToPlay to true.");
+				//console.log("Audio data for " + thisInstrument +  " has been loaded! setting readyToPlay to true.");
 				instruments[thisInstrument].readyToPlay = true;
 				
 				let playReady = true;
