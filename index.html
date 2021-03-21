@@ -1,6 +1,7 @@
 <html>
 
 <head>
+	<meta charset='utf-8'>
 	<script src="AudioManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous"></script>
 	<style>
@@ -210,6 +211,9 @@
 			
 			const selected = evt.target.options[evt.target.selectedIndex].value;
 			audioManager.reset();
+			pageNum = 1;
+			currPage = 1;
+			currTimeDiff = 0;
 			
 			data = await audioManager.loadScoreJson(options[selected]);
 			await loadScore(data.scorePath); // this just returns a boolean
@@ -221,8 +225,6 @@
 			audioManager.loadInstrumentParts(trackPaths, playButton);
 			audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
 			audioManager.addNotes(document.getElementById("toolbar"), notes);
-			currPage = 1;
-			currTimeDiff = 0;
 		}
 		optionSelect.addEventListener('change', selectScore);
 		
@@ -288,15 +290,14 @@
 				
 				if(audioManager.seekTime > 0){
 					const pageToBeOn = findScorePage(audioManager.seekTime, timeMarkers);
-				
-					if(pageToBeOn !== pageNum){
-						// this might happen if the user goes to a different page while paused.
-						// if they play again, we need to move the page back to where they paused
-						queueRenderPage(pageToBeOn);
-						currPage = pageToBeOn;
-						pageNum = currPage;
-						//console.log("need to be on page: " + pageToBeOn);
-					}
+
+					// if the user goes to a different page while paused and
+					// if they play again, we need to move the page back to where they paused
+					queueRenderPage(pageToBeOn);
+					currPage = pageToBeOn;
+					pageNum = currPage;
+					//console.log("need to be on page: " + pageToBeOn);
+						
 					lastTime = audioContext.currentTime - audioManager.seekTime;
 				}else{
 					// starting from the beginning

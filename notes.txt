@@ -10,10 +10,10 @@ interesting! this issue seems to match my problem when using python -m http.serv
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
 - I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
 - The audio for some instruments will get out of sync randomly. This seems to always happen when loading the app the first time. after refreshing it's fine (or after stopping and pressing play again).
-
+- checking if the all the audio has been loaded via listening for the canplaythrough event doesn't seem to be helping much :/
 
 todo:
 - add more scores
-- be able to seek? (saw a few threads with ppl having issues with seek and syncing multiple tracks though)
 - clean up code/refactor
   - manage the pdf stuff in another class? something like PdfManager?
+  - remove extraneous variables?
