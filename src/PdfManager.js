@@ -128,3 +128,7 @@ class PdfManager {
 		});
 	}
 }
+
+export {
+	PdfManager
+}

@@ -1,4 +1,5 @@
 class AudioManager {
+
 	constructor(){
 		this.instruments = {};
 		this.audioContext = new AudioContext();
@@ -252,4 +253,8 @@ class AudioManager {
 		newSlider.step = step;
 		return newSlider;
 	}
+}
+
+export {
+	AudioManager
 }
