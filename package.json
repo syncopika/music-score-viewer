@@ -1,0 +1,35 @@
+{
+  "name": "music-score-viewer",
+  "version": "1.0.0",
+  "babel": {
+    "presets": [
+	  "@babel/preset/env",
+	  "@babel/preset-react"
+	],
+	"plugins": ["@babel/plugin-transform-runtime"]
+  },
+  "description": "helps sync music scores with their audio",
+  "main": "AudioManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syncopika/music-score-viewer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syncopika/music-score-viewer/issues"
+  },
+  "homepage": "https://github.com/syncopika/music-score-viewer#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.31.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.13.13"
+  }
+}
