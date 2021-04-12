@@ -8,8 +8,6 @@ class AudioManager {
 	loadInstrumentParts(trackPaths, playButton){
 		
 		this.instruments = {};
-		
-		// also: try to have seek option slider? only enable when paused or stopped.
 		this.seekTime = 0;
 
 		// import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files

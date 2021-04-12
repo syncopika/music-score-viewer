@@ -11,7 +11,7 @@
     ]
   },
   "description": "helps sync music scores with their audio",
-  "main": "AudioManager.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

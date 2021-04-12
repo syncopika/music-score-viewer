@@ -9,7 +9,7 @@ import {
 
 const ScoreRouter = (props) => {
 	const audioManager = props.audioManager;
-	const PdfManager = props.pdfManager;
+	const pdfManager = props.pdfManager;
 	
 	// pass in a list of all scores (json again?) to list in the router
 	const scoreList = props.scoreList;
@@ -34,6 +34,7 @@ const ScoreRouter = (props) => {
 	// so the insturment sliders and notes can be one component. the canvas part should always stay and doesn't need
 	// to be a react component. so each route can just load in the audio data, update the canvas, and dynamically render the sliders + notes.
 	// https://reactrouter.com/web/api/Route/component
+	// also this looks helpful: https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
 	
 	
 	/* this stuff needs to be done when a score is selected from the router!
