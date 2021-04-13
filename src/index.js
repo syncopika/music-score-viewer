@@ -1,3 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ScoreRouter } from './ScoreRouter.js';
+
+ReactDOM.render(
+	<ScoreRouter />,
+	document.getElementById('root')
+);
+
+
+/*
 import { PdfManager } from './PdfManager.js';
 import { AudioManager } from './AudioManager.js';
 
@@ -149,3 +160,5 @@ async function main(){
 }
 
 main();
+
+*/
