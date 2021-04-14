@@ -1052,6 +1052,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       'instruments': {}
     };
     _this.scoreMetadataPath = "/music/".concat(props.scoreName, "/").concat(props.scoreName, ".json");
+    console.log(_this.scoreMetadataPath);
     _this.pdfManager = null;
     _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_9__.AudioManager(); //this.playButtonState = false; // apply to play button
 
@@ -1310,7 +1311,7 @@ var ScoreRouter = function ScoreRouter(props) {
     }
 
     getScoreNames();
-  });
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreNames.map(function (scoreName) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/" + scoreName
@@ -1319,6 +1320,7 @@ var ScoreRouter = function ScoreRouter(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
       path: "/" + scoreName
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_5__.ScoreDisplay, {
+      key: scoreName,
       scoreName: scoreName
     }));
   }))));

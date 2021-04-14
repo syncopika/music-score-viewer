@@ -20,6 +20,7 @@ class ScoreDisplay extends React.Component {
 		}
 			
 		this.scoreMetadataPath = `/music/${props.scoreName}/${props.scoreName}.json`;
+		console.log(this.scoreMetadataPath);
 		this.pdfManager = null;
 		this.audioManager = new AudioManager();
 		//this.playButtonState = false; // apply to play button

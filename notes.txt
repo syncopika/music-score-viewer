@@ -22,3 +22,5 @@ todo:
 // react references
 https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
 https://stackoverflow.com/questions/48642912/react-router-change-state-of-other-components
+https://stackoverflow.com/questions/49001001/using-same-component-for-different-route-path-in-react-router-v4
+https://stackoverflow.com/questions/62631053/useeffect-being-called-multiple-times

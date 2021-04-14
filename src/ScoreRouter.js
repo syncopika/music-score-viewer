@@ -22,7 +22,7 @@ const ScoreRouter = (props) => {
 			setScoreNames(res);
 		}
 		getScoreNames();
-	});
+	}, []);
 	
 	return (
 		<Router>
@@ -46,7 +46,7 @@ const ScoreRouter = (props) => {
 					currScoreNames.map((scoreName) => {
 						return (
 							<Route path={"/" + scoreName}>
-								<ScoreDisplay scoreName={scoreName}/>
+								<ScoreDisplay key={scoreName} scoreName={scoreName} />
 							</Route>
 						)
 					})
