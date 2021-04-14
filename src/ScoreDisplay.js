@@ -6,45 +6,48 @@ class ScoreDisplay extends React.Component {
 
 	constructor(props){
 		super(props);
-		this.state = {
-			scoreMetadataPath: `/music/${props.scoreName}/${props.scoreName}.json`,
-			pdfManager: null,
-			audioManager: null,
-			playButtonState: false, // apply to play button
-		};
 		
-		/*
-		const audioManager = props.audioManager;
-		const pdfManager = props.pdfManager;
-	
-		const scoreName = props.scoreName;
-		const scoreInstruments = props.instruments;
-		const scoreDuration = props.duration;
-		const scoreNotes = props.notes;
-		let playButtonState = "false";
-		*/
-		//const playButton = props.playButtonElement;
-		this.data = null;
+		this.state = {
+			'scoreData': {
+				"name": "",
+				"scorePath": "",
+				"trackPaths": {},
+				"notes": [],
+				"duration": 0,
+				"timeMarkers": {}
+			},
+			'instruments': {},
+		}
+			
+		this.scoreMetadataPath = `/music/${props.scoreName}/${props.scoreName}.json`;
+		this.pdfManager = null;
+		this.audioManager = new AudioManager();
+		//this.playButtonState = false; // apply to play button
 	}
 	
 	async importScore(scorePath){
-		this.state.audioManager.reset();
-		const data = await this.state.audioManager.loadScoreJson(scorePath);
-		this.data = data;
-		console.log(data);
+		this.audioManager.reset();
+		const data = await this.audioManager.loadScoreJson(scorePath);
+		
 		// load the score
-		await this.state.pdfManager.loadScore(data.scorePath);
-		this.state.audioManager.loadInstrumentParts(data.trackPaths, playButton);
-		this.state.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-		this.state.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
+		await this.pdfManager.loadScore(data.scorePath);
+		
+		const playButton = document.getElementById('playMusic');
+		this.audioManager.loadInstrumentParts(data.trackPaths, playButton);
+		
+		//this.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
+		//this.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
+		
+		this.setState({
+			'scoreData': data,
+			'instruments': this.audioManager.instruments,
+		});
 	}
 	
 	componentDidMount(){
 		// load in stuff here based on props
 		this.pdfManager = new PdfManager(document.getElementById('the-canvas'));
-		this.audioManager = new AudioManager();
-		
-		importScore(this.scoreMetadataPath);
+		this.importScore(this.scoreMetadataPath);
 	}
 	
 	render(){
@@ -67,7 +70,7 @@ class ScoreDisplay extends React.Component {
 							data-playing="false" 
 							role="switch" 
 							aria-checked="false"
-							disabled={this.state.playButtonState}
+							disabled={true}
 						>
 							play
 						</button>
@@ -92,14 +95,14 @@ class ScoreDisplay extends React.Component {
 							id='playbackSeekSlider'
 							type='range'
 							min='0'
-							max={this.data.duration}
+							max={this.state.scoreData.duration}
 							step='1'
 							defaultValue='0'
 							onInput={
 								function(evt){
 									const newVal = evt.target.value;
 									document.getElementById('currTimeLabel').textContent = newVal;
-									this.state.audioManager.seekTime = parseInt(evt.target.value);
+									this.audioManager.seekTime = parseInt(evt.target.value);
 								}
 							}
 						></input>
@@ -108,15 +111,17 @@ class ScoreDisplay extends React.Component {
 							style={
 								{'marginLeft': '1%'}
 							}
-						>{scoreDuration} sec</label>
+						>{this.state.scoreData.duration} sec</label>
 					</div>
 					
+					<div>
 					{
 						// instrument sliders here
-						scoreInstruments.map((instrument) => {
+						Object.keys(this.state.instruments).map((instrumentName) => {
+							const instrument = this.audioManager.instruments[instrumentName];
 							return (
 								<div 
-									class='instrumentSlider'
+									className='instrumentSlider'
 									style={
 										{'marginBottom': '2%'}
 									}
@@ -181,6 +186,7 @@ class ScoreDisplay extends React.Component {
 							)
 						})
 					}
+					</div>
 					
 					<div 
 						id='notesContainer'
@@ -191,7 +197,7 @@ class ScoreDisplay extends React.Component {
 						<p style={{'fontWeight': 'bold'}}>notes: </p>
 						{
 							// notes go here
-							this.data.scoreNotes.map((note) => {
+							this.state.scoreData.notes.map((note) => {
 								return <p>{note}</p>
 							})
 						}

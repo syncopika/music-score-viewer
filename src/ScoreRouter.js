@@ -41,17 +41,17 @@ const ScoreRouter = (props) => {
 					</ul>
 				</nav>
 				
-			<Switch>
-			{
-				currScoreNames.map((scoreName) => {
-					return (
-						<Route path={"/" + scoreName}>
-							<ScoreDisplay scoreName={scoreName}/>
-						</Route>
-					)
-				})
-			}
-			</Switch>
+				<Switch>
+				{
+					currScoreNames.map((scoreName) => {
+						return (
+							<Route path={"/" + scoreName}>
+								<ScoreDisplay scoreName={scoreName}/>
+							</Route>
+						)
+					})
+				}
+				</Switch>
 			
 			</div>
 		</Router>

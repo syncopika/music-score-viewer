@@ -1041,25 +1041,20 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      scoreMetadataPath: "/music/".concat(props.scoreName, "/").concat(props.scoreName, ".json"),
-      pdfManager: null,
-      audioManager: null,
-      playButtonState: false // apply to play button
-
+      'scoreData': {
+        "name": "",
+        "scorePath": "",
+        "trackPaths": {},
+        "notes": [],
+        "duration": 0,
+        "timeMarkers": {}
+      },
+      'instruments': {}
     };
-    /*
-    const audioManager = props.audioManager;
-    const pdfManager = props.pdfManager;
-    
-    const scoreName = props.scoreName;
-    const scoreInstruments = props.instruments;
-    const scoreDuration = props.duration;
-    const scoreNotes = props.notes;
-    let playButtonState = "false";
-    */
-    //const playButton = props.playButtonElement;
+    _this.scoreMetadataPath = "/music/".concat(props.scoreName, "/").concat(props.scoreName, ".json");
+    _this.pdfManager = null;
+    _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_9__.AudioManager(); //this.playButtonState = false; // apply to play button
 
-    _this.data = null;
     return _this;
   }
 
@@ -1067,29 +1062,31 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     key: "importScore",
     value: function () {
       var _importScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6___default().mark(function _callee(scorePath) {
-        var data;
+        var data, playButton;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.state.audioManager.reset();
+                this.audioManager.reset();
                 _context.next = 3;
-                return this.state.audioManager.loadScoreJson(scorePath);
+                return this.audioManager.loadScoreJson(scorePath);
 
               case 3:
                 data = _context.sent;
-                this.data = data;
-                console.log(data); // load the score
+                _context.next = 6;
+                return this.pdfManager.loadScore(data.scorePath);
 
-                _context.next = 8;
-                return this.state.pdfManager.loadScore(data.scorePath);
+              case 6:
+                playButton = document.getElementById('playMusic');
+                this.audioManager.loadInstrumentParts(data.trackPaths, playButton); //this.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
+                //this.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
 
-              case 8:
-                this.state.audioManager.loadInstrumentParts(data.trackPaths, playButton);
-                this.state.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-                this.state.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
+                this.setState({
+                  'scoreData': data,
+                  'instruments': this.audioManager.instruments
+                });
 
-              case 11:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -1108,12 +1105,13 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       // load in stuff here based on props
       this.pdfManager = new _PdfManager_js__WEBPACK_IMPORTED_MODULE_8__.PdfManager(document.getElementById('the-canvas'));
-      this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_9__.AudioManager();
-      importScore(this.scoreMetadataPath);
+      this.importScore(this.scoreMetadataPath);
     }
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
         id: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
@@ -1137,7 +1135,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "data-playing": "false",
         role: "switch",
         "aria-checked": "false",
-        disabled: this.state.playButtonState
+        disabled: true
       }, "play"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("button", {
         id: "stopMusic",
         "aria-checked": "false"
@@ -1155,23 +1153,24 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         id: "playbackSeekSlider",
         type: "range",
         min: "0",
-        max: this.data.duration,
+        max: this.state.scoreData.duration,
         step: "1",
         defaultValue: "0",
         onInput: function onInput(evt) {
           var newVal = evt.target.value;
           document.getElementById('currTimeLabel').textContent = newVal;
-          this.state.audioManager.seekTime = parseInt(evt.target.value);
+          this.audioManager.seekTime = parseInt(evt.target.value);
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
         id: "durationLabel",
         style: {
           'marginLeft': '1%'
         }
-      }, scoreDuration, " sec")), // instrument sliders here
-      scoreInstruments.map(function (instrument) {
+      }, this.state.scoreData.duration, " sec")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", null, // instrument sliders here
+      Object.keys(this.state.instruments).map(function (instrumentName) {
+        var instrument = _this2.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
-          "class": "instrumentSlider",
+          className: "instrumentSlider",
           style: {
             'marginBottom': '2%'
           }
@@ -1215,7 +1214,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
           id: instrument.name + '_pan_value'
         }, "0"));
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
         id: "notesContainer",
         style: {
           'textAlign': 'left'
@@ -1225,7 +1224,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           'fontWeight': 'bold'
         }
       }, "notes: "), // notes go here
-      this.data.scoreNotes.map(function (note) {
+      this.state.scoreData.notes.map(function (note) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("p", null, note);
       }))));
     }

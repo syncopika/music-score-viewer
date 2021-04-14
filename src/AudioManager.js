@@ -23,10 +23,11 @@ class AudioManager {
 				playButton.dataset.playing = 'false';
 				playButton.textContent = "play";
 			}, false);
-			
+
 			newAudioElement.addEventListener('canplaythrough', (evt) => {
 				const instruments = this.instruments;
 				const thisInstrument = evt.target.id;
+				
 				//console.log("Audio data for " + thisInstrument +  " has been loaded! setting readyToPlay to true.");
 				instruments[thisInstrument].readyToPlay = true;
 				
@@ -46,7 +47,7 @@ class AudioManager {
 			newMediaElementSrcNode.connect(newGainNode);
 			newGainNode.connect(newPanNode);
 			newPanNode.connect(this.audioContext.destination);
-			
+
 			this.instruments[instrument] = {
 				'name': instrument,
 				'node': newMediaElementSrcNode,
@@ -57,6 +58,7 @@ class AudioManager {
 				'audioElement': newAudioElement,
 				'readyToPlay': false,
 			};
+
 		}
 	}
 	
