@@ -503,23 +503,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 var AudioManager = /*#__PURE__*/function () {
-  function AudioManager() {
+  function AudioManager(updateStateFunc) {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__.default)(this, AudioManager);
 
     this.instruments = {};
     this.audioContext = new AudioContext();
+    this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
   }
 
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__.default)(AudioManager, [{
     key: "loadInstrumentParts",
-    value: function loadInstrumentParts(trackPaths, playButton) {
+    value: function loadInstrumentParts(trackPaths) {
       var _this = this;
 
       this.instruments = {};
@@ -533,13 +528,13 @@ var AudioManager = /*#__PURE__*/function () {
         newAudioElement.id = instrument; // TODO: find a better way to do this? it forces some assumptions about the play button
 
         newAudioElement.addEventListener("ended", function () {
-          playButton.dataset.playing = 'false';
-          playButton.textContent = "play";
+          _this.updateUIState({
+            "isPlaying": false
+          });
         }, false);
         newAudioElement.addEventListener('canplaythrough', function (evt) {
           var instruments = _this.instruments;
-          var thisInstrument = evt.target.id; //console.log("Audio data for " + thisInstrument +  " has been loaded! setting readyToPlay to true.");
-
+          var thisInstrument = evt.target.id;
           instruments[thisInstrument].readyToPlay = true;
           var playReady = true;
 
@@ -548,7 +543,9 @@ var AudioManager = /*#__PURE__*/function () {
           }
 
           if (playReady) {
-            playButton.disabled = false;
+            _this.updateUIState({
+              "playButtonDisabled": false
+            });
           }
         });
         var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
@@ -569,45 +566,6 @@ var AudioManager = /*#__PURE__*/function () {
           'readyToPlay': false
         };
       }
-    }
-  }, {
-    key: "updateDOM",
-    value: function updateDOM(container, duration) {
-      this._createPlaybackSeekSlider(container, duration);
-
-      for (var instrument in this.instruments) {
-        this._createSliders(this.instruments[instrument], container);
-      }
-    }
-  }, {
-    key: "addNotes",
-    value: function addNotes(container, notesList) {
-      container.appendChild(document.createElement("br"));
-      var notesContainer = document.createElement("div");
-      notesContainer.id = "notesContainer";
-      notesContainer.style.textAlign = "left";
-      var notesHead = document.createElement("p");
-      notesHead.textContent = "notes: ";
-      notesHead.style.fontWeight = "bold";
-      notesContainer.appendChild(notesHead);
-
-      var _iterator = _createForOfIteratorHelper(notesList),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var note = _step.value;
-          var newNote = document.createElement("p");
-          newNote.innerHTML = note;
-          notesContainer.appendChild(newNote);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      container.appendChild(notesContainer);
     }
   }, {
     key: "play",
@@ -638,28 +596,6 @@ var AudioManager = /*#__PURE__*/function () {
       this.seekTime = 0;
     }
   }, {
-    key: "reset",
-    value: function reset() {
-      for (var instrument in this.instruments) {
-        var inst = this.instruments[instrument];
-        inst.node.disconnect();
-      } // remove notes
-
-
-      var notes = document.getElementById("notesContainer");
-      notes.parentNode.removeChild(notes); // remove all instrument sliders
-
-      var sliders = document.querySelectorAll(".instrumentSlider");
-      Array.from(sliders).forEach(function (slider) {
-        slider.parentNode.removeChild(slider);
-      }); // remove playback seek slider
-
-      var playbackSeekSlider = document.getElementById("playbackSeek");
-      playbackSeekSlider.parentNode.removeChild(playbackSeekSlider);
-      this.instruments = {};
-      this.seekTime = 0;
-    }
-  }, {
     key: "loadScoreJson",
     value: function () {
       var _loadScoreJson = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(path) {
@@ -684,110 +620,7 @@ var AudioManager = /*#__PURE__*/function () {
       }
 
       return loadScoreJson;
-    }() // create a slider for playback seeking
-
-  }, {
-    key: "_createPlaybackSeekSlider",
-    value: function _createPlaybackSeekSlider(container, duration) {
-      var _this2 = this;
-
-      var div = document.createElement("div");
-      div.id = "playbackSeek";
-
-      var slider = this._createSlider(0, duration, 0, 1);
-
-      slider.id = "playbackSeekSlider";
-      var seekLabel = document.createElement("label");
-      var currTimeLabel = document.createElement("label");
-      var durationLabel = document.createElement("label");
-      slider.addEventListener("input", function (evt) {
-        var newVal = evt.target.value;
-        currTimeLabel.textContent = newVal;
-        _this2.seekTime = parseInt(evt.target.value);
-      });
-      seekLabel.textContent = "seek: ";
-      seekLabel.marginRight = "2%";
-      currTimeLabel.textContent = "0"; //TODO: improve the time appearance
-
-      currTimeLabel.style.marginRight = "1%";
-      currTimeLabel.id = "currTimeLabel";
-      durationLabel.textContent = duration + " sec"; //TODO: improve the time appearance
-
-      durationLabel.style.marginLeft = "1%";
-      durationLabel.id = "durationLabel";
-      div.appendChild(seekLabel);
-      div.appendChild(currTimeLabel);
-      div.appendChild(slider);
-      div.appendChild(durationLabel);
-      div.style.marginBottom = "2%";
-      container.appendChild(div);
-    } // container should be the html element node to put the sliders in
-    // pass in this.instruments[instrument] for instrumentObject
-
-  }, {
-    key: "_createSliders",
-    value: function _createSliders(instrumentObject, container) {
-      var newInstrumentSection = document.createElement("div");
-      newInstrumentSection.className = "instrumentSlider";
-      newInstrumentSection.style.marginBottom = "2%";
-      var instrumentLabel = document.createElement("label");
-      instrumentLabel.textContent = instrumentObject.name;
-      instrumentLabel.style.marginRight = "2%";
-      newInstrumentSection.append(instrumentLabel);
-
-      var volSlider = this._createSlider(0, 1.5, instrumentObject.gainVal, 0.1);
-
-      volSlider.id = instrumentObject.name + "_vol_slider";
-      var volLabel = document.createElement("label");
-      volLabel.textContent = "vol: ";
-      volLabel["for"] = volSlider.id;
-      var volValueLabel = document.createElement("label");
-      volValueLabel.textContent = instrumentObject.gainVal;
-      volValueLabel.id = instrumentObject.name + "_vol_value";
-      volSlider.addEventListener("input", function (evt) {
-        // update volume value
-        var newVal = evt.target.value;
-        volValueLabel.textContent = newVal;
-        instrumentObject.gainVal = newVal;
-        instrumentObject.vol.gain.setValueAtTime(newVal, 0);
-      });
-
-      var panSlider = this._createSlider(-1.0, 1.0, instrumentObject.panVal, 0.1);
-
-      panSlider.id = instrumentObject.name + "_pan_slider";
-      var panLabel = document.createElement("label");
-      panLabel.textContent = "pan: ";
-      panLabel["for"] = panSlider.id;
-      panLabel.style.marginLeft = "2%";
-      var panValueLabel = document.createElement("label");
-      panValueLabel.textContent = instrumentObject.panVal;
-      panValueLabel.id = instrumentObject.name + "_pan_value";
-      panSlider.addEventListener("input", function (evt) {
-        // update pan value
-        var newVal = evt.target.value;
-        panValueLabel.textContent = newVal;
-        instrumentObject.panVal = newVal;
-        instrumentObject.pan.pan.setValueAtTime(newVal, 0);
-      });
-      newInstrumentSection.appendChild(volLabel);
-      newInstrumentSection.appendChild(volSlider);
-      newInstrumentSection.appendChild(volValueLabel);
-      newInstrumentSection.appendChild(panLabel);
-      newInstrumentSection.appendChild(panSlider);
-      newInstrumentSection.appendChild(panValueLabel);
-      container.appendChild(newInstrumentSection);
-    }
-  }, {
-    key: "_createSlider",
-    value: function _createSlider(min, max, defaultVal, step) {
-      var newSlider = document.createElement("input");
-      newSlider.type = "range";
-      newSlider.min = min;
-      newSlider.max = max;
-      newSlider.value = defaultVal;
-      newSlider.step = step;
-      return newSlider;
-    }
+    }()
   }]);
 
   return AudioManager;
@@ -822,7 +655,7 @@ __webpack_require__.r(__webpack_exports__);
 // If absolute URL from the remote server is provided, configure the CORS
 // header on that server.
 var PdfManager = /*#__PURE__*/function () {
-  function PdfManager(canvasElement) {
+  function PdfManager(updateStateFunc) {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__.default)(this, PdfManager);
 
     this.pdfDoc = null;
@@ -830,21 +663,31 @@ var PdfManager = /*#__PURE__*/function () {
     this.pageRendering = false;
     this.pageNumPending = null;
     this.scale = 1.0;
-    this.canvas = canvasElement; //document.getElementById('the-canvas')
+    this.canvas = null; //canvasElement;//document.getElementById('the-canvas')
 
-    this.ctx = this.canvas.getContext('2d'); // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    this.ctx = null; //this.canvas.getContext('2d');
+    // use this function to update the state of ScoreDisplay
+
+    this.updateUiState = updateStateFunc; // Loaded via <script> tag, create shortcut to access PDF.js exports.
 
     this.pdfjsLib = window['pdfjs-dist/build/pdf']; // The workerSrc property shall be specified.
 
     this.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
   }
-  /**
-   * Get page info from document, resize canvas accordingly, and render page.
-   * @param num Page number.
-   */
-
 
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__.default)(PdfManager, [{
+    key: "setCanvas",
+    value: function setCanvas(canvasElement) {
+      this.canvas = canvasElement; //document.getElementById('the-canvas')
+
+      this.ctx = this.canvas.getContext('2d');
+    }
+    /**
+     * Get page info from document, resize canvas accordingly, and render page.
+     * @param num Page number.
+     */
+
+  }, {
     key: "renderPage",
     value: function renderPage(num) {
       var _this = this;
@@ -873,10 +716,12 @@ var PdfManager = /*#__PURE__*/function () {
 
             _this.pageNumPending = null;
           }
-        });
-      }); // Update page counters
+        }); // Update page counters
 
-      document.getElementById('page_num').textContent = num;
+        _this.updateUiState({
+          "currPage": num
+        });
+      });
     }
     /**
      * If another page rendering in progress, waits until the rendering is
@@ -905,6 +750,9 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pageNum--;
       this.queueRenderPage(this.pageNum);
+      this.updateUiState({
+        "currPage": this.pageNum
+      });
     }
     /**
      * Displays next page.
@@ -919,6 +767,9 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pageNum++;
       this.queueRenderPage(this.pageNum);
+      this.updateUiState({
+        "currPage": this.pageNum
+      });
     }
     /**
      * Asynchronously downloads PDF.
@@ -1005,14 +856,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _PdfManager_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./PdfManager.js */ "./src/PdfManager.js");
-/* harmony import */ var _AudioManager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AudioManager.js */ "./src/AudioManager.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _PdfManager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./PdfManager.js */ "./src/PdfManager.js");
+/* harmony import */ var _AudioManager_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AudioManager.js */ "./src/AudioManager.js");
 
 
 
@@ -1021,7 +873,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__.default)(this, result); }; }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__.default)(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -1030,7 +883,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
-  (0,_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__.default)(ScoreDisplay, _React$Component);
+  (0,_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__.default)(ScoreDisplay, _React$Component);
 
   var _super = _createSuper(ScoreDisplay);
 
@@ -1049,45 +902,48 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "duration": 0,
         "timeMarkers": {}
       },
-      'instruments': {}
+      'instruments': {},
+      'currPage': 1,
+      'totalPages': 0,
+      'prevPageButtonDisabled': false,
+      'nextPageButtonDisabled': false,
+      'playButtonDisabled': true,
+      'isPlaying': false
     };
     _this.scoreMetadataPath = "/music/".concat(props.scoreName, "/").concat(props.scoreName, ".json");
-    console.log(_this.scoreMetadataPath);
-    _this.pdfManager = null;
-    _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_9__.AudioManager(); //this.playButtonState = false; // apply to play button
-
+    _this.pdfManager = new _PdfManager_js__WEBPACK_IMPORTED_MODULE_9__.PdfManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
+    _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_10__.AudioManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
+    _this.reqId;
+    _this.lastTime;
     return _this;
   }
 
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__.default)(ScoreDisplay, [{
     key: "importScore",
     value: function () {
-      var _importScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6___default().mark(function _callee(scorePath) {
+      var _importScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7___default().mark(function _callee(scorePath) {
         var data, playButton;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_6___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.audioManager.reset();
-                _context.next = 3;
+                _context.next = 2;
                 return this.audioManager.loadScoreJson(scorePath);
 
-              case 3:
+              case 2:
                 data = _context.sent;
-                _context.next = 6;
+                _context.next = 5;
                 return this.pdfManager.loadScore(data.scorePath);
 
-              case 6:
+              case 5:
                 playButton = document.getElementById('playMusic');
-                this.audioManager.loadInstrumentParts(data.trackPaths, playButton); //this.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-                //this.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
-
+                this.audioManager.loadInstrumentParts(data.trackPaths);
                 this.setState({
                   'scoreData': data,
                   'instruments': this.audioManager.instruments
                 });
 
-              case 9:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -1100,12 +956,100 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       }
 
       return importScore;
-    }()
+    }() // used with requestAnimationFrame
+
+  }, {
+    key: "step",
+    value: function step(timestamp) {
+      // we don't care about the timestamp requestAnimationFrame uses
+      // since we'll rely on audioContext's timer instead
+      var diff = this.audioManager.audioContext.currentTime - this.lastTime; // updating audioManager's seekTime is dependent on this
+
+      var seekSlider = document.getElementById("playbackSeekSlider");
+      seekSlider.value = diff;
+      seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated  TODO: get this working
+
+      if (diff >= this.state.scoreData.timeMarkers[this.state.currPage]) {
+        if (this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length) {
+          this.pdfManager.queueRenderPage(++this.state.currPage); // make sure render calls don't collide by queuing, which would cause errors otherwise
+        } else {
+          // we're at the last page. stop the cycle.
+          cancelAnimationFrame(this.reqId);
+          this.audioManager.seekTime = 0;
+          this.setState({
+            'prevPageButtonDisabled': false,
+            'nextPageButtonDisabled': false,
+            'currPage': 1
+          });
+          return;
+        }
+      }
+
+      this.reqId = requestAnimationFrame(this.step.bind(this));
+    }
+  }, {
+    key: "play",
+    value: function play(evt) {
+      if (this.audioManager.audioContext.state === 'suspended') {
+        this.audioManager.audioContext.resume();
+      }
+
+      if (!this.state.isPlaying) {
+        evt.target.textContent = "pause";
+        this.setState({
+          'prevPageButtonDisabled': true,
+          'nextPageButtonDisabled': true,
+          'isPlaying': true
+        });
+
+        if (this.audioManager.seekTime > 0) {
+          var pageToBeOn = this.pdfManager.findScorePage(this.audioManager.seekTime, this.state.scoreData.timeMarkers); // if the user goes to a different page while paused and
+          // if they play again, we need to move the page back to where they paused
+
+          this.pdfManager.queueRenderPage(pageToBeOn);
+          this.pdfManager.pageNum = pageToBeOn;
+          this.lastTime = this.audioManager.audioContext.currentTime - this.audioManager.seekTime;
+        } else {
+          // starting from the beginning
+          this.pdfManager.queueRenderPage(1);
+          this.lastTime = this.audioManager.audioContext.currentTime;
+        }
+
+        this.audioManager.play();
+        this.reqId = requestAnimationFrame(this.step.bind(this));
+      } else {
+        this.audioManager.pause();
+        evt.target.textContent = "play";
+        cancelAnimationFrame(this.reqId);
+        this.setState({
+          'prevPageButtonDisabled': false,
+          'nextPageButtonDisabled': false,
+          'isPlaying': false
+        });
+      }
+    }
+  }, {
+    key: "stop",
+    value: function stop(evt) {
+      // stop playing and rewind audio to the beginning
+      cancelAnimationFrame(this.reqId);
+      this.audioManager.stop();
+      this.setState({
+        'prevPageButtonDisabled': false,
+        'nextPageButtonDisabled': false,
+        'currPage': 1
+      });
+    }
+  }, {
+    key: "updateState",
+    value: function updateState(state) {
+      this.setState(state);
+    }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       // load in stuff here based on props
-      this.pdfManager = new _PdfManager_js__WEBPACK_IMPORTED_MODULE_8__.PdfManager(document.getElementById('the-canvas'));
+      this.pdfManager.setCanvas(document.getElementById('the-canvas'));
       this.importScore(this.scoreMetadataPath);
     }
   }, {
@@ -1113,44 +1057,50 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("button", {
-        id: "prev"
-      }, "previous"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("span", null, "page: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("span", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
+        id: "prevPage",
+        disabled: this.state.prevPageButtonDisabled,
+        onClick: this.pdfManager.onPrevPage.bind(this.pdfManager)
+      }, "previous"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", null, " page: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
         id: "page_num"
-      }), " / ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("span", {
+      }, this.state.currPage), " / ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
         id: "page_count"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("button", {
-        id: "next"
-      }, "next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("canvas", {
+      }, this.state.totalPages)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
+        id: "nextPage",
+        disabled: this.state.nextPageButtonDisabled,
+        onClick: this.pdfManager.onNextPage.bind(this.pdfManager)
+      }, " next ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("canvas", {
         id: "the-canvas"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "toolbar"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "buttons"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "playMusic",
-        "data-playing": "false",
+        "data-playing": this.state.isPlaying,
         role: "switch",
         "aria-checked": "false",
-        disabled: true
-      }, "play"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("button", {
+        disabled: this.state.playButtonDisabled,
+        onClick: this.play.bind(this)
+      }, "play"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "stopMusic",
-        "aria-checked": "false"
-      }, "stop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+        "aria-checked": "false",
+        onClick: this.stop.bind(this)
+      }, "stop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "playbackSeek",
         style: {
           'marginBottom': '2%'
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", null, " seek: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " seek: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
         id: "currTimeLabel",
         style: {
           'marginRight': '1%'
         }
-      }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("input", {
+      }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
         id: "playbackSeekSlider",
         type: "range",
         min: "0",
@@ -1160,26 +1110,26 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         onInput: function onInput(evt) {
           var newVal = evt.target.value;
           document.getElementById('currTimeLabel').textContent = newVal;
-          this.audioManager.seekTime = parseInt(evt.target.value);
+          _this2.audioManager.seekTime = parseInt(evt.target.value);
         }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
         id: "durationLabel",
         style: {
           'marginLeft': '1%'
         }
-      }, this.state.scoreData.duration, " sec")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", null, // instrument sliders here
+      }, " ", this.state.scoreData.duration, " sec ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName) {
         var instrument = _this2.audioManager.instruments[instrumentName];
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
           className: "instrumentSlider",
           style: {
             'marginBottom': '2%'
           }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           style: {
             'marginRight': '2%'
           }
-        }, instrument.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", null, " vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("input", {
+        }, instrument.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: instrument.name + '_vol_slider',
           type: "range",
           min: "0",
@@ -1193,18 +1143,19 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
             instrument.gainVal = newVal;
             instrument.vol.gain.setValueAtTime(newVal, 0);
           }
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           id: instrument.name + '_vol_value'
-        }, instrument.gainVal), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+        }, instrument.gainVal), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           style: {
             'marginLeft': '2%'
           }
-        }, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("input", {
+        }, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: instrument.name + '_pan_slider',
           type: "range",
           min: "-1",
           max: "1",
           step: "0.1",
+          defaultValue: instrument.panVal,
           onInput: function onInput(evt) {
             // update pan value
             var newVal = evt.target.value;
@@ -1212,27 +1163,26 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
             instrument.panVal = newVal;
             instrument.pan.pan.setValueAtTime(newVal, 0);
           }
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("label", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           id: instrument.name + '_pan_value'
         }, "0"));
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "notesContainer",
         style: {
           'textAlign': 'left'
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("p", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
         style: {
           'fontWeight': 'bold'
         }
-      }, "notes: "), // notes go here
-      this.state.scoreData.notes.map(function (note) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement("p", null, note);
+      }, " notes: "), this.state.scoreData.notes.map(function (note) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, note);
       }))));
     }
   }]);
 
   return ScoreDisplay;
-}(react__WEBPACK_IMPORTED_MODULE_7__.Component);
+}(react__WEBPACK_IMPORTED_MODULE_8__.Component);
 
 
 
@@ -1313,14 +1263,16 @@ var ScoreRouter = function ScoreRouter(props) {
     getScoreNames();
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreNames.map(function (scoreName) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
+      key: "link_" + scoreName
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/" + scoreName
     }, scoreName));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, null, currScoreNames.map(function (scoreName) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+      key: "route_" + scoreName,
       path: "/" + scoreName
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_5__.ScoreDisplay, {
-      key: scoreName,
       scoreName: scoreName
     }));
   }))));

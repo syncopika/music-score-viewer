@@ -17,27 +17,31 @@ class ScoreDisplay extends React.Component {
 				"timeMarkers": {}
 			},
 			'instruments': {},
+			'currPage': 1,
+			'totalPages': 0,
+			'prevPageButtonDisabled': false,
+			'nextPageButtonDisabled': false,
+			'playButtonDisabled': true,
+			'isPlaying': false,
 		}
 			
 		this.scoreMetadataPath = `/music/${props.scoreName}/${props.scoreName}.json`;
-		console.log(this.scoreMetadataPath);
-		this.pdfManager = null;
-		this.audioManager = new AudioManager();
-		//this.playButtonState = false; // apply to play button
+		
+		this.pdfManager = new PdfManager(this.updateState.bind(this));
+		this.audioManager = new AudioManager(this.updateState.bind(this));
+		
+		this.reqId;
+		this.lastTime;
 	}
 	
 	async importScore(scorePath){
-		this.audioManager.reset();
 		const data = await this.audioManager.loadScoreJson(scorePath);
 		
 		// load the score
 		await this.pdfManager.loadScore(data.scorePath);
 		
 		const playButton = document.getElementById('playMusic');
-		this.audioManager.loadInstrumentParts(data.trackPaths, playButton);
-		
-		//this.audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-		//this.audioManager.addNotes(document.getElementById("toolbar"), data.notes);
+		this.audioManager.loadInstrumentParts(data.trackPaths);
 		
 		this.setState({
 			'scoreData': data,
@@ -45,53 +49,144 @@ class ScoreDisplay extends React.Component {
 		});
 	}
 	
+	// used with requestAnimationFrame
+	step(timestamp){
+		// we don't care about the timestamp requestAnimationFrame uses
+		// since we'll rely on audioContext's timer instead
+		const diff = this.audioManager.audioContext.currentTime - this.lastTime; // updating audioManager's seekTime is dependent on this
+		const seekSlider = document.getElementById("playbackSeekSlider");
+		seekSlider.value = diff;
+		seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated  TODO: get this working
+
+		if(diff >= this.state.scoreData.timeMarkers[this.state.currPage]){
+			if(this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length){
+				this.pdfManager.queueRenderPage(++this.state.currPage); // make sure render calls don't collide by queuing, which would cause errors otherwise
+			}else{
+				// we're at the last page. stop the cycle.
+				cancelAnimationFrame(this.reqId);
+				this.audioManager.seekTime = 0;
+
+				this.setState({
+					'prevPageButtonDisabled': false,
+					'nextPageButtonDisabled': false,
+					'currPage': 1,
+				})
+				
+				return;
+			}
+		}
+		this.reqId = requestAnimationFrame(this.step.bind(this));
+	}
+	
+	play(evt){
+		if(this.audioManager.audioContext.state === 'suspended'){
+			this.audioManager.audioContext.resume();
+		}
+		
+		if(!this.state.isPlaying){
+			
+			evt.target.textContent = "pause";
+			
+			this.setState({
+				'prevPageButtonDisabled': true,
+				'nextPageButtonDisabled':true,
+				'isPlaying': true,
+			});
+			
+			if(this.audioManager.seekTime > 0){
+				const pageToBeOn = this.pdfManager.findScorePage(this.audioManager.seekTime, this.state.scoreData.timeMarkers);
+
+				// if the user goes to a different page while paused and
+				// if they play again, we need to move the page back to where they paused
+				this.pdfManager.queueRenderPage(pageToBeOn);
+				this.pdfManager.pageNum = pageToBeOn;
+					
+				this.lastTime = this.audioManager.audioContext.currentTime - this.audioManager.seekTime;
+			}else{
+				// starting from the beginning
+				this.pdfManager.queueRenderPage(1);
+				this.lastTime = this.audioManager.audioContext.currentTime;
+			}
+			
+			this.audioManager.play();
+			this.reqId = requestAnimationFrame(this.step.bind(this));
+		}else{
+			this.audioManager.pause();
+			evt.target.textContent = "play";
+			cancelAnimationFrame(this.reqId);
+
+			this.setState({
+				'prevPageButtonDisabled': false,
+				'nextPageButtonDisabled': false,
+				'isPlaying': false,
+			});
+		}
+	}
+	
+	stop(evt){
+		// stop playing and rewind audio to the beginning
+		cancelAnimationFrame(this.reqId);
+		this.audioManager.stop();
+
+		this.setState({
+			'prevPageButtonDisabled': false,
+			'nextPageButtonDisabled': false,
+			'currPage': 1,
+		});
+	}
+	
+	updateState(state){
+		this.setState(state);
+	}
+	
 	componentDidMount(){
 		// load in stuff here based on props
-		this.pdfManager = new PdfManager(document.getElementById('the-canvas'));
+		this.pdfManager.setCanvas(document.getElementById('the-canvas'));
 		this.importScore(this.scoreMetadataPath);
 	}
 	
 	render(){
-		return (
+		return(
 			<div id='container'>
 				<div id='content'>
 					<div>
-					  <button id="prev">previous</button>
-					  <span>page: <span id="page_num"></span> / <span id="page_count"></span></span>
-					  <button id="next">next</button>
+					  <button id="prevPage" disabled={this.state.prevPageButtonDisabled} onClick={this.pdfManager.onPrevPage.bind(this.pdfManager)}>previous</button>
+					  <span> page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span></span>
+					  <button id="nextPage" disabled={this.state.nextPageButtonDisabled} onClick={this.pdfManager.onNextPage.bind(this.pdfManager)}> next </button>
 					</div>
 					<br />
 					<canvas id="the-canvas"></canvas>
 				</div>
 				
 				<div id='toolbar'>
-					<div id="buttons">
-						<button 
+					<div id='buttons'>
+						<button
 							id='playMusic' 
-							data-playing="false" 
+							data-playing={this.state.isPlaying}
 							role="switch" 
 							aria-checked="false"
-							disabled={true}
+							disabled={this.state.playButtonDisabled}
+							onClick={this.play.bind(this)}
 						>
 							play
 						</button>
-						<button 
+						<button
 							id='stopMusic' 
 							aria-checked="false"
+							onClick={this.stop.bind(this)}
 						>
 							stop
 						</button>
 					</div>
 					
-					<div id='playbackSeek' style={
-						{'marginBottom': '2%'}
-					}>
+					<div id='playbackSeek' style={{'marginBottom': '2%'}}>
 						<label> seek: </label>
+						
 						<label 
 							id='currTimeLabel' 
-							style = {
-							{'marginRight': '1%'}
-						}>0</label>
+							style={{'marginRight': '1%'}}
+						>0</label>
+						
 						<input 
 							id='playbackSeekSlider'
 							type='range'
@@ -100,19 +195,18 @@ class ScoreDisplay extends React.Component {
 							step='1'
 							defaultValue='0'
 							onInput={
-								function(evt){
+								(evt) => {
 									const newVal = evt.target.value;
 									document.getElementById('currTimeLabel').textContent = newVal;
 									this.audioManager.seekTime = parseInt(evt.target.value);
 								}
 							}
 						></input>
+						
 						<label 
 							id='durationLabel'
-							style={
-								{'marginLeft': '1%'}
-							}
-						>{this.state.scoreData.duration} sec</label>
+							style={{'marginLeft': '1%'}}
+						> {this.state.scoreData.duration} sec </label>
 					</div>
 					
 					<div>
@@ -123,14 +217,10 @@ class ScoreDisplay extends React.Component {
 							return (
 								<div 
 									className='instrumentSlider'
-									style={
-										{'marginBottom': '2%'}
-									}
+									style={{'marginBottom': '2%'}}
 								>
 									<label
-										style={
-											{'marginRight': '2%'}
-										}
+										style={{'marginRight': '2%'}}
 									>{instrument.name}</label>
 									
 									<label> vol: </label>
@@ -159,17 +249,16 @@ class ScoreDisplay extends React.Component {
 									</label>
 									
 									<label
-										style={
-											{'marginLeft': '2%'}
-										}
+										style={{'marginLeft': '2%'}}
 									> pan: </label>
 									
 									<input
-										id={instrument.name+'_pan_slider'}
+										id={instrument.name + '_pan_slider'}
 										type='range'
 										min='-1'
 										max='1'
 										step='0.1'
+										defaultValue={instrument.panVal}
 										onInput={
 											function(evt){
 												// update pan value
@@ -184,25 +273,20 @@ class ScoreDisplay extends React.Component {
 									<label id={instrument.name + '_pan_value'}>0</label>
 								
 								</div>
-							)
+							);
 						})
 					}
 					</div>
 					
-					<div 
-						id='notesContainer'
-						style={
-							{'textAlign': 'left'}
-						}
-					>
-						<p style={{'fontWeight': 'bold'}}>notes: </p>
+					<div id='notesContainer' style={{'textAlign': 'left'}}>
+						<p style={{'fontWeight': 'bold'}}> notes: </p>
 						{
-							// notes go here
 							this.state.scoreData.notes.map((note) => {
-								return <p>{note}</p>
+								return <p>{note}</p>;
 							})
 						}
 					</div>
+					
 				</div>
 			</div>
 		);

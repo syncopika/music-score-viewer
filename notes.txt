@@ -24,3 +24,6 @@ https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-funct
 https://stackoverflow.com/questions/48642912/react-router-change-state-of-other-components
 https://stackoverflow.com/questions/49001001/using-same-component-for-different-route-path-in-react-router-v4
 https://stackoverflow.com/questions/62631053/useeffect-being-called-multiple-times
+https://stackoverflow.com/questions/50024811/default-disabled-button-click-event-is-not-firing-on-reactjs
+https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-called-on-dispatchevent
+arghhhhhhhhhh https://github.com/facebook/react/issues/10135

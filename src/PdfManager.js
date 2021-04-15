@@ -5,20 +5,28 @@
 
 class PdfManager {
 
-	constructor(canvasElement){
+	constructor(updateStateFunc){
 		this.pdfDoc = null;
 		this.pageNum = 1;
 		this.pageRendering = false;
 		this.pageNumPending = null;
 		this.scale = 1.0;
-		this.canvas = canvasElement;//document.getElementById('the-canvas')
-		this.ctx = this.canvas.getContext('2d');
+		this.canvas = null; //canvasElement;//document.getElementById('the-canvas')
+		this.ctx = null; //this.canvas.getContext('2d');
+		
+		// use this function to update the state of ScoreDisplay
+		this.updateUiState = updateStateFunc;
 		
 		// Loaded via <script> tag, create shortcut to access PDF.js exports.
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
 
 		// The workerSrc property shall be specified.
 		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
+	}
+	
+	setCanvas(canvasElement){
+		this.canvas = canvasElement;//document.getElementById('the-canvas')
+		this.ctx = this.canvas.getContext('2d');
 	}
 
 	/**
@@ -50,10 +58,14 @@ class PdfManager {
 			this.pageNumPending = null;
 		  }
 		});
+		
+		// Update page counters
+		this.updateUiState({
+			"currPage": num,
+		});
+	 
 	  });
-
-	  // Update page counters
-	  document.getElementById('page_num').textContent = num;
+	 
 	}
 
 	/**
@@ -77,6 +89,9 @@ class PdfManager {
 	  }
 	  this.pageNum--;
 	  this.queueRenderPage(this.pageNum);
+	  this.updateUiState({
+		"currPage": this.pageNum,
+      });
 	}
 
 	/**
@@ -88,6 +103,9 @@ class PdfManager {
 	  }
 	  this.pageNum++;
 	  this.queueRenderPage(this.pageNum);
+	  this.updateUiState({
+		"currPage": this.pageNum,
+      });
 	}
 
 	/**
