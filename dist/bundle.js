@@ -716,11 +716,11 @@ var PdfManager = /*#__PURE__*/function () {
 
             _this.pageNumPending = null;
           }
-        }); // Update page counters
-
-        _this.updateUiState({
-          "currPage": num
         });
+      }); // Update page counters
+
+      this.updateUiState({
+        "currPage": num
       });
     }
     /**
@@ -750,9 +750,6 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pageNum--;
       this.queueRenderPage(this.pageNum);
-      this.updateUiState({
-        "currPage": this.pageNum
-      });
     }
     /**
      * Displays next page.
@@ -767,9 +764,6 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pageNum++;
       this.queueRenderPage(this.pageNum);
-      this.updateUiState({
-        "currPage": this.pageNum
-      });
     }
     /**
      * Asynchronously downloads PDF.
@@ -811,8 +805,12 @@ var PdfManager = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt("return", this.pdfjsLib.getDocument(scorePath).promise.then(function (pdfDoc_) {
-                  _this2.pdfDoc = pdfDoc_;
-                  document.getElementById('page_count').textContent = _this2.pdfDoc.numPages; // Initial/first page rendering
+                  _this2.pdfDoc = pdfDoc_; //document.getElementById('page_count').textContent = this.pdfDoc.numPages;
+
+                  _this2.updateUiState({
+                    "totalPages": _this2.pdfDoc.numPages
+                  }); // Initial/first page rendering
+
 
                   _this2.renderPage(_this2.pageNum);
 
@@ -967,7 +965,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
 
       var seekSlider = document.getElementById("playbackSeekSlider");
       seekSlider.value = diff;
-      seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated  TODO: get this working
+      seekSlider.dispatchEvent(new Event('input', {
+        bubbles: true
+      })); // trigger event so label will get updated. React didn't like 'new InputEvent()' for some reason it seems?
 
       if (diff >= this.state.scoreData.timeMarkers[this.state.currPage]) {
         if (this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length) {
@@ -978,8 +978,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           this.audioManager.seekTime = 0;
           this.setState({
             'prevPageButtonDisabled': false,
-            'nextPageButtonDisabled': false,
-            'currPage': 1
+            'nextPageButtonDisabled': false
           });
           return;
         }
@@ -1036,8 +1035,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       this.audioManager.stop();
       this.setState({
         'prevPageButtonDisabled': false,
-        'nextPageButtonDisabled': false,
-        'currPage': 1
+        'nextPageButtonDisabled': false
       });
     }
   }, {
@@ -1086,7 +1084,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "aria-checked": "false",
         disabled: this.state.playButtonDisabled,
         onClick: this.play.bind(this)
-      }, "play"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
+      }, this.state.isPlaying ? 'pause' : 'play'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "stopMusic",
         "aria-checked": "false",
         onClick: this.stop.bind(this)
@@ -1118,9 +1116,10 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           'marginLeft': '1%'
         }
       }, " ", this.state.scoreData.duration, " sec ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
-      Object.keys(this.state.instruments).map(function (instrumentName) {
+      Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this2.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+          key: instrumentName + index,
           className: "instrumentSlider",
           style: {
             'marginBottom': '2%'
@@ -1136,7 +1135,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           max: "1.5",
           step: "0.1",
           defaultValue: instrument.gainVal,
-          onInput: function onInput(evt) {
+          onChange: function onChange(evt) {
             // update volume value
             var newVal = evt.target.value;
             document.getElementById(instrument.name + '_vol_value').textContent = newVal;
@@ -1175,8 +1174,13 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         style: {
           'fontWeight': 'bold'
         }
-      }, " notes: "), this.state.scoreData.notes.map(function (note) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, note);
+      }, " notes: "), this.state.scoreData.notes.map(function (note, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
+          dangerouslySetInnerHTML: {
+            __html: note
+          },
+          key: "note" + index
+        });
       }))));
     }
   }]);
@@ -1264,7 +1268,7 @@ var ScoreRouter = function ScoreRouter(props) {
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreNames.map(function (scoreName) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
-      key: "link_" + scoreName
+      key: "li_" + scoreName
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/" + scoreName
     }, scoreName));

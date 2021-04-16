@@ -56,7 +56,7 @@ class ScoreDisplay extends React.Component {
 		const diff = this.audioManager.audioContext.currentTime - this.lastTime; // updating audioManager's seekTime is dependent on this
 		const seekSlider = document.getElementById("playbackSeekSlider");
 		seekSlider.value = diff;
-		seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated  TODO: get this working
+		seekSlider.dispatchEvent(new Event('input', { bubbles: true })); // trigger event so label will get updated. React didn't like 'new InputEvent()' for some reason it seems?
 
 		if(diff >= this.state.scoreData.timeMarkers[this.state.currPage]){
 			if(this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length){
@@ -69,8 +69,7 @@ class ScoreDisplay extends React.Component {
 				this.setState({
 					'prevPageButtonDisabled': false,
 					'nextPageButtonDisabled': false,
-					'currPage': 1,
-				})
+				});
 				
 				return;
 			}
@@ -131,7 +130,6 @@ class ScoreDisplay extends React.Component {
 		this.setState({
 			'prevPageButtonDisabled': false,
 			'nextPageButtonDisabled': false,
-			'currPage': 1,
 		});
 	}
 	
@@ -168,7 +166,7 @@ class ScoreDisplay extends React.Component {
 							disabled={this.state.playButtonDisabled}
 							onClick={this.play.bind(this)}
 						>
-							play
+						{this.state.isPlaying ? 'pause' : 'play'}
 						</button>
 						<button
 							id='stopMusic' 
@@ -212,10 +210,11 @@ class ScoreDisplay extends React.Component {
 					<div>
 					{
 						// instrument sliders here
-						Object.keys(this.state.instruments).map((instrumentName) => {
+						Object.keys(this.state.instruments).map((instrumentName, index) => {
 							const instrument = this.audioManager.instruments[instrumentName];
 							return (
-								<div 
+								<div
+									key={instrumentName + index}
 									className='instrumentSlider'
 									style={{'marginBottom': '2%'}}
 								>
@@ -232,7 +231,7 @@ class ScoreDisplay extends React.Component {
 										max='1.5'
 										step='0.1'
 										defaultValue={instrument.gainVal}
-										onInput={
+										onChange={
 											function(evt){
 												// update volume value
 												const newVal = evt.target.value;
@@ -281,8 +280,8 @@ class ScoreDisplay extends React.Component {
 					<div id='notesContainer' style={{'textAlign': 'left'}}>
 						<p style={{'fontWeight': 'bold'}}> notes: </p>
 						{
-							this.state.scoreData.notes.map((note) => {
-								return <p>{note}</p>;
+							this.state.scoreData.notes.map((note, index) => {
+								return <p dangerouslySetInnerHTML={{__html: note}} key={"note" + index} />;
 							})
 						}
 					</div>

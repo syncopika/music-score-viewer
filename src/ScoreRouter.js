@@ -32,7 +32,7 @@ const ScoreRouter = (props) => {
 					{
 						currScoreNames.map((scoreName) => {
 							return (
-								<li key={"link_" + scoreName}>
+								<li key={"li_" + scoreName}>
 									<Link to={"/" + scoreName}>{scoreName}</Link>
 								</li>
 							)

@@ -58,14 +58,12 @@ class PdfManager {
 			this.pageNumPending = null;
 		  }
 		});
-		
-		// Update page counters
-		this.updateUiState({
-			"currPage": num,
-		});
-	 
 	  });
-	 
+
+      // Update page counters
+      this.updateUiState({
+		  "currPage": num,
+      });
 	}
 
 	/**
@@ -89,9 +87,6 @@ class PdfManager {
 	  }
 	  this.pageNum--;
 	  this.queueRenderPage(this.pageNum);
-	  this.updateUiState({
-		"currPage": this.pageNum,
-      });
 	}
 
 	/**
@@ -103,9 +98,6 @@ class PdfManager {
 	  }
 	  this.pageNum++;
 	  this.queueRenderPage(this.pageNum);
-	  this.updateUiState({
-		"currPage": this.pageNum,
-      });
 	}
 
 	/**
@@ -137,7 +129,8 @@ class PdfManager {
 	async loadScore(scorePath){
 		return this.pdfjsLib.getDocument(scorePath).promise.then((pdfDoc_) => {
 		  this.pdfDoc = pdfDoc_;
-		  document.getElementById('page_count').textContent = this.pdfDoc.numPages;
+		  //document.getElementById('page_count').textContent = this.pdfDoc.numPages;
+		  this.updateUiState({"totalPages": this.pdfDoc.numPages});
 
 		  // Initial/first page rendering
 		  this.renderPage(this.pageNum);

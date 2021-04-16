@@ -26,4 +26,6 @@ https://stackoverflow.com/questions/49001001/using-same-component-for-different-
 https://stackoverflow.com/questions/62631053/useeffect-being-called-multiple-times
 https://stackoverflow.com/questions/50024811/default-disabled-button-click-event-is-not-firing-on-reactjs
 https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-called-on-dispatchevent
-arghhhhhhhhhh https://github.com/facebook/react/issues/10135
+arghhhhhhhhhh https://github.com/facebook/react/issues/10135 -> actually, all I had to do was change 'new InputEvent()' to 'new Event('input', {bubbles: true})' :O
+https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
+https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js
