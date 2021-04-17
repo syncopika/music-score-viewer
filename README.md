@@ -8,8 +8,15 @@ I was inspired to make this after reaching my free limit on MuseScore and wanted
     
 If, on initial page load the audio sounds out of sync, stopping and replaying should help.    
     
-### dependencies:    
+### design:    
+Initially this was just a vanilla Javascript application but I decided that I wanted to be able to get urls for each of my scores so I could share them.    
+I thought about the History API for a bit (and I'm pretty sure, after a bit more thorough reading, it would've been enough to meet my needs) but I decided to go with React and to utilize react-router-dom (because more practice with a popular library never hurts right? ;) ).    
+In doing so I was also able to clean up my existing code a bit more, which is a plus.    
+    
+### main dependencies:    
 pdf.js (https://mozilla.github.io/pdf.js/)    
+React   
     
 ### running locally:    
-Run `python -m http.server` from this directory and go to `localhost:8000`. Please note that there might be issues with seeking when using with Chrome and Edge (see this [super helpful post](https://stackoverflow.com/questions/9563887/setting-html5-audio-position). Firefox seems to handle it well though.    
+Run `npm install` to get the dependencies (super annoying, I know. sorry!)    
+Then run `node server.js` from this directory and go to `localhost:3000`.    

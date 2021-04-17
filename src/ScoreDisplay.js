@@ -138,9 +138,14 @@ class ScoreDisplay extends React.Component {
 	}
 	
 	componentDidMount(){
-		// load in stuff here based on props
 		this.pdfManager.setCanvas(document.getElementById('the-canvas'));
 		this.importScore(this.scoreMetadataPath);
+	}
+	
+	componentWillUnmount(){
+		// make sure to silence any audio before mounting another ScoreDisplay instance
+		this.audioManager.stop();
+		this.audioManager.reset(); // probably unnecessary after stopping?
 	}
 	
 	render(){

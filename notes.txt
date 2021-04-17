@@ -5,6 +5,7 @@ https://stackoverflow.com/questions/40878414/html5-audio-tag-doenst-refresh-cont
 https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css/5369951-set-columns-depending-on-screen-size
 https://css-tricks.com/introduction-fr-css-unit/
 https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+http://html5doctor.com/history-api/ -> could've just used this instead of react-router-dom?
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 

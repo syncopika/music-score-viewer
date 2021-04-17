@@ -13,14 +13,14 @@ const ScoreRouter = (props) => {
 	const audioManager = props.audioManager;
 	const pdfManager = props.pdfManager;
 	
-	const [currScoreNames, setScoreNames] = useState([]);
+	const [currScoreCategories, setScoreCategories] = useState({});
 	const [currMenuState, setMenuState] = useState("show menu");
 	
 	useEffect(() => {
 		async function getScoreNames(){
 			let res = await fetch('src/scoreNames.json');
 			res = await res.json();
-			setScoreNames(res);
+			setScoreCategories(res);
 		}
 		getScoreNames();
 	}, []);
@@ -44,10 +44,20 @@ const ScoreRouter = (props) => {
 				<hr />
 				<ul>
 				{
-					currScoreNames.map((scoreName) => {
+					Object.keys(currScoreCategories).map((scoreCategory) => {
 						return (
-							<li key={"li_" + scoreName}>
-								<Link to={"/" + scoreName}>{scoreName}</Link>
+							<li key={"li_" + scoreCategory}> {scoreCategory}:
+								<ul>
+								{
+									currScoreCategories[scoreCategory].map((scoreName) => {
+										return (
+											<li key={"li_" + scoreName}> 
+												<Link to={"/" + scoreName}>{scoreName}</Link>
+											</li>
+										)
+									})
+								}
+								</ul>
 							</li>
 						)
 					})
@@ -57,12 +67,14 @@ const ScoreRouter = (props) => {
 			
 			<Switch>
 			{
-				currScoreNames.map((scoreName) => {
-					return (
-						<Route key={"route_" + scoreName} path={"/" + scoreName}>
-							<ScoreDisplay scoreName={scoreName} />
-						</Route>
-					)
+				Object.keys(currScoreCategories).map((scoreCategory) => {
+					return currScoreCategories[scoreCategory].map((scoreName) => {
+						return (
+							<Route key={"route_" + scoreName} path={"/" + scoreName}>
+								<ScoreDisplay scoreName={scoreName} />
+							</Route>
+						)
+					})
 				})
 			}
 			</Switch>

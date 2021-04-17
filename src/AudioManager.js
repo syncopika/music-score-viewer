@@ -80,6 +80,16 @@ class AudioManager {
 		}
 	}
 	
+	reset(){
+		for(let instrument in this.instruments){
+			const inst = this.instruments[instrument];
+			inst.node.disconnect();
+		}
+		
+		this.instruments = {};
+		this.seekTime = 0;
+	}
+	
 	stop(){
 		for(let instrument in this.instruments){
 			this.instruments[instrument].audioElement.pause();
