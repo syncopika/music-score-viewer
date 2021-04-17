@@ -1064,8 +1064,10 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       // make sure to silence any audio before mounting another ScoreDisplay instance
+      cancelAnimationFrame(this.reqId);
       this.audioManager.stop();
-      this.audioManager.reset(); // probably unnecessary after stopping
+      this.audioManager.reset();
+      this.audioManager.audioContext.close();
     }
   }, {
     key: "render",
