@@ -535,17 +535,20 @@ var AudioManager = /*#__PURE__*/function () {
         newAudioElement.addEventListener('canplaythrough', function (evt) {
           var instruments = _this.instruments;
           var thisInstrument = evt.target.id;
-          instruments[thisInstrument].readyToPlay = true;
-          var playReady = true;
 
-          for (var _instrument in instruments) {
-            playReady = playReady && instruments[_instrument].readyToPlay;
-          }
+          if (instruments[thisInstrument]) {
+            instruments[thisInstrument].readyToPlay = true;
+            var playReady = true;
 
-          if (playReady) {
-            _this.updateUIState({
-              "playButtonDisabled": false
-            });
+            for (var _instrument in instruments) {
+              playReady = playReady && instruments[_instrument].readyToPlay;
+            }
+
+            if (playReady) {
+              _this.updateUIState({
+                "playButtonDisabled": false
+              });
+            }
           }
         });
         var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
@@ -919,7 +922,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       'playButtonDisabled': true,
       'isPlaying': false
     };
-    _this.scoreMetadataPath = "/music/".concat(props.scoreName, "/").concat(props.scoreName, ".json");
+    _this.scoreMetadataPath = "./music/".concat(props.scoreName, "/").concat(props.scoreName, ".json");
     _this.pdfManager = new _PdfManager_js__WEBPACK_IMPORTED_MODULE_9__.PdfManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
     _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_10__.AudioManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
     _this.reqId;
@@ -1249,7 +1252,7 @@ var ScoreRouter = function ScoreRouter(props) {
       currScoreCategories = _useState2[0],
       setScoreCategories = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("show menu"),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("hide menu"),
       _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
       currMenuState = _useState4[0],
       setMenuState = _useState4[1];

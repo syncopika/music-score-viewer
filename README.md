@@ -10,7 +10,9 @@ If, on initial page load the audio sounds out of sync, stopping and replaying sh
     
 ### design:    
 Initially this was just a vanilla Javascript application but I decided that I wanted to be able to get urls for each of my scores so I could share them.    
+    
 I thought about the History API for a bit (and I'm pretty sure, after a bit more thorough reading, it would've been enough to meet my needs) but I decided to go with React and to utilize react-router-dom (because more practice with a popular library never hurts right? ;) ).    
+    
 In doing so I was also able to clean up my existing code a bit more, which is a plus.    
     
 ### main dependencies:    

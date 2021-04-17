@@ -25,7 +25,7 @@ class ScoreDisplay extends React.Component {
 			'isPlaying': false,
 		}
 			
-		this.scoreMetadataPath = `/music/${props.scoreName}/${props.scoreName}.json`;
+		this.scoreMetadataPath = `./music/${props.scoreName}/${props.scoreName}.json`;
 		
 		this.pdfManager = new PdfManager(this.updateState.bind(this));
 		this.audioManager = new AudioManager(this.updateState.bind(this));

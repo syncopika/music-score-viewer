@@ -6,6 +6,7 @@ https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css/5
 https://css-tricks.com/introduction-fr-css-unit/
 https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
 http://html5doctor.com/history-api/ -> could've just used this instead of react-router-dom?
+https://github.com/gitname/react-gh-pages/issues/9 -> good to remember. I always run into this issue lol
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 
@@ -16,9 +17,6 @@ I have some issues that only seem to appear sometimes on the GitHub page of the 
 
 todo:
 - add more scores
-- clean up code/refactor
-  - manage the pdf stuff in another class? something like PdfManager?
-  - remove extraneous variables?
 
 
 // react references

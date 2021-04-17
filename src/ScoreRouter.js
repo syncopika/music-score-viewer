@@ -14,7 +14,7 @@ const ScoreRouter = (props) => {
 	const pdfManager = props.pdfManager;
 	
 	const [currScoreCategories, setScoreCategories] = useState({});
-	const [currMenuState, setMenuState] = useState("show menu");
+	const [currMenuState, setMenuState] = useState("hide menu");
 	
 	useEffect(() => {
 		async function getScoreNames(){

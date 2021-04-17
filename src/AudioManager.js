@@ -30,16 +30,18 @@ class AudioManager {
 				const instruments = this.instruments;
 				const thisInstrument = evt.target.id;
 				
-				instruments[thisInstrument].readyToPlay = true;
-				
-				let playReady = true;
-				for(let instrument in instruments){
-					playReady = playReady && instruments[instrument].readyToPlay;
-				}
-				if(playReady){
-					this.updateUIState({
-						"playButtonDisabled": false,
-					});
+				if(instruments[thisInstrument]){
+					instruments[thisInstrument].readyToPlay = true;
+					
+					let playReady = true;
+					for(let instrument in instruments){
+						playReady = playReady && instruments[instrument].readyToPlay;
+					}
+					if(playReady){
+						this.updateUIState({
+							"playButtonDisabled": false,
+						});
+					}
 				}
 			});
 			
