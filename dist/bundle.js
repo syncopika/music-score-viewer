@@ -1230,6 +1230,11 @@ var ScoreRouter = function ScoreRouter(props) {
       currScoreNames = _useState2[0],
       setScoreNames = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("show menu"),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
+      currMenuState = _useState4[0],
+      setMenuState = _useState4[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     function getScoreNames() {
       return _getScoreNames.apply(this, arguments);
@@ -1266,7 +1271,20 @@ var ScoreRouter = function ScoreRouter(props) {
 
     getScoreNames();
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreNames.map(function (scoreName) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
+    id: "toggleSidebar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("button", {
+    className: "toggleSidebarBtn",
+    onClick: function onClick() {
+      if (currMenuState === "show menu") {
+        setMenuState("hide menu");
+      } else {
+        setMenuState("show menu");
+      }
+    }
+  }, currMenuState)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", {
+    className: currMenuState === "hide menu" ? 'naviOn' : 'naviOff'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreNames.map(function (scoreName) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
       key: "li_" + scoreName
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
@@ -1279,7 +1297,7 @@ var ScoreRouter = function ScoreRouter(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_5__.ScoreDisplay, {
       scoreName: scoreName
     }));
-  }))));
+  })));
 };
 
 

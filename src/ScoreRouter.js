@@ -14,6 +14,7 @@ const ScoreRouter = (props) => {
 	const pdfManager = props.pdfManager;
 	
 	const [currScoreNames, setScoreNames] = useState([]);
+	const [currMenuState, setMenuState] = useState("show menu");
 	
 	useEffect(() => {
 		async function getScoreNames(){
@@ -26,35 +27,46 @@ const ScoreRouter = (props) => {
 	
 	return (
 		<Router>
-			<div>
-				<nav>
-					<ul>
-					{
-						currScoreNames.map((scoreName) => {
-							return (
-								<li key={"li_" + scoreName}>
-									<Link to={"/" + scoreName}>{scoreName}</Link>
-								</li>
-							)
-						})
-					}
-					</ul>
-				</nav>
-				
-				<Switch>
+			<div id='toggleSidebar'>
+				<button 
+					className="toggleSidebarBtn" 
+					onClick={() => {
+						if(currMenuState === "show menu"){
+							setMenuState("hide menu");
+						}else{
+							setMenuState("show menu");
+						}
+					}}
+				>{currMenuState}</button>
+			</div>
+			<nav className={currMenuState === "hide menu" ? 'naviOn' : 'naviOff'}>
+				<h2> score list </h2>
+				<hr />
+				<ul>
 				{
 					currScoreNames.map((scoreName) => {
 						return (
-							<Route key={"route_" + scoreName} path={"/" + scoreName}>
-								<ScoreDisplay scoreName={scoreName} />
-							</Route>
+							<li key={"li_" + scoreName}>
+								<Link to={"/" + scoreName}>{scoreName}</Link>
+							</li>
 						)
 					})
 				}
-				</Switch>
+				</ul>
+			</nav>
 			
-			</div>
-		</Router>
+			<Switch>
+			{
+				currScoreNames.map((scoreName) => {
+					return (
+						<Route key={"route_" + scoreName} path={"/" + scoreName}>
+							<ScoreDisplay scoreName={scoreName} />
+						</Route>
+					)
+				})
+			}
+			</Switch>
+	</Router>
 	);
 }
 

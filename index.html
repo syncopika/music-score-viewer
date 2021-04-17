@@ -20,6 +20,39 @@
 		
 		ul {
 			list-style-type: none;
+			padding: 0;
+		}
+		
+		li {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		
+		.naviOn {
+			height: 100%;
+			width: 200px;
+			position: fixed;
+			z-index: 1;
+			background-color: #fff;
+			top: 0;
+			left: 0;
+			border-right: 2px solid #000;
+			transition: 0.5s;
+			text-align: center;
+			padding: 1%;
+		}
+		
+		.naviOff {
+			width: 0px;
+			height: 100%;
+			position: fixed;
+			z-index: 1;
+			background-color: #fff;
+			top: 0;
+			left: -250px;
+			transition: 0.5s;
+			text-align: center;
+			padding: 1%;
 		}
 		
 		#buttons {
