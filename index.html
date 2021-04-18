@@ -2,7 +2,6 @@
 
 <head>
 	<meta charset='utf-8'>
-	<script src="AudioManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous"></script>
 	<style>
 		body, #content, #toolbar {
@@ -12,6 +11,48 @@
 		
 		canvas {
 			border: 1px solid #000;
+		}
+		
+		button {
+			margin-left: 1%;
+			margin-right: 1%;
+		}
+		
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+		
+		li {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		
+		.naviOn {
+			height: 100%;
+			width: 200px;
+			position: fixed;
+			z-index: 1;
+			background-color: #fff;
+			top: 0;
+			left: 0;
+			border-right: 2px solid #000;
+			transition: 0.5s;
+			text-align: center;
+			padding: 1%;
+		}
+		
+		.naviOff {
+			width: 0px;
+			height: 100%;
+			position: fixed;
+			z-index: 1;
+			background-color: #fff;
+			top: 0;
+			left: -250px;
+			transition: 0.5s;
+			text-align: center;
+			padding: 1%;
 		}
 		
 		#buttons {
@@ -31,309 +72,11 @@
 
 <body>
 	<h3> music score viewer <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
-	
-	<select id="scoreOptions">
-		<option selected>rustic_inn_bgm</option>
-		<option>fun_piano</option>
-	</select>
-	
-	<div id="container">
-		<div id='content'>
-			<div>
-			  <button id="prev">previous</button>
-			  <span>page: <span id="page_num"></span> / <span id="page_count"></span></span>
-			  <button id="next">next</button>
-			</div>
-			<br />
-			<canvas id="the-canvas"></canvas>
-		</div>
-		<div id='toolbar'>
-			<div id="buttons">
-				<button id='playMusic' data-playing="false" role="switch" aria-checked="false">
-					play
-				</button>
-				<button id='stopMusic' aria-checked="false">
-					stop
-				</button>
-			</div>
-		</div>
+
+	<div id='root'>
 	</div>
 </body>
 
-<script>
-	// copy-pasted from https://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
-	
-	// If absolute URL from the remote server is provided, configure the CORS
-	// header on that server.
-	//var url = 'music/rustic_inn_bgm/rustic inn bgm idea.pdf'; // bpm: 165
-
-	// Loaded via <script> tag, create shortcut to access PDF.js exports.
-	var pdfjsLib = window['pdfjs-dist/build/pdf'];
-
-	// The workerSrc property shall be specified.
-	pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
-
-	var pdfDoc = null,
-		pageNum = 1,
-		pageRendering = false,
-		pageNumPending = null,
-		scale = 1.0,
-		canvas = document.getElementById('the-canvas'),
-		ctx = canvas.getContext('2d');
-
-	/**
-	 * Get page info from document, resize canvas accordingly, and render page.
-	 * @param num Page number.
-	 */
-	function renderPage(num) {
-	  pageRendering = true;
-	  // Using promise to fetch the page
-	  pdfDoc.getPage(num).then(function(page) {
-		var viewport = page.getViewport({scale});
-		canvas.height = viewport.height;
-		canvas.width = viewport.width;
-
-		// Render PDF page into canvas context
-		var renderContext = {
-		  canvasContext: ctx,
-		  viewport: viewport
-		};
-		var renderTask = page.render(renderContext);
-
-		// Wait for rendering to finish
-		renderTask.promise.then(function() {
-		  pageRendering = false;
-		  if (pageNumPending !== null) {
-			// New page rendering is pending
-			renderPage(pageNumPending);
-			pageNumPending = null;
-		  }
-		});
-	  });
-
-	  // Update page counters
-	  document.getElementById('page_num').textContent = num;
-	}
-
-	/**
-	 * If another page rendering in progress, waits until the rendering is
-	 * finished. Otherwise, executes rendering immediately.
-	 */
-	function queueRenderPage(num) {
-	  if (pageRendering) {
-		pageNumPending = num;
-	  } else {
-		renderPage(num);
-	  }
-	}
-
-	/**
-	 * Displays previous page.
-	*/
-	function onPrevPage() {
-	  if (pageNum <= 1) {
-		return;
-	  }
-	  pageNum--;
-	  queueRenderPage(pageNum);
-	}
-	
-	/**
-	 * Displays next page.
-	*/
-	function onNextPage() {
-	  if (pageNum >= pdfDoc.numPages) {
-		return;
-	  }
-	  pageNum++;
-	  queueRenderPage(pageNum);
-	}
-	
-	/**
-	 * Asynchronously downloads PDF.
-	 
-	pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-	  pdfDoc = pdfDoc_;
-	  document.getElementById('page_count').textContent = pdfDoc.numPages;
-
-	  // Initial/first page rendering
-	  renderPage(pageNum);
-	});
-	
-	*/
-	
-	function findScorePage(time, timeMarkers){
-		// given time in seconds and a map of pages to times (in sec),
-		// find what the page should be at that time.
-		let pageToBeOn = 1;
-		for(let page in timeMarkers){
-			if(time <= timeMarkers[page]){
-				pageToBeOn = parseInt(page);
-				break;
-			}
-		}
-		return pageToBeOn;
-	}
-	
-	async function loadScore(scorePath){
-		return pdfjsLib.getDocument(scorePath).promise.then(function(pdfDoc_) {
-		  pdfDoc = pdfDoc_;
-		  document.getElementById('page_count').textContent = pdfDoc.numPages;
-
-		  // Initial/first page rendering
-		  renderPage(pageNum);
-		  
-		  return true;
-		});
-	}
-
-	async function main(){
-		const audioManager = new AudioManager();
-		const audioContext = audioManager.audioContext;
-		const playButton = document.querySelector('#playMusic');
-		playButton.disabled = true; // don't enabled until all audio has been loaded
-		
-		const prevPageButton = document.getElementById('prev');
-		const nextPageButton = document.getElementById('next');
-		prevPageButton.addEventListener('click', onPrevPage);
-		nextPageButton.addEventListener('click', onNextPage);
-		
-		const optionSelect = document.getElementById('scoreOptions');
-		const options = {
-			"fun_piano": "music/fun_piano/fun_piano.json",
-			"rustic_inn_bgm": "music/rustic_inn_bgm/rustic_inn_bgm.json",
-		};
-		
-		let data, trackPaths, notes, timeMarkers;
-		
-		async function selectScore(evt){
-			playButton.disabled = true; // don't enabled until all audio has been loaded
-			
-			const selected = evt.target.options[evt.target.selectedIndex].value;
-			audioManager.reset();
-			pageNum = 1;
-			currPage = 1;
-			currTimeDiff = 0;
-			
-			data = await audioManager.loadScoreJson(options[selected]);
-			await loadScore(data.scorePath); // this just returns a boolean
-			
-			trackPaths = data.trackPaths;
-			notes = data.notes;
-			timeMarkers = data.timeMarkers;
-			
-			audioManager.loadInstrumentParts(trackPaths, playButton);
-			audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-			audioManager.addNotes(document.getElementById("toolbar"), notes);
-		}
-		optionSelect.addEventListener('change', selectScore);
-		
-		// load first score
-		data = await audioManager.loadScoreJson("music/rustic_inn_bgm/rustic_inn_bgm.json");
-		await loadScore(data.scorePath);
-		
-		trackPaths = data.trackPaths;
-		notes = data.notes;
-		timeMarkers = data.timeMarkers;
-		
-		audioManager.loadInstrumentParts(trackPaths, playButton);
-		audioManager.updateDOM(document.getElementById("toolbar"), data.duration);
-		audioManager.addNotes(document.getElementById("toolbar"), notes);
-		
-		// sync page flipping with time progressed for music playback
-		const reqAnimFrame = window.requestAnimationFrame;
-		const cancelAnimFrame = window.cancelAnimationFrame;
-		let reqId;
-		let lastTime;
-		let currPage = 1;
-		
-		function step(timestamp){
-			// we don't care about the timestamp requestAnimationFrame uses
-			// since we'll rely on audioContext's timer instead
-			const diff = audioContext.currentTime - lastTime; // updating audioManager's seekTime is dependent on this
-			const seekSlider = document.getElementById("playbackSeekSlider");
-			seekSlider.value = diff;
-			seekSlider.dispatchEvent(new InputEvent('input')); // trigger event so label will get updated
-
-			if(diff >= timeMarkers[currPage]){
-				//console.log("" + timeMarkers[currPage] + ": need to go to page " + currPage + "!");
-				if(currPage < Object.keys(timeMarkers).length){
-					queueRenderPage(++currPage); // make sure render calls don't collide by queuing, which would cause errors otherwise
-				}else{
-					// we're at the last page. stop the cycle.
-					//console.log("reached the end of the score");
-					cancelAnimFrame(reqId);
-					audioManager.seekTime = 0;
-					currPage = 1;
-					
-					prevPageButton.disabled = false;
-					nextPageButton.disabled = false;
-					optionSelect.disabled = false;
-					
-					return;
-				}
-			}
-			reqId = reqAnimFrame(step);
-		}
-		
-		playButton.addEventListener("click", function(evt){
-			if(audioContext.state === 'suspended'){
-				audioContext.resume();
-			}
-			if(this.dataset.playing === 'false'){
-				this.dataset.playing = 'true';
-				evt.target.textContent = "pause";
-				
-				prevPageButton.disabled = true;
-				nextPageButton.disabled = true;
-				optionSelect.disabled = true;
-				
-				if(audioManager.seekTime > 0){
-					const pageToBeOn = findScorePage(audioManager.seekTime, timeMarkers);
-
-					// if the user goes to a different page while paused and
-					// if they play again, we need to move the page back to where they paused
-					queueRenderPage(pageToBeOn);
-					currPage = pageToBeOn;
-					pageNum = currPage;
-					//console.log("need to be on page: " + pageToBeOn);
-						
-					lastTime = audioContext.currentTime - audioManager.seekTime;
-				}else{
-					// starting from the beginning
-					currPage = 1;
-					queueRenderPage(currPage);
-					lastTime = audioContext.currentTime;
-				}
-				
-				audioManager.play();
-				reqId = reqAnimFrame(step);
-			}else{
-				audioManager.pause();
-				this.dataset.playing = 'false';
-				evt.target.textContent = "play";
-				cancelAnimFrame(reqId);
-				
-				prevPageButton.disabled = false;
-				nextPageButton.disabled = false;
-				optionSelect.disabled = false;
-			}
-		}, false);
-		
-		const stopButton = document.querySelector('#stopMusic');
-		stopButton.addEventListener("click", function(evt){
-			// stop playing and rewind audio to the beginning
-			cancelAnimFrame(reqId);
-			currPage = 1;
-			audioManager.stop();
-			
-			prevPageButton.disabled = false;
-			nextPageButton.disabled = false;
-			optionSelect.disabled = false;
-		}, false);
-	}
-	
-	main();
-</script>
+<script src="dist/bundle.js"></script>
 
 </html>

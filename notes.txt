@@ -4,6 +4,9 @@ https://stackoverflow.com/questions/36803176/how-to-prevent-the-play-request-was
 https://stackoverflow.com/questions/40878414/html5-audio-tag-doenst-refresh-content-on-page-refresh -> maybe helpful?
 https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css/5369951-set-columns-depending-on-screen-size
 https://css-tricks.com/introduction-fr-css-unit/
+https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+http://html5doctor.com/history-api/ -> could've just used this instead of react-router-dom?
+https://github.com/gitname/react-gh-pages/issues/9 -> good to remember. I always run into this issue lol
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 
@@ -14,6 +17,15 @@ I have some issues that only seem to appear sometimes on the GitHub page of the 
 
 todo:
 - add more scores
-- clean up code/refactor
-  - manage the pdf stuff in another class? something like PdfManager?
-  - remove extraneous variables?
+
+
+// react references
+https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+https://stackoverflow.com/questions/48642912/react-router-change-state-of-other-components
+https://stackoverflow.com/questions/49001001/using-same-component-for-different-route-path-in-react-router-v4
+https://stackoverflow.com/questions/62631053/useeffect-being-called-multiple-times
+https://stackoverflow.com/questions/50024811/default-disabled-button-click-event-is-not-firing-on-reactjs
+https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-called-on-dispatchevent
+arghhhhhhhhhh https://github.com/facebook/react/issues/10135 -> actually, all I had to do was change 'new InputEvent()' to 'new Event('input', {bubbles: true})' :O
+https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
+https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js
