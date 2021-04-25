@@ -288,7 +288,7 @@ class ScoreDisplay extends React.Component {
 					}
 					</div>
 					
-					<div id='notesContainer' style={{'textAlign': 'left'}}>
+					<div id='notesContainer' style={{'textAlign': 'left', 'padding': '5px'}}>
 						<p style={{'fontWeight': 'bold'}}> notes: </p>
 						{
 							this.state.scoreData.notes.map((note, index) => {

@@ -52,6 +52,13 @@ class PdfManager {
 		// Wait for rendering to finish
 		renderTask.promise.then(() => {
 		  this.pageRendering = false;
+		  this.pageNum = num;
+		  
+		  // Update page counters
+		  this.updateUiState({
+			  "currPage": num,
+		  });
+	  
 		  if (this.pageNumPending !== null) {
 			// New page rendering is pending
 			this.renderPage(this.pageNumPending);
@@ -60,10 +67,6 @@ class PdfManager {
 		});
 	  });
 
-      // Update page counters
-      this.updateUiState({
-		  "currPage": num,
-      });
 	}
 
 	/**

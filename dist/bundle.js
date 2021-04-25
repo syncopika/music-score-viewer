@@ -719,6 +719,11 @@ var PdfManager = /*#__PURE__*/function () {
 
         renderTask.promise.then(function () {
           _this.pageRendering = false;
+          _this.pageNum = num; // Update page counters
+
+          _this.updateUiState({
+            "currPage": num
+          });
 
           if (_this.pageNumPending !== null) {
             // New page rendering is pending
@@ -727,10 +732,6 @@ var PdfManager = /*#__PURE__*/function () {
             _this.pageNumPending = null;
           }
         });
-      }); // Update page counters
-
-      this.updateUiState({
-        "currPage": num
       });
     }
     /**
@@ -1192,7 +1193,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "notesContainer",
         style: {
-          'textAlign': 'left'
+          'textAlign': 'left',
+          'padding': '5px'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
         style: {
