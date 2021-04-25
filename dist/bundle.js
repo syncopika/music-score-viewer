@@ -1194,7 +1194,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         id: "notesContainer",
         style: {
           'textAlign': 'left',
-          'padding': '5px'
+          'padding': '2%'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
         style: {

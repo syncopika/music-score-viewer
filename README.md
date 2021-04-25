@@ -15,6 +15,10 @@ I thought about the History API for a bit (and I'm pretty sure, after a bit more
     
 In doing so I was also able to clean up my existing code a bit more, which is a plus.    
     
+Some notes on the files needed to make this work:    
+- in /src I have a json file that will be used to figure out the contents of score list in the sidebar menu.
+- all the score stuff goes in /music. each score has its own folder and in each folder is a json file. this file contains the information to know what instrument sliders need to be created, where the score file is, etc.
+    
 ### main dependencies:    
 pdf.js (https://mozilla.github.io/pdf.js/)    
 React   
