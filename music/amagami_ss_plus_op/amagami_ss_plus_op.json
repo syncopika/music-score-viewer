@@ -1,0 +1,21 @@
+{
+	"name": "amagami_ss_plus_op",
+	"scorePath": "music/amagami_ss_plus_op/amagami_ss_+_op.pdf",
+	"trackPaths": {
+		"piano1": "music/amagami_ss_plus_op/amagamiss+-piano1.ogg",
+		"piano2": "music/amagami_ss_plus_op/amagamiss+-piano2.ogg"
+	},
+	"notes": [
+		"This is a 2 piano arrangement of the opening song for the anime 「アマガミSS+ plus」 called 「check my soul」. The composer of the song is <b>azusa</b>.",
+		"I am not a pianist so my apologies if the score is unreadable/terrible. Your feedback, via a GitHub issue or email, would be well appreciated (if it is that bad lol). Thank you!"
+	],
+	"duration": 93,
+	"timeMarkers": {
+		"1": 22,
+		"2": 38,
+		"3": 57,
+		"4": 71,
+		"5": 82,
+		"6": 92
+	}
+}

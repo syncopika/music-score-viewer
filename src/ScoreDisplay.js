@@ -37,8 +37,11 @@ class ScoreDisplay extends React.Component {
 	async importScore(scorePath){
 		const data = await this.audioManager.loadScoreJson(scorePath);
 		
+		// render whatever page is specified to start on, if specified
+		const startPage = data.startPage ? data.startPage : 1;
+		
 		// load the score
-		await this.pdfManager.loadScore(data.scorePath);
+		await this.pdfManager.loadScore(data.scorePath, startPage);
 		
 		const playButton = document.getElementById('playMusic');
 		this.audioManager.loadInstrumentParts(data.trackPaths);
@@ -59,7 +62,8 @@ class ScoreDisplay extends React.Component {
 		seekSlider.dispatchEvent(new Event('input', { bubbles: true })); // trigger event so label will get updated. React didn't like 'new InputEvent()' for some reason it seems?
 
 		if(diff >= this.state.scoreData.timeMarkers[this.state.currPage]){
-			if(this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length){
+			if(this.state.scoreData.timeMarkers[this.state.currPage+1]){
+				// if the next page exists
 				this.pdfManager.queueRenderPage(++this.state.currPage); // make sure render calls don't collide by queuing, which would cause errors otherwise
 			}else{
 				// we're at the last page. stop the cycle.
@@ -103,7 +107,7 @@ class ScoreDisplay extends React.Component {
 				this.lastTime = this.audioManager.audioContext.currentTime - this.audioManager.seekTime;
 			}else{
 				// starting from the beginning
-				this.pdfManager.queueRenderPage(1);
+				this.pdfManager.queueRenderPage(this.state.scoreData.startPage ? this.state.scoreData.startPage : 1);
 				this.lastTime = this.audioManager.audioContext.currentTime;
 			}
 			
@@ -284,7 +288,7 @@ class ScoreDisplay extends React.Component {
 					}
 					</div>
 					
-					<div id='notesContainer' style={{'textAlign': 'left'}}>
+					<div id='notesContainer' style={{'textAlign': 'left', 'padding': '2%'}}>
 						<p style={{'fontWeight': 'bold'}}> notes: </p>
 						{
 							this.state.scoreData.notes.map((note, index) => {

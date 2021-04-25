@@ -11,8 +11,8 @@ class PdfManager {
 		this.pageRendering = false;
 		this.pageNumPending = null;
 		this.scale = 1.0;
-		this.canvas = null; //canvasElement;//document.getElementById('the-canvas')
-		this.ctx = null; //this.canvas.getContext('2d');
+		this.canvas = null;
+		this.ctx = null;
 		
 		// use this function to update the state of ScoreDisplay
 		this.updateUiState = updateStateFunc;
@@ -25,7 +25,7 @@ class PdfManager {
 	}
 	
 	setCanvas(canvasElement){
-		this.canvas = canvasElement;//document.getElementById('the-canvas')
+		this.canvas = canvasElement;
 		this.ctx = this.canvas.getContext('2d');
 	}
 
@@ -52,6 +52,13 @@ class PdfManager {
 		// Wait for rendering to finish
 		renderTask.promise.then(() => {
 		  this.pageRendering = false;
+		  this.pageNum = num;
+		  
+		  // Update page counters
+		  this.updateUiState({
+			  "currPage": num,
+		  });
+	  
 		  if (this.pageNumPending !== null) {
 			// New page rendering is pending
 			this.renderPage(this.pageNumPending);
@@ -60,10 +67,6 @@ class PdfManager {
 		});
 	  });
 
-      // Update page counters
-      this.updateUiState({
-		  "currPage": num,
-      });
 	}
 
 	/**
@@ -116,7 +119,7 @@ class PdfManager {
 	findScorePage(time, timeMarkers){
 		// given time in seconds and a map of pages to times (in sec),
 		// find what the page should be at that time.
-		let pageToBeOn = 1;
+		let pageToBeOn = parseInt(Object.keys(timeMarkers)[0]);
 		for(let page in timeMarkers){
 			if(time <= timeMarkers[page]){
 				pageToBeOn = parseInt(page);
@@ -126,14 +129,15 @@ class PdfManager {
 		return pageToBeOn;
 	}
 
-	async loadScore(scorePath){
+	async loadScore(scorePath, pageToRenderInitially){
 		return this.pdfjsLib.getDocument(scorePath).promise.then((pdfDoc_) => {
 		  this.pdfDoc = pdfDoc_;
-		  //document.getElementById('page_count').textContent = this.pdfDoc.numPages;
+		  
 		  this.updateUiState({"totalPages": this.pdfDoc.numPages});
 
 		  // Initial/first page rendering
-		  this.renderPage(this.pageNum);
+		  this.pageNum = pageToRenderInitially;
+		  this.renderPage(pageToRenderInitially);
 		  
 		  return true;
 		});

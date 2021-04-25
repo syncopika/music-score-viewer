@@ -525,8 +525,7 @@ var AudioManager = /*#__PURE__*/function () {
         var newAudioElement = document.createElement('audio');
         newAudioElement.src = trackPaths[instrument];
         newAudioElement.currentTime = 0;
-        newAudioElement.id = instrument; // TODO: find a better way to do this? it forces some assumptions about the play button
-
+        newAudioElement.id = instrument;
         newAudioElement.addEventListener("ended", function () {
           _this.updateUIState({
             "isPlaying": false
@@ -677,10 +676,8 @@ var PdfManager = /*#__PURE__*/function () {
     this.pageRendering = false;
     this.pageNumPending = null;
     this.scale = 1.0;
-    this.canvas = null; //canvasElement;//document.getElementById('the-canvas')
-
-    this.ctx = null; //this.canvas.getContext('2d');
-    // use this function to update the state of ScoreDisplay
+    this.canvas = null;
+    this.ctx = null; // use this function to update the state of ScoreDisplay
 
     this.updateUiState = updateStateFunc; // Loaded via <script> tag, create shortcut to access PDF.js exports.
 
@@ -692,8 +689,7 @@ var PdfManager = /*#__PURE__*/function () {
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__.default)(PdfManager, [{
     key: "setCanvas",
     value: function setCanvas(canvasElement) {
-      this.canvas = canvasElement; //document.getElementById('the-canvas')
-
+      this.canvas = canvasElement;
       this.ctx = this.canvas.getContext('2d');
     }
     /**
@@ -723,6 +719,11 @@ var PdfManager = /*#__PURE__*/function () {
 
         renderTask.promise.then(function () {
           _this.pageRendering = false;
+          _this.pageNum = num; // Update page counters
+
+          _this.updateUiState({
+            "currPage": num
+          });
 
           if (_this.pageNumPending !== null) {
             // New page rendering is pending
@@ -731,10 +732,6 @@ var PdfManager = /*#__PURE__*/function () {
             _this.pageNumPending = null;
           }
         });
-      }); // Update page counters
-
-      this.updateUiState({
-        "currPage": num
       });
     }
     /**
@@ -797,7 +794,7 @@ var PdfManager = /*#__PURE__*/function () {
     value: function findScorePage(time, timeMarkers) {
       // given time in seconds and a map of pages to times (in sec),
       // find what the page should be at that time.
-      var pageToBeOn = 1;
+      var pageToBeOn = parseInt(Object.keys(timeMarkers)[0]);
 
       for (var page in timeMarkers) {
         if (time <= timeMarkers[page]) {
@@ -811,7 +808,7 @@ var PdfManager = /*#__PURE__*/function () {
   }, {
     key: "loadScore",
     value: function () {
-      var _loadScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(scorePath) {
+      var _loadScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(scorePath, pageToRenderInitially) {
         var _this2 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
@@ -819,14 +816,16 @@ var PdfManager = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt("return", this.pdfjsLib.getDocument(scorePath).promise.then(function (pdfDoc_) {
-                  _this2.pdfDoc = pdfDoc_; //document.getElementById('page_count').textContent = this.pdfDoc.numPages;
+                  _this2.pdfDoc = pdfDoc_;
 
                   _this2.updateUiState({
                     "totalPages": _this2.pdfDoc.numPages
                   }); // Initial/first page rendering
 
 
-                  _this2.renderPage(_this2.pageNum);
+                  _this2.pageNum = pageToRenderInitially;
+
+                  _this2.renderPage(pageToRenderInitially);
 
                   return true;
                 }));
@@ -839,7 +838,7 @@ var PdfManager = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function loadScore(_x) {
+      function loadScore(_x, _x2) {
         return _loadScore.apply(this, arguments);
       }
 
@@ -934,7 +933,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     key: "importScore",
     value: function () {
       var _importScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7___default().mark(function _callee(scorePath) {
-        var data, playButton;
+        var data, startPage, playButton;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_7___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -944,10 +943,13 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
 
               case 2:
                 data = _context.sent;
-                _context.next = 5;
-                return this.pdfManager.loadScore(data.scorePath);
+                // render whatever page is specified to start on, if specified
+                startPage = data.startPage ? data.startPage : 1; // load the score
 
-              case 5:
+                _context.next = 6;
+                return this.pdfManager.loadScore(data.scorePath, startPage);
+
+              case 6:
                 playButton = document.getElementById('playMusic');
                 this.audioManager.loadInstrumentParts(data.trackPaths);
                 this.setState({
@@ -955,7 +957,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
                   'instruments': this.audioManager.instruments
                 });
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -984,7 +986,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       })); // trigger event so label will get updated. React didn't like 'new InputEvent()' for some reason it seems?
 
       if (diff >= this.state.scoreData.timeMarkers[this.state.currPage]) {
-        if (this.state.currPage < Object.keys(this.state.scoreData.timeMarkers).length) {
+        if (this.state.scoreData.timeMarkers[this.state.currPage + 1]) {
+          // if the next page exists
           this.pdfManager.queueRenderPage(++this.state.currPage); // make sure render calls don't collide by queuing, which would cause errors otherwise
         } else {
           // we're at the last page. stop the cycle.
@@ -1024,7 +1027,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           this.lastTime = this.audioManager.audioContext.currentTime - this.audioManager.seekTime;
         } else {
           // starting from the beginning
-          this.pdfManager.queueRenderPage(1);
+          this.pdfManager.queueRenderPage(this.state.scoreData.startPage ? this.state.scoreData.startPage : 1);
           this.lastTime = this.audioManager.audioContext.currentTime;
         }
 
@@ -1190,7 +1193,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "notesContainer",
         style: {
-          'textAlign': 'left'
+          'textAlign': 'left',
+          'padding': '2%'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
         style: {
@@ -1307,7 +1311,9 @@ var ScoreRouter = function ScoreRouter(props) {
   }, currMenuState)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", {
     className: currMenuState === "hide menu" ? 'naviOn' : 'naviOff'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
+      key: "div_" + scoreCategory
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
       key: "li_" + scoreCategory
     }, " ", scoreCategory, ":", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, currScoreCategories[scoreCategory].map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
@@ -1315,7 +1321,7 @@ var ScoreRouter = function ScoreRouter(props) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
         to: "/" + scoreName
       }, scoreName));
-    })));
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, null, Object.keys(currScoreCategories).map(function (scoreCategory) {
     return currScoreCategories[scoreCategory].map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {

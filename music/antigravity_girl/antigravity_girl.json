@@ -1,0 +1,51 @@
+{
+	"name": "antigravity_girl",
+	"scorePath": "music/antigravity_girl/antigravity_girl.pdf",
+	"trackPaths": {
+		"flute": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-flute.ogg",
+		"piccolo": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-picc.ogg",
+		"oboe": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-oboe.ogg",
+		"clarinet": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-clar.ogg",
+		"horn": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-horn.ogg",
+		"trombone": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-tbone.ogg",
+		"tuba": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-tuba.ogg",
+		"violin1": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-violin1.ogg",
+		"violin2": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-violin2.ogg",
+		"viola": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-viola.ogg",
+		"cello": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-cello.ogg",
+		"double bass": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-bass.ogg",
+		"piano": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-piano.ogg",
+		"harp": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-harp.ogg",
+		"timpani": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-timps.ogg",
+		"glockenspiel": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-glock.ogg",
+		"vibraphone": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-vibes.ogg",
+		"percussion": "music/antigravity_girl/antigravity-girl(tsukino mito)-arrange-perc.ogg"
+	},
+	"notes": [
+		"This is an orchestral arrangement of 'Antigravity Girl', which is part of the album 'SMASH The PAINT!!', featuring original songs sung by members of the Japanese VTuber group NIJISANJI. This song was performed by Tsukino Mito (月ノ美兎) and composed by TAKU INOUE.",
+		"You can check out the original song <a href='https://www.youtube.com/watch?v=L0X1fDI5PJA'>here</a>"
+	],
+	"duration": 116,
+	"startPage": 2,
+	"timeMarkers": {
+		"2": 15,
+		"3": 20,
+		"4": 25,
+		"5": 30,
+		"6": 34,
+		"7": 39,
+		"8": 44,
+		"9": 49,
+		"10": 54,
+		"11": 63,
+		"12": 68,
+		"13": 75,
+		"14": 79,
+		"15": 84,
+		"16": 89,
+		"17": 94,
+		"18": 98,
+		"19": 104,
+		"20": 116
+	}
+}
