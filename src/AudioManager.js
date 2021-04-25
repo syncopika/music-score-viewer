@@ -19,7 +19,6 @@ class AudioManager {
 			newAudioElement.currentTime = 0;
 			newAudioElement.id = instrument;
 			
-			// TODO: find a better way to do this? it forces some assumptions about the play button
 			newAudioElement.addEventListener("ended", () => {
 				this.updateUIState({
 					"isPlaying": false,

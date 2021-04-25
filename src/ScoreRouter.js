@@ -46,19 +46,22 @@ const ScoreRouter = (props) => {
 				{
 					Object.keys(currScoreCategories).map((scoreCategory) => {
 						return (
-							<li key={"li_" + scoreCategory}> {scoreCategory}:
-								<ul>
-								{
-									currScoreCategories[scoreCategory].map((scoreName) => {
-										return (
-											<li key={"li_" + scoreName}> 
-												<Link to={"/" + scoreName}>{scoreName}</Link>
-											</li>
-										)
-									})
-								}
-								</ul>
-							</li>
+							<div key={"div_" + scoreCategory}>
+								<li key={"li_" + scoreCategory}> {scoreCategory}:
+									<ul>
+									{
+										currScoreCategories[scoreCategory].map((scoreName) => {
+											return (
+												<li key={"li_" + scoreName}> 
+													<Link to={"/" + scoreName}>{scoreName}</Link>
+												</li>
+											)
+										})
+									}
+									</ul>
+								</li>
+								<br />
+							</div>
 						)
 					})
 				}
