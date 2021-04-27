@@ -38,7 +38,12 @@ class PdfManager {
 	  
 	  // Using promise to fetch the page
 	  this.pdfDoc.getPage(num).then((page) => {
-		let viewport = page.getViewport({scale: this.scale});
+		let viewport = page.getViewport({scale: 1});
+		
+		let scale = this.canvas.parentNode.clientWidth / viewport.width; // try to make canvas responsive to client viewport
+		scale = scale > 1 ? 1.0 : scale; // don't let it exceed 1
+		
+		viewport = page.getViewport({scale: scale});
 		this.canvas.height = viewport.height;
 		this.canvas.width = viewport.width;
 

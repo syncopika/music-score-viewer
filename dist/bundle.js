@@ -508,6 +508,7 @@ var AudioManager = /*#__PURE__*/function () {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__.default)(this, AudioManager);
 
     this.instruments = {};
+    this.isReadyToPlay = false;
     this.audioContext = new AudioContext();
     this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
   }
@@ -536,6 +537,7 @@ var AudioManager = /*#__PURE__*/function () {
           var thisInstrument = evt.target.id;
 
           if (instruments[thisInstrument]) {
+            //console.log(thisInstrument + " is ready to play!");
             instruments[thisInstrument].readyToPlay = true;
             var playReady = true;
 
@@ -543,11 +545,9 @@ var AudioManager = /*#__PURE__*/function () {
               playReady = playReady && instruments[_instrument].readyToPlay;
             }
 
-            if (playReady) {
-              _this.updateUIState({
-                "playButtonDisabled": false
-              });
-            }
+            _this.updateUIState({
+              "playButtonDisabled": !playReady
+            });
           }
         });
         var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
@@ -582,6 +582,8 @@ var AudioManager = /*#__PURE__*/function () {
   }, {
     key: "pause",
     value: function pause() {
+      var pausePromises = [];
+
       for (var instrument in this.instruments) {
         this.instruments[instrument].audioElement.pause();
       }
@@ -706,7 +708,14 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pdfDoc.getPage(num).then(function (page) {
         var viewport = page.getViewport({
-          scale: _this.scale
+          scale: 1
+        });
+        var scale = _this.canvas.parentNode.clientWidth / viewport.width; // try to make canvas responsive to client viewport
+
+        scale = scale > 1 ? 1.0 : scale; // don't let it exceed 1
+
+        viewport = page.getViewport({
+          scale: scale
         });
         _this.canvas.height = viewport.height;
         _this.canvas.width = viewport.width; // Render PDF page into canvas context

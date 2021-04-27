@@ -2,6 +2,7 @@ class AudioManager {
 
 	constructor(updateStateFunc){
 		this.instruments = {};
+		this.isReadyToPlay = false;
 		this.audioContext = new AudioContext();
 		this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
 	}
@@ -30,17 +31,17 @@ class AudioManager {
 				const thisInstrument = evt.target.id;
 				
 				if(instruments[thisInstrument]){
+					//console.log(thisInstrument + " is ready to play!");
 					instruments[thisInstrument].readyToPlay = true;
 					
 					let playReady = true;
 					for(let instrument in instruments){
 						playReady = playReady && instruments[instrument].readyToPlay;
 					}
-					if(playReady){
-						this.updateUIState({
-							"playButtonDisabled": false,
-						});
-					}
+					
+					this.updateUIState({
+						"playButtonDisabled": !playReady,
+					});
 				}
 			});
 			
@@ -76,6 +77,7 @@ class AudioManager {
 	}
 	
 	pause(){
+		const pausePromises = [];
 		for(let instrument in this.instruments){
 			this.instruments[instrument].audioElement.pause();
 		}

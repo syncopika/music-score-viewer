@@ -7,6 +7,8 @@ https://css-tricks.com/introduction-fr-css-unit/
 https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
 http://html5doctor.com/history-api/ -> could've just used this instead of react-router-dom?
 https://github.com/gitname/react-gh-pages/issues/9 -> good to remember. I always run into this issue lol
+https://stackoverflow.com/questions/35987398/pdf-js-how-to-make-pdf-js-viewer-canvas-responsive
+https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 
