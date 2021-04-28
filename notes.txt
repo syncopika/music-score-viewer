@@ -13,9 +13,12 @@ https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
-- I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
+- I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly) -> this should be fixed by handling play() promises appropriately
 - The audio for some instruments will get out of sync randomly. This seems to always happen when loading the app the first time. after refreshing it's fine (or after stopping and pressing play again).
 - checking if the all the audio has been loaded via listening for the canplaythrough event doesn't seem to be helping much :/
+   - check out these references:
+      - https://stackoverflow.com/questions/30433667/cloning-audio-source-without-having-to-download-it-again/30440830#30440830
+      - https://stackoverflow.com/questions/10104431/pausing-a-html5-audio-element-causes-the-entire-file-to-be-downloaded
 
 todo:
 - add more scores
