@@ -99,7 +99,7 @@ class AudioManager {
 			const inst = this.instruments[instrument];
 			inst.node.disconnect();
 		}
-		
+		this.currentlyPlaying = [];
 		this.instruments = {};
 		this.seekTime = 0;
 	}
