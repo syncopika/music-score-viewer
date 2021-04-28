@@ -610,6 +610,7 @@ var AudioManager = /*#__PURE__*/function () {
         inst.node.disconnect();
       }
 
+      this.currentlyPlaying = [];
       this.instruments = {};
       this.seekTime = 0;
     }
