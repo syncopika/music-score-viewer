@@ -508,7 +508,8 @@ var AudioManager = /*#__PURE__*/function () {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__.default)(this, AudioManager);
 
     this.instruments = {};
-    this.isReadyToPlay = false;
+    this.currentlyPlaying = []; // keep track of which instruments are currently playing
+
     this.audioContext = new AudioContext();
     this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
   }
@@ -555,7 +556,8 @@ var AudioManager = /*#__PURE__*/function () {
         var newPanNode = this.audioContext.createStereoPanner();
         newMediaElementSrcNode.connect(newGainNode);
         newGainNode.connect(newPanNode);
-        newPanNode.connect(this.audioContext.destination);
+        newPanNode.connect(this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+
         this.instruments[instrument] = {
           'name': instrument,
           'node': newMediaElementSrcNode,
@@ -576,17 +578,29 @@ var AudioManager = /*#__PURE__*/function () {
         this.instruments[instrument].vol.gain.setValueAtTime(this.instruments[instrument].gainVal, 0);
         this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
         this.instruments[instrument].audioElement.currentTime = this.seekTime;
-        this.instruments[instrument].audioElement.play();
+        var playPromise = this.instruments[instrument].audioElement.play(); // keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
+
+        this.currentlyPlaying.push({
+          'name': instrument,
+          'promise': playPromise
+        });
       }
     }
   }, {
     key: "pause",
     value: function pause() {
-      var pausePromises = [];
+      var _this2 = this;
 
-      for (var instrument in this.instruments) {
-        this.instruments[instrument].audioElement.pause();
-      }
+      this.currentlyPlaying.forEach(function (instrument) {
+        if (instrument.promise !== undefined) {
+          instrument.promise.then(function (_) {
+            _this2.instruments[instrument.name].audioElement.pause();
+          })["catch"](function (err) {
+            console.log("error trying to play: " + instrument.name);
+          });
+        }
+      });
+      this.currentlyPlaying = [];
     }
   }, {
     key: "reset",
@@ -602,13 +616,15 @@ var AudioManager = /*#__PURE__*/function () {
   }, {
     key: "stop",
     value: function stop() {
+      this.pause();
+
       for (var instrument in this.instruments) {
-        this.instruments[instrument].audioElement.pause();
         this.instruments[instrument].audioElement.currentTime = 0;
         this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
       }
 
       this.seekTime = 0;
+      this.currentlyPlaying = [];
     }
   }, {
     key: "loadScoreJson",

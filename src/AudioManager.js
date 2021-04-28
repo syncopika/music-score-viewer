@@ -2,7 +2,7 @@ class AudioManager {
 
 	constructor(updateStateFunc){
 		this.instruments = {};
-		this.isReadyToPlay = false;
+		this.currentlyPlaying = []; // keep track of which instruments are currently playing
 		this.audioContext = new AudioContext();
 		this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
 	}
@@ -53,6 +53,7 @@ class AudioManager {
 			newGainNode.connect(newPanNode);
 			newPanNode.connect(this.audioContext.destination);
 
+			// TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
 			this.instruments[instrument] = {
 				'name': instrument,
 				'node': newMediaElementSrcNode,
@@ -72,15 +73,25 @@ class AudioManager {
 			this.instruments[instrument].vol.gain.setValueAtTime(this.instruments[instrument].gainVal, 0);
 			this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
 			this.instruments[instrument].audioElement.currentTime = this.seekTime;
-			this.instruments[instrument].audioElement.play();
+			
+			const playPromise = this.instruments[instrument].audioElement.play();
+			
+			// keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
+			this.currentlyPlaying.push({'name': instrument, 'promise': playPromise});
 		}
 	}
 	
 	pause(){
-		const pausePromises = [];
-		for(let instrument in this.instruments){
-			this.instruments[instrument].audioElement.pause();
-		}
+		this.currentlyPlaying.forEach((instrument) => {
+			if(instrument.promise !== undefined){
+				instrument.promise.then(_ => {
+					this.instruments[instrument.name].audioElement.pause();
+				}).catch(err => {
+					console.log("error trying to play: " + instrument.name);
+				});
+			}			
+		});
+		this.currentlyPlaying = [];
 	}
 	
 	reset(){
@@ -94,12 +105,13 @@ class AudioManager {
 	}
 	
 	stop(){
+		this.pause();
 		for(let instrument in this.instruments){
-			this.instruments[instrument].audioElement.pause();
 			this.instruments[instrument].audioElement.currentTime = 0;
 			this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
 		}
 		this.seekTime = 0;
+		this.currentlyPlaying = [];
 	}
 
 	async loadScoreJson(path){
