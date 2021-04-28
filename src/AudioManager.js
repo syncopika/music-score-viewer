@@ -8,7 +8,6 @@ class AudioManager {
 	}
 
 	loadInstrumentParts(trackPaths){
-		
 		this.instruments = {};
 		this.seekTime = 0;
 
@@ -20,6 +19,7 @@ class AudioManager {
 			newAudioElement.currentTime = 0;
 			newAudioElement.id = instrument;
 			
+			// ideally when one audio element ends, it should be representative of all the current audio elements
 			newAudioElement.addEventListener("ended", () => {
 				this.updateUIState({
 					"isPlaying": false,
@@ -29,9 +29,9 @@ class AudioManager {
 			newAudioElement.addEventListener('canplaythrough', (evt) => {
 				const instruments = this.instruments;
 				const thisInstrument = evt.target.id;
+				console.log(thisInstrument + " is ready to play!");
 				
 				if(instruments[thisInstrument]){
-					//console.log(thisInstrument + " is ready to play!");
 					instruments[thisInstrument].readyToPlay = true;
 					
 					let playReady = true;
@@ -39,9 +39,11 @@ class AudioManager {
 						playReady = playReady && instruments[instrument].readyToPlay;
 					}
 					
-					this.updateUIState({
-						"playButtonDisabled": !playReady,
-					});
+					if(playReady){
+						this.updateUIState({
+							"playButtonDisabled": false,
+						});
+					}
 				}
 			});
 			
@@ -64,7 +66,6 @@ class AudioManager {
 				'audioElement': newAudioElement,
 				'readyToPlay': false,
 			};
-
 		}
 	}
 	
@@ -74,9 +75,8 @@ class AudioManager {
 			this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
 			this.instruments[instrument].audioElement.currentTime = this.seekTime;
 			
-			const playPromise = this.instruments[instrument].audioElement.play();
-			
 			// keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
+			const playPromise = this.instruments[instrument].audioElement.play();
 			this.currentlyPlaying.push({'name': instrument, 'promise': playPromise});
 		}
 	}
@@ -87,9 +87,9 @@ class AudioManager {
 				instrument.promise.then(_ => {
 					this.instruments[instrument.name].audioElement.pause();
 				}).catch(err => {
-					console.log("error trying to play: " + instrument.name);
+					console.log("there was an error trying to play: " + instrument.name);
 				});
-			}			
+			}
 		});
 		this.currentlyPlaying = [];
 	}
@@ -98,6 +98,7 @@ class AudioManager {
 		for(let instrument in this.instruments){
 			const inst = this.instruments[instrument];
 			inst.node.disconnect();
+			inst.audioElement.removeAttribute('src');
 		}
 		this.currentlyPlaying = [];
 		this.instruments = {};

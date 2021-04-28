@@ -527,7 +527,8 @@ var AudioManager = /*#__PURE__*/function () {
         var newAudioElement = document.createElement('audio');
         newAudioElement.src = trackPaths[instrument];
         newAudioElement.currentTime = 0;
-        newAudioElement.id = instrument;
+        newAudioElement.id = instrument; // ideally when one audio element ends, it should be representative of all the current audio elements
+
         newAudioElement.addEventListener("ended", function () {
           _this.updateUIState({
             "isPlaying": false
@@ -536,9 +537,9 @@ var AudioManager = /*#__PURE__*/function () {
         newAudioElement.addEventListener('canplaythrough', function (evt) {
           var instruments = _this.instruments;
           var thisInstrument = evt.target.id;
+          console.log(thisInstrument + " is ready to play!");
 
           if (instruments[thisInstrument]) {
-            //console.log(thisInstrument + " is ready to play!");
             instruments[thisInstrument].readyToPlay = true;
             var playReady = true;
 
@@ -546,9 +547,11 @@ var AudioManager = /*#__PURE__*/function () {
               playReady = playReady && instruments[_instrument].readyToPlay;
             }
 
-            _this.updateUIState({
-              "playButtonDisabled": !playReady
-            });
+            if (playReady) {
+              _this.updateUIState({
+                "playButtonDisabled": false
+              });
+            }
           }
         });
         var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
@@ -577,9 +580,9 @@ var AudioManager = /*#__PURE__*/function () {
       for (var instrument in this.instruments) {
         this.instruments[instrument].vol.gain.setValueAtTime(this.instruments[instrument].gainVal, 0);
         this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
-        this.instruments[instrument].audioElement.currentTime = this.seekTime;
-        var playPromise = this.instruments[instrument].audioElement.play(); // keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
+        this.instruments[instrument].audioElement.currentTime = this.seekTime; // keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
 
+        var playPromise = this.instruments[instrument].audioElement.play();
         this.currentlyPlaying.push({
           'name': instrument,
           'promise': playPromise
@@ -596,7 +599,7 @@ var AudioManager = /*#__PURE__*/function () {
           instrument.promise.then(function (_) {
             _this2.instruments[instrument.name].audioElement.pause();
           })["catch"](function (err) {
-            console.log("error trying to play: " + instrument.name);
+            console.log("there was an error trying to play: " + instrument.name);
           });
         }
       });
@@ -608,6 +611,7 @@ var AudioManager = /*#__PURE__*/function () {
       for (var instrument in this.instruments) {
         var inst = this.instruments[instrument];
         inst.node.disconnect();
+        inst.audioElement.removeAttribute('src');
       }
 
       this.currentlyPlaying = [];
