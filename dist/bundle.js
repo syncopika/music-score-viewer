@@ -522,7 +522,6 @@ var AudioManager = /*#__PURE__*/function () {
       this.instruments = {};
       this.seekTime = 0;
       var numInstruments = Object.keys(trackPaths).length;
-      console.log("need to download ".concat(numInstruments, " instruments"));
       var count = 0; // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
 
       var _loop = function _loop(instrument) {
@@ -531,6 +530,11 @@ var AudioManager = /*#__PURE__*/function () {
         newAudioElement.currentTime = 0;
         newAudioElement.id = instrument;
         var audioDataPath = trackPaths[instrument];
+
+        _this.updateUIState({
+          "showLoadingMsg": true
+        });
+
         fetch(audioDataPath).then(function (res) {
           if (!res.ok) {
             throw new Error("".concat(res.status, ": loading ").concat(audioDataPath, " failed! sorry :("));
@@ -570,7 +574,8 @@ var AudioManager = /*#__PURE__*/function () {
 
           if (++count === numInstruments) {
             _this.updateUIState({
-              "playButtonDisabled": false
+              "playButtonDisabled": false,
+              "showLoadingMsg": false
             });
           }
         });
@@ -949,6 +954,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "duration": 0,
         "timeMarkers": {}
       },
+      'showLoadingMsg': false,
       'instruments': {},
       'currPage': 1,
       'totalPages': 0,
@@ -1176,7 +1182,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         style: {
           'marginLeft': '1%'
         }
-      }, " ", this.state.scoreData.duration, " sec ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
+      }, " ", this.state.scoreData.duration, " sec ")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
+        id: "loadingMsg"
+      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this2.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {

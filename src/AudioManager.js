@@ -12,7 +12,6 @@ class AudioManager {
 		this.seekTime = 0;
 		
 		const numInstruments = Object.keys(trackPaths).length;
-		console.log(`need to download ${numInstruments} instruments`);
 		let count = 0;
 
 		// import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
@@ -23,6 +22,9 @@ class AudioManager {
 			newAudioElement.id = instrument;
 			
 			const audioDataPath = trackPaths[instrument];
+			this.updateUIState({
+				"showLoadingMsg": true,
+			});
 			
 			fetch(audioDataPath).then((res) => {
 				if(!res.ok){
@@ -63,6 +65,7 @@ class AudioManager {
 				if(++count === numInstruments){
 					this.updateUIState({
 						"playButtonDisabled": false,
+						"showLoadingMsg": false,
 					});
 				}
 			})

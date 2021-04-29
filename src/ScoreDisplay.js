@@ -16,6 +16,7 @@ class ScoreDisplay extends React.Component {
 				"duration": 0,
 				"timeMarkers": {}
 			},
+			'showLoadingMsg': false,
 			'instruments': {},
 			'currPage': 1,
 			'totalPages': 0,
@@ -217,6 +218,11 @@ class ScoreDisplay extends React.Component {
 							style={{'marginLeft': '1%'}}
 						> {this.state.scoreData.duration} sec </label>
 					</div>
+					
+					{
+						this.state.showLoadingMsg &&
+						<h3 id='loadingMsg'>loading instruments...</h3>
+					}
 					
 					<div>
 					{
