@@ -520,63 +520,65 @@ var AudioManager = /*#__PURE__*/function () {
       var _this = this;
 
       this.instruments = {};
-      this.seekTime = 0; // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
+      this.seekTime = 0;
+      var numInstruments = Object.keys(trackPaths).length;
+      console.log("need to download ".concat(numInstruments, " instruments"));
+      var count = 0; // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
 
-      for (var instrument in trackPaths) {
+      var _loop = function _loop(instrument) {
         // get the audio data
         var newAudioElement = document.createElement('audio');
-        newAudioElement.src = trackPaths[instrument];
         newAudioElement.currentTime = 0;
         newAudioElement.id = instrument;
-        newAudioElement.load(); // ideally when one audio element ends, it should be representative of all the current audio elements
+        var audioDataPath = trackPaths[instrument];
+        fetch(audioDataPath).then(function (res) {
+          if (!res.ok) {
+            throw new Error("".concat(res.status, ": loading ").concat(audioDataPath, " failed! sorry :("));
+          }
 
-        newAudioElement.addEventListener("ended", function () {
-          _this.updateUIState({
-            "isPlaying": false
-          });
-        }, false);
-        newAudioElement.addEventListener('canplaythrough', function (evt) {
-          var instruments = _this.instruments;
-          var thisInstrument = evt.target.id;
+          return res.blob();
+        }).then(function (res) {
+          var objectURL = URL.createObjectURL(res);
+          newAudioElement.src = objectURL; // ideally when one audio element ends, it should be representative of all the current audio elements
 
-          if (instruments[thisInstrument]) {
-            instruments[thisInstrument].readyToPlay = true;
-            var playReady = true;
+          newAudioElement.addEventListener("ended", function () {
+            _this.updateUIState({
+              "isPlaying": false
+            });
+          }, false);
 
-            for (var _instrument in instruments) {
-              playReady = playReady && instruments[_instrument].readyToPlay;
-            }
+          var newMediaElementSrcNode = _this.audioContext.createMediaElementSource(newAudioElement);
 
-            if (playReady) {
-              _this.updateUIState({
-                "playButtonDisabled": false
-              });
-            }
+          var newGainNode = _this.audioContext.createGain();
+
+          var newPanNode = _this.audioContext.createStereoPanner();
+
+          newMediaElementSrcNode.connect(newGainNode);
+          newGainNode.connect(newPanNode);
+          newPanNode.connect(_this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+
+          _this.instruments[instrument] = {
+            'name': instrument,
+            'node': newMediaElementSrcNode,
+            'vol': newGainNode,
+            'pan': newPanNode,
+            'gainVal': 0.5,
+            // maybe make a json to hold this info + the audio file path and other metadata
+            'panVal': 0.0,
+            'audioElement': newAudioElement
+          }; // if this is the last instrument to load, unblock the play button
+
+          if (++count === numInstruments) {
+            _this.updateUIState({
+              "playButtonDisabled": false
+            });
           }
         });
-        var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
-        var newGainNode = this.audioContext.createGain();
-        var newPanNode = this.audioContext.createStereoPanner();
-        newMediaElementSrcNode.connect(newGainNode);
-        newGainNode.connect(newPanNode);
-        newPanNode.connect(this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+      };
 
-        this.instruments[instrument] = {
-          'name': instrument,
-          'node': newMediaElementSrcNode,
-          'vol': newGainNode,
-          'pan': newPanNode,
-          'gainVal': 0.5,
-          // maybe make a json to hold this info + the audio file path and other metadata
-          'panVal': 0.0,
-          'audioElement': newAudioElement,
-          'readyToPlay': false
-        };
+      for (var instrument in trackPaths) {
+        _loop(instrument);
       }
-
-      this.updateUIState({
-        "playButtonDisabled": false
-      });
     }
   }, {
     key: "play",
