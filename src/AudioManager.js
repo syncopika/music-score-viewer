@@ -18,6 +18,7 @@ class AudioManager {
 			newAudioElement.src = trackPaths[instrument];
 			newAudioElement.currentTime = 0;
 			newAudioElement.id = instrument;
+			newAudioElement.load();
 			
 			// ideally when one audio element ends, it should be representative of all the current audio elements
 			newAudioElement.addEventListener("ended", () => {
@@ -26,7 +27,7 @@ class AudioManager {
 				});
 			}, false);
 
-			/*
+
 			newAudioElement.addEventListener('canplaythrough', (evt) => {
 				const instruments = this.instruments;
 				const thisInstrument = evt.target.id;
@@ -46,7 +47,6 @@ class AudioManager {
 					}
 				}
 			});
-			*/
 			
 			const newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
 			const newGainNode = this.audioContext.createGain();
@@ -55,8 +55,6 @@ class AudioManager {
 			newMediaElementSrcNode.connect(newGainNode);
 			newGainNode.connect(newPanNode);
 			newPanNode.connect(this.audioContext.destination);
-			
-			newAudioElement.load(); // make sure audio data is loaded
 
 			// TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
 			this.instruments[instrument] = {
@@ -67,7 +65,7 @@ class AudioManager {
 				'gainVal': 0.5, // maybe make a json to hold this info + the audio file path and other metadata
 				'panVal': 0.0,
 				'audioElement': newAudioElement,
-				//'readyToPlay': false,
+				'readyToPlay': false,
 			};
 		}
 		

@@ -527,43 +527,39 @@ var AudioManager = /*#__PURE__*/function () {
         var newAudioElement = document.createElement('audio');
         newAudioElement.src = trackPaths[instrument];
         newAudioElement.currentTime = 0;
-        newAudioElement.id = instrument; // ideally when one audio element ends, it should be representative of all the current audio elements
+        newAudioElement.id = instrument;
+        newAudioElement.load(); // ideally when one audio element ends, it should be representative of all the current audio elements
 
         newAudioElement.addEventListener("ended", function () {
           _this.updateUIState({
             "isPlaying": false
           });
         }, false);
-        /*
-        newAudioElement.addEventListener('canplaythrough', (evt) => {
-        	const instruments = this.instruments;
-        	const thisInstrument = evt.target.id;
-        	
-        	if(instruments[thisInstrument]){
-        		instruments[thisInstrument].readyToPlay = true;
-        		
-        		let playReady = true;
-        		for(let instrument in instruments){
-        			playReady = playReady && instruments[instrument].readyToPlay;
-        		}
-        		
-        		if(playReady){
-        			this.updateUIState({
-        				"playButtonDisabled": false,
-        			});
-        		}
-        	}
-        });
-        */
+        newAudioElement.addEventListener('canplaythrough', function (evt) {
+          var instruments = _this.instruments;
+          var thisInstrument = evt.target.id;
 
+          if (instruments[thisInstrument]) {
+            instruments[thisInstrument].readyToPlay = true;
+            var playReady = true;
+
+            for (var _instrument in instruments) {
+              playReady = playReady && instruments[_instrument].readyToPlay;
+            }
+
+            if (playReady) {
+              _this.updateUIState({
+                "playButtonDisabled": false
+              });
+            }
+          }
+        });
         var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
         var newGainNode = this.audioContext.createGain();
         var newPanNode = this.audioContext.createStereoPanner();
         newMediaElementSrcNode.connect(newGainNode);
         newGainNode.connect(newPanNode);
-        newPanNode.connect(this.audioContext.destination);
-        newAudioElement.load(); // make sure audio data is loaded
-        // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+        newPanNode.connect(this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
 
         this.instruments[instrument] = {
           'name': instrument,
@@ -573,8 +569,8 @@ var AudioManager = /*#__PURE__*/function () {
           'gainVal': 0.5,
           // maybe make a json to hold this info + the audio file path and other metadata
           'panVal': 0.0,
-          'audioElement': newAudioElement //'readyToPlay': false,
-
+          'audioElement': newAudioElement,
+          'readyToPlay': false
         };
       }
 
