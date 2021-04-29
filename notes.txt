@@ -7,13 +7,21 @@ https://css-tricks.com/introduction-fr-css-unit/
 https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
 http://html5doctor.com/history-api/ -> could've just used this instead of react-router-dom?
 https://github.com/gitname/react-gh-pages/issues/9 -> good to remember. I always run into this issue lol
+https://stackoverflow.com/questions/35987398/pdf-js-how-to-make-pdf-js-viewer-canvas-responsive
+https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
+https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
+https://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 
 I have some issues that only seem to appear sometimes on the GitHub page of the application and not locally:
-- I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly)
+- I get the play-request-was-interrupted-by-a-call-to-pause-error (don't know how to reproduce exactly) -> this should be fixed by handling play() promises appropriately
 - The audio for some instruments will get out of sync randomly. This seems to always happen when loading the app the first time. after refreshing it's fine (or after stopping and pressing play again).
 - checking if the all the audio has been loaded via listening for the canplaythrough event doesn't seem to be helping much :/
+   - check out these references:
+      - https://stackoverflow.com/questions/30433667/cloning-audio-source-without-having-to-download-it-again/30440830#30440830
+      - https://stackoverflow.com/questions/10104431/pausing-a-html5-audio-element-causes-the-entire-file-to-be-downloaded
+      - https://stackoverflow.com/questions/8059434/how-do-you-check-if-a-html5-audio-element-is-loaded (note readystate property)
 
 todo:
 - add more scores

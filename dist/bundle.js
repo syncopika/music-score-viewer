@@ -508,6 +508,8 @@ var AudioManager = /*#__PURE__*/function () {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__.default)(this, AudioManager);
 
     this.instruments = {};
+    this.currentlyPlaying = []; // keep track of which instruments are currently playing
+
     this.audioContext = new AudioContext();
     this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
   }
@@ -518,55 +520,69 @@ var AudioManager = /*#__PURE__*/function () {
       var _this = this;
 
       this.instruments = {};
-      this.seekTime = 0; // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
+      this.seekTime = 0;
+      var numInstruments = Object.keys(trackPaths).length;
+      var count = 0; // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
 
-      for (var instrument in trackPaths) {
+      var _loop = function _loop(instrument) {
         // get the audio data
         var newAudioElement = document.createElement('audio');
-        newAudioElement.src = trackPaths[instrument];
         newAudioElement.currentTime = 0;
         newAudioElement.id = instrument;
-        newAudioElement.addEventListener("ended", function () {
-          _this.updateUIState({
-            "isPlaying": false
-          });
-        }, false);
-        newAudioElement.addEventListener('canplaythrough', function (evt) {
-          var instruments = _this.instruments;
-          var thisInstrument = evt.target.id;
+        var audioDataPath = trackPaths[instrument];
 
-          if (instruments[thisInstrument]) {
-            instruments[thisInstrument].readyToPlay = true;
-            var playReady = true;
+        _this.updateUIState({
+          "showLoadingMsg": true
+        });
 
-            for (var _instrument in instruments) {
-              playReady = playReady && instruments[_instrument].readyToPlay;
-            }
+        fetch(audioDataPath).then(function (res) {
+          if (!res.ok) {
+            throw new Error("".concat(res.status, ": loading ").concat(audioDataPath, " failed! sorry :("));
+          }
 
-            if (playReady) {
-              _this.updateUIState({
-                "playButtonDisabled": false
-              });
-            }
+          return res.blob();
+        }).then(function (res) {
+          var objectURL = URL.createObjectURL(res);
+          newAudioElement.src = objectURL; // ideally when one audio element ends, it should be representative of all the current audio elements
+
+          newAudioElement.addEventListener("ended", function () {
+            _this.updateUIState({
+              "isPlaying": false
+            });
+          }, false);
+
+          var newMediaElementSrcNode = _this.audioContext.createMediaElementSource(newAudioElement);
+
+          var newGainNode = _this.audioContext.createGain();
+
+          var newPanNode = _this.audioContext.createStereoPanner();
+
+          newMediaElementSrcNode.connect(newGainNode);
+          newGainNode.connect(newPanNode);
+          newPanNode.connect(_this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+
+          _this.instruments[instrument] = {
+            'name': instrument,
+            'node': newMediaElementSrcNode,
+            'vol': newGainNode,
+            'pan': newPanNode,
+            'gainVal': 0.5,
+            // maybe make a json to hold this info + the audio file path and other metadata
+            'panVal': 0.0,
+            'audioElement': newAudioElement
+          }; // if this is the last instrument to load, unblock the play button
+
+          if (++count === numInstruments) {
+            _this.updateUIState({
+              "playButtonDisabled": false,
+              "showLoadingMsg": false
+            });
           }
         });
-        var newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
-        var newGainNode = this.audioContext.createGain();
-        var newPanNode = this.audioContext.createStereoPanner();
-        newMediaElementSrcNode.connect(newGainNode);
-        newGainNode.connect(newPanNode);
-        newPanNode.connect(this.audioContext.destination);
-        this.instruments[instrument] = {
-          'name': instrument,
-          'node': newMediaElementSrcNode,
-          'vol': newGainNode,
-          'pan': newPanNode,
-          'gainVal': 0.5,
-          // maybe make a json to hold this info + the audio file path and other metadata
-          'panVal': 0.0,
-          'audioElement': newAudioElement,
-          'readyToPlay': false
-        };
+      };
+
+      for (var instrument in trackPaths) {
+        _loop(instrument);
       }
     }
   }, {
@@ -575,16 +591,30 @@ var AudioManager = /*#__PURE__*/function () {
       for (var instrument in this.instruments) {
         this.instruments[instrument].vol.gain.setValueAtTime(this.instruments[instrument].gainVal, 0);
         this.instruments[instrument].pan.pan.setValueAtTime(this.instruments[instrument].panVal, 0);
-        this.instruments[instrument].audioElement.currentTime = this.seekTime;
-        this.instruments[instrument].audioElement.play();
+        this.instruments[instrument].audioElement.currentTime = this.seekTime; // keep track of currently playing instruments so we know which ones are safe to call pause on (or else you can get a play request interrupted error)
+
+        var playPromise = this.instruments[instrument].audioElement.play();
+        this.currentlyPlaying.push({
+          'name': instrument,
+          'promise': playPromise
+        });
       }
     }
   }, {
     key: "pause",
     value: function pause() {
-      for (var instrument in this.instruments) {
-        this.instruments[instrument].audioElement.pause();
-      }
+      var _this2 = this;
+
+      this.currentlyPlaying.forEach(function (instrument) {
+        if (instrument.promise !== undefined) {
+          instrument.promise.then(function (_) {
+            _this2.instruments[instrument.name].audioElement.pause();
+          })["catch"](function (err) {
+            console.log("there was an error trying to play: " + instrument.name);
+          });
+        }
+      });
+      this.currentlyPlaying = [];
     }
   }, {
     key: "reset",
@@ -592,21 +622,25 @@ var AudioManager = /*#__PURE__*/function () {
       for (var instrument in this.instruments) {
         var inst = this.instruments[instrument];
         inst.node.disconnect();
+        inst.audioElement.removeAttribute('src');
       }
 
+      this.currentlyPlaying = [];
       this.instruments = {};
       this.seekTime = 0;
     }
   }, {
     key: "stop",
     value: function stop() {
+      this.pause();
+
       for (var instrument in this.instruments) {
-        this.instruments[instrument].audioElement.pause();
         this.instruments[instrument].audioElement.currentTime = 0;
         this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
       }
 
       this.seekTime = 0;
+      this.currentlyPlaying = [];
     }
   }, {
     key: "loadScoreJson",
@@ -706,7 +740,14 @@ var PdfManager = /*#__PURE__*/function () {
 
       this.pdfDoc.getPage(num).then(function (page) {
         var viewport = page.getViewport({
-          scale: _this.scale
+          scale: 1
+        });
+        var scale = _this.canvas.parentNode.clientWidth / viewport.width; // try to make canvas responsive to client viewport
+
+        scale = scale > 1 ? 1.0 : scale; // don't let it exceed 1
+
+        viewport = page.getViewport({
+          scale: scale
         });
         _this.canvas.height = viewport.height;
         _this.canvas.width = viewport.width; // Render PDF page into canvas context
@@ -913,6 +954,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "duration": 0,
         "timeMarkers": {}
       },
+      'showLoadingMsg': false,
       'instruments': {},
       'currPage': 1,
       'totalPages': 0,
@@ -1140,7 +1182,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         style: {
           'marginLeft': '1%'
         }
-      }, " ", this.state.scoreData.duration, " sec ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
+      }, " ", this.state.scoreData.duration, " sec ")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
+        id: "loadingMsg"
+      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this2.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
