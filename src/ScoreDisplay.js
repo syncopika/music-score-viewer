@@ -225,73 +225,80 @@ class ScoreDisplay extends React.Component {
 					}
 					
 					<div>
-					{
-						// instrument sliders here
-						Object.keys(this.state.instruments).map((instrumentName, index) => {
-							const instrument = this.audioManager.instruments[instrumentName];
-							return (
-								<div
-									key={instrumentName + index}
-									className='instrumentSlider'
-									style={{'marginBottom': '2%'}}
-								>
-									<label
-										style={{'marginRight': '2%'}}
-									>{instrument.name}</label>
-									
-									<label> vol: </label>
-									
-									<input
-										id={instrument.name + '_vol_slider'}
-										type='range'
-										min='0'
-										max='1.5'
-										step='0.1'
-										defaultValue={instrument.gainVal}
-										onChange={
-											function(evt){
-												// update volume value
-												const newVal = evt.target.value;
-												document.getElementById(instrument.name+'_vol_value').textContent = newVal;
-												instrument.gainVal = newVal;
-												instrument.vol.gain.setValueAtTime(newVal, 0);
-											}
-										}
-									></input>
-									
-									<label
-										id={instrument.name + '_vol_value'}
-									>{instrument.gainVal}
-									</label>
-									
-									<label
-										style={{'marginLeft': '2%'}}
-									> pan: </label>
-									
-									<input
-										id={instrument.name + '_pan_slider'}
-										type='range'
-										min='-1'
-										max='1'
-										step='0.1'
-										defaultValue={instrument.panVal}
-										onInput={
-											function(evt){
-												// update pan value
-												const newVal = evt.target.value;
-												document.getElementById(instrument.name+'_pan_value').textContent = newVal;
-												instrument.panVal = newVal;
-												instrument.pan.pan.setValueAtTime(newVal, 0);
-											}
-										}
-									></input>
-									
-									<label id={instrument.name + '_pan_value'}>0</label>
-								
-								</div>
-							);
-						})
-					}
+						<table>
+							<tbody>
+							{
+								// instrument sliders here
+								Object.keys(this.state.instruments).map((instrumentName, index) => {
+									const instrument = this.audioManager.instruments[instrumentName];
+									return (
+										<tr
+											key={instrumentName + index}
+											style={{'marginBottom': '3px'}}
+											className='instrumentSlider'
+										>
+											<td>
+												<p style={{'fontWeight': 'bold'}}>
+													{instrument.name}
+												</p>
+											</td>
+											
+											<td> 
+												<label>vol: </label>
+												
+												<input
+													id={instrument.name + '_vol_slider'}
+													type='range'
+													min='0'
+													max='1.5'
+													step='0.1'
+													defaultValue={instrument.gainVal}
+													onChange={
+														function(evt){
+															// update volume value
+															const newVal = evt.target.value;
+															document.getElementById(instrument.name+'_vol_value').textContent = newVal;
+															instrument.gainVal = newVal;
+															instrument.vol.gain.setValueAtTime(newVal, 0);
+														}
+													}
+												></input>
+												
+												<label id={instrument.name + '_vol_value'}>
+													{instrument.gainVal}
+												</label>
+											</td>
+											
+											<td>
+												<label> pan: </label>
+												
+												<input
+													id={instrument.name + '_pan_slider'}
+													type='range'
+													min='-1'
+													max='1'
+													step='0.1'
+													defaultValue={instrument.panVal}
+													onInput={
+														function(evt){
+															// update pan value
+															const newVal = evt.target.value;
+															document.getElementById(instrument.name+'_pan_value').textContent = newVal;
+															instrument.panVal = newVal;
+															instrument.pan.pan.setValueAtTime(newVal, 0);
+														}
+													}
+												></input>
+												
+												<label id={instrument.name + '_pan_value'}>0</label>
+											</td>
+										
+										</tr>
+									);
+								})
+							}
+							</tbody>
+						</table>
 					</div>
 					
 					<div id='notesContainer' style={{'textAlign': 'left', 'padding': '2%'}}>

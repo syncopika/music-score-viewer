@@ -1184,20 +1184,20 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         }
       }, " ", this.state.scoreData.duration, " sec ")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
         id: "loadingMsg"
-      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, // instrument sliders here
+      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tbody", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this2.audioManager.instruments[instrumentName];
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tr", {
           key: instrumentName + index,
-          className: "instrumentSlider",
           style: {
-            'marginBottom': '2%'
-          }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+            'marginBottom': '3px'
+          },
+          className: "instrumentSlider"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
           style: {
-            'marginRight': '2%'
+            'fontWeight': 'bold'
           }
-        }, instrument.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        }, instrument.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, "vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: instrument.name + '_vol_slider',
           type: "range",
           min: "0",
@@ -1213,11 +1213,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           id: instrument.name + '_vol_value'
-        }, instrument.gainVal), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
-          style: {
-            'marginLeft': '2%'
-          }
-        }, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        }, instrument.gainVal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: instrument.name + '_pan_slider',
           type: "range",
           min: "-1",
@@ -1233,8 +1229,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
           id: instrument.name + '_pan_value'
-        }, "0"));
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+        }, "0")));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "notesContainer",
         style: {
           'textAlign': 'left',
