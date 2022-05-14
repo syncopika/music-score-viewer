@@ -2,28 +2,28 @@
 	"name": "princess_connect_op",
 	"scorePath": "music/princess_connect_op/princess_connect_op.pdf",
 	"trackPaths": {
+    	"piccolo": "music/princess_connect_op/princess-connect-op-arr-PICCOLO.ogg",
 		"flute": "music/princess_connect_op/princess-connect-op-arr-FLUTE.ogg",
-		"piccolo": "music/princess_connect_op/princess-connect-op-arr-PICCOLO.ogg",
 		"oboe": "music/princess_connect_op/princess-connect-op-arr-OBOE.ogg",
+        "clarinet": "music/princess_connect_op/princess-connect-op-arr-CLARINETS.ogg",
 		"bassoon": "music/princess_connect_op/princess-connect-op-arr-BASSOON.ogg",
-		"clarinet": "music/princess_connect_op/princess-connect-op-arr-CLARINETS.ogg",
 		"horn": "music/princess_connect_op/princess-connect-op-arr-HORN.ogg",
 		"trombone": "music/princess_connect_op/princess-connect-op-arr-TROMBONE.ogg",
 		"tuba": "music/princess_connect_op/princess-connect-op-arr-TUBA.ogg",
+		"timpani": "music/princess_connect_op/princess-connect-op-arr-TIMPANI.ogg",
+		"piano": "music/princess_connect_op/princess-connect-op-arr-PIANO.ogg",
+		"harp": "music/princess_connect_op/princess-connect-op-arr-HARP.ogg",
+		"glockenspiel": "music/princess_connect_op/princess-connect-op-arr-GLOCK.ogg",
+		"percussion": "music/princess_connect_op/princess-connect-op-arr-PERCUSSION.ogg",        
 		"violin1": "music/princess_connect_op/princess-connect-op-arr-VIOLIN-1.ogg",
 		"violin2": "music/princess_connect_op/princess-connect-op-arr-VIOLIN-2.ogg",
 		"viola": "music/princess_connect_op/princess-connect-op-arr-VIOLA.ogg",
 		"cello": "music/princess_connect_op/princess-connect-op-arr-CELLO.ogg",
-		"double bass": "music/princess_connect_op/princess-connect-op-arr-BASS.ogg",
-		"piano": "music/princess_connect_op/princess-connect-op-arr-PIANO.ogg",
-		"harp": "music/princess_connect_op/princess-connect-op-arr-HARP.ogg",
-		"timpani": "music/princess_connect_op/princess-connect-op-arr-TIMPANI.ogg",
-		"glockenspiel": "music/princess_connect_op/princess-connect-op-arr-GLOCK.ogg",
-		"percussion": "music/princess_connect_op/princess-connect-op-arr-PERCUSSION.ogg"
+		"double bass": "music/princess_connect_op/princess-connect-op-arr-BASS.ogg"
 	},
 	"notes": [
 		"This is an orchestral arrangement of 'Lost Princess', the opening song for the anime 'PRINCESS CONNECT! Re:Dive', which is an adaptation of the mobile game with the same name. The composer of the original song is Kohei Tanaka (田中 公平) and the arranger of the original song is Takayuki Negishi (根岸 貴幸).",
-		"I admit this arrangement is quite poorly scored for the most part but I hope at least a bit of enjoyment may be derived from it. :)"
+		"I hope at least a bit of enjoyment may be derived from this, despite the poor quality scoring. :)"
 	],
 	"duration": 118,
 	"startPage": 2,
