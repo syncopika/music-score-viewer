@@ -1,16 +1,16 @@
 {
-	"name": "senryuu_shoujo_ed",
-	"scorePath": "music/senryuu_shoujo_ed/senryuushoujoED-pianoarr.pdf",
-	"trackPaths": {
-		"piano": "music/senryuu_shoujo_ed/senryuushoujoED-pianoarr.ogg"
-	},
-	"notes": [
-		"This is a piano arrangement of the ending song 'ORDINARY LOVE' for the anime 川柳少女 (Senryuu Girl).",
+    "name": "senryuu_shoujo_ed",
+    "scorePath": "music/senryuu_shoujo_ed/senryuushoujoED-pianoarr.pdf",
+    "trackPaths": {
+        "piano": "music/senryuu_shoujo_ed/senryuushoujoED-pianoarr.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of the ending song 'ORDINARY LOVE' for the anime 川柳少女 (Senryuu Girl).",
         "The composer is 青木 康平 and the original arranger is 田中 隼人."
-	],
-	"duration": 69,
-	"timeMarkers": {
-		"1": 42,
-		"2": 69
-	}
+    ],
+    "duration": 69,
+    "timeMarkers": {
+        "1": 42,
+        "2": 69
+    }
 }

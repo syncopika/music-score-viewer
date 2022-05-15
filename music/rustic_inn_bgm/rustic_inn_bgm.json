@@ -1,24 +1,24 @@
 {
-	"name": "rustic_inn_bgm",
-	"scorePath": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit.pdf",
-	"trackPaths": {
-		"piccolo": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-piccolo.ogg",    
-		"flute": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-flute.ogg",
-		"harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.ogg",
-		"guitar": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-guitar.ogg",
-		"violin": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-violin.ogg"
-	},
-	"notes": [
-		"This piece was composed as background music for an inn in an upcoming fantasy MMORPG called SkyRune.",
-		"The score was generated from a mmp file (LMMS) via my <a href='https://github.com/syncopika/mmp-to-MusicXML'>converter</a> and exported as .pdf from MuseScore (after some clean-up)."
-	],
-	"duration": 81,
-	"timeMarkers": {
-		"1": 17,
-		"2": 29,
-		"3": 42,
-		"4": 54,
-		"5": 66,
-		"6": 81
-	}
+    "name": "rustic_inn_bgm",
+    "scorePath": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit.pdf",
+    "trackPaths": {
+        "piccolo": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-piccolo.ogg",    
+        "flute": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-flute.ogg",
+        "harp": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-harp.ogg",
+        "guitar": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-guitar.ogg",
+        "violin": "music/rustic_inn_bgm/rusticinn-bar-idea2-edit-violin.ogg"
+    },
+    "notes": [
+        "This piece was composed as background music for an inn in an upcoming fantasy MMORPG called SkyRune.",
+        "The score was generated from a mmp file (LMMS) via my <a href='https://github.com/syncopika/mmp-to-MusicXML'>converter</a> and exported as .pdf from MuseScore (after some clean-up)."
+    ],
+    "duration": 81,
+    "timeMarkers": {
+        "1": 17,
+        "2": 29,
+        "3": 42,
+        "4": 54,
+        "5": 66,
+        "6": 81
+    }
 }
