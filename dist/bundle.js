@@ -1296,10 +1296,19 @@ var ScoreRouter = function ScoreRouter(props) {
       currScoreCategories = _useState2[0],
       setScoreCategories = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("hide menu"),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
       _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
-      currMenuState = _useState4[0],
-      setMenuState = _useState4[1];
+      currAboutState = _useState4[0],
+      setAboutState = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("hide menu"),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState5, 2),
+      currMenuState = _useState6[0],
+      setMenuState = _useState6[1];
+
+  function toggleAbout() {
+    setAboutState(!currAboutState);
+  }
 
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     function getScoreNames() {
@@ -1350,7 +1359,14 @@ var ScoreRouter = function ScoreRouter(props) {
     }
   }, currMenuState)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("nav", {
     className: currMenuState === "hide menu" ? 'naviOn' : 'naviOff'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", {
+    className: "aboutHeader",
+    onClick: toggleAbout
+  }, "about"), currAboutState && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", {
+    className: "about"
+  }, " Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", {
+    className: "about"
+  }, "Please note that although I really enjoy arranging for piano, I am unfortunately not a pianist and so my arrangements for piano (and well, probably any other instrument except for trumpet) may be awkward and/or nonsensical. I'm sorry and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
       key: "div_" + scoreCategory
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
