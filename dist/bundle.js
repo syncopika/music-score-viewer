@@ -628,6 +628,9 @@ var AudioManager = /*#__PURE__*/function () {
       this.currentlyPlaying = [];
       this.instruments = {};
       this.seekTime = 0;
+
+      this.updateUIState = function () {}; // make sure we don't attempt to update an unmounted component
+
     }
   }, {
     key: "stop",
@@ -823,12 +826,10 @@ var PdfManager = /*#__PURE__*/function () {
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
       document.getElementById('page_count').textContent = pdfDoc.numPages;
-    
-      // Initial/first page rendering
+        // Initial/first page rendering
       renderPage(pageNum);
     });
-    
-    */
+      */
 
   }, {
     key: "findScorePage",
@@ -845,6 +846,11 @@ var PdfManager = /*#__PURE__*/function () {
       }
 
       return pageToBeOn;
+    }
+  }, {
+    key: "detach",
+    value: function detach() {
+      this.updateUiState = function () {};
     }
   }, {
     key: "loadScore",
@@ -1116,6 +1122,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       this.audioManager.stop();
       this.audioManager.reset();
       this.audioManager.audioContext.close();
+      this.pdfManager.detach();
     }
   }, {
     key: "render",

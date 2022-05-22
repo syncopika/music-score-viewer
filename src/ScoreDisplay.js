@@ -153,6 +153,7 @@ class ScoreDisplay extends React.Component {
         this.audioManager.stop();
         this.audioManager.reset();
         this.audioManager.audioContext.close();
+        this.pdfManager.detach();
     }
     
     render(){

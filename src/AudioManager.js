@@ -106,6 +106,7 @@ class AudioManager {
         this.currentlyPlaying = [];
         this.instruments = {};
         this.seekTime = 0;
+        this.updateUIState = () => {}; // make sure we don't attempt to update an unmounted component
     }
     
     stop(){

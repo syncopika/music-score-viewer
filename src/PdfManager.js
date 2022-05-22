@@ -133,6 +133,10 @@ class PdfManager {
         }
         return pageToBeOn;
     }
+    
+    detach(){
+        this.updateUiState = () => {};
+    }
 
     async loadScore(scorePath, pageToRenderInitially){
         return this.pdfjsLib.getDocument(scorePath).promise.then((pdfDoc_) => {
