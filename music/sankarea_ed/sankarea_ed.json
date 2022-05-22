@@ -1,0 +1,16 @@
+{
+    "name": "sankarea_ed_piano_arr",
+    "scorePath": "music/sankarea_ed/above_your_hand_(Sankarea_ED).pdf",
+    "trackPaths": {
+        "piano": "music/sankarea_ed/sankareaED-pianoarr-edit.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of 「above your hand」, the ending song for the anime さんかれあ.",
+        "The composer of the song is myu."
+    ],
+    "duration": 97,
+    "timeMarkers": {
+        "1": 55,
+        "2": 97
+    }
+}

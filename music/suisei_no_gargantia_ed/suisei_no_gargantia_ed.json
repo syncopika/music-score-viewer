@@ -1,0 +1,42 @@
+{
+    "name": "suisei_no_gargantia_ed_orch_arr",
+    "scorePath": "music/suisei_no_gargantia_ed/suisei_no_gargantia_ed_orch_arr.pdf",
+    "trackPaths": {
+        "flute1": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-flute1.ogg",
+        "flute2": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-flute2.ogg",
+        "oboe": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-oboe.ogg",
+        "clarinet1": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-clarinet1.ogg",
+        "clarinet2": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-clarinet2.ogg",
+        "bassoon": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-bassoon.ogg",
+        "horn": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-horn.ogg",
+        "glockenspiel": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-glock.ogg",
+        "tubularbells": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-tubularbells.ogg",
+        "percussion": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-percussion.ogg",
+        "violin1": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-violin1.ogg",
+        "violin2": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-violin2.ogg",
+        "violas": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-violas.ogg",
+        "cellos": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-cellos.ogg",
+        "double basses": "music/suisei_no_gargantia_ed/suiseinogargantiaEDorchestral-dblbass.ogg" 
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「空とキミのメッセージ」, the ending song for the anime 翠星のガルガンティア.",
+        "The composer is 矢吹香那."
+    ],
+    "duration": 100,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 8,
+        "3": 18,
+        "4": 26,
+        "5": 35,
+        "6": 44,
+        "7": 51,
+        "8": 55,
+        "9": 59,
+        "10": 69,
+        "11": 76,
+        "12": 84,
+        "13": 96,
+        "14": 100
+    }
+}
