@@ -33,6 +33,8 @@ class ScoreDisplay extends React.Component {
         
         this.reqId;
         this.lastTime;
+        
+        this.mounted; // use to prevent updating state of an unmounted component
     }
     
     async importScore(scorePath){
@@ -45,12 +47,15 @@ class ScoreDisplay extends React.Component {
         await this.pdfManager.loadScore(data.scorePath, startPage);
         
         const playButton = document.getElementById('playMusic');
+        
         this.audioManager.loadInstrumentParts(data.trackPaths);
         
-        this.setState({
-            'scoreData': data,
-            'instruments': this.audioManager.instruments,
-        });
+        if(this.mounted){
+            this.setState({
+                'scoreData': data,
+                'instruments': this.audioManager.instruments,
+            });
+        }
     }
     
     // used with requestAnimationFrame
@@ -138,11 +143,15 @@ class ScoreDisplay extends React.Component {
         });
     }
     
+    // https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
     updateState(state){
-        this.setState(state);
+        if(this.mounted){
+            this.setState(state);
+        }
     }
     
     componentDidMount(){
+        this.mounted = true;
         this.pdfManager.setCanvas(document.getElementById('the-canvas'));
         this.importScore(this.scoreMetadataPath);
     }
@@ -153,7 +162,7 @@ class ScoreDisplay extends React.Component {
         this.audioManager.stop();
         this.audioManager.reset();
         this.audioManager.audioContext.close();
-        this.pdfManager.detach();
+        this.mounted = false;
     }
     
     render(){
