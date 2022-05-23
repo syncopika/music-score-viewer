@@ -11,6 +11,7 @@ https://stackoverflow.com/questions/35987398/pdf-js-how-to-make-pdf-js-viewer-ca
 https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
 https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
 https://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
+https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal
 
 interesting! this issue seems to match my problem when using python -m http.server: https://stackoverflow.com/questions/9563887/setting-html5-audio-position
 

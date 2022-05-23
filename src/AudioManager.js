@@ -26,12 +26,14 @@ class AudioManager {
                 "showLoadingMsg": true,
             });
             
-            fetch(audioDataPath).then((res) => {
+            fetch(audioDataPath)
+            .then((res) => {
                 if(!res.ok){
                     throw new Error(`${res.status}: loading ${audioDataPath} failed! sorry :(`); 
                 }
                 return res.blob();
-            }).then((res) => {
+            })
+            .then((res) => {
                 const objectURL = URL.createObjectURL(res);
                 newAudioElement.src = objectURL;
                 
@@ -42,33 +44,36 @@ class AudioManager {
                     });
                 }, false);
                 
-                const newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
-                const newGainNode = this.audioContext.createGain();
-                const newPanNode = this.audioContext.createStereoPanner();
-                
-                newMediaElementSrcNode.connect(newGainNode);
-                newGainNode.connect(newPanNode);
-                newPanNode.connect(this.audioContext.destination);
+                if(this.audioContext.state !== "closed"){
+                    const newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
+                    const newGainNode = this.audioContext.createGain();
+                    const newPanNode = this.audioContext.createStereoPanner();
+                    
+                    newMediaElementSrcNode.connect(newGainNode);
+                    newGainNode.connect(newPanNode);
+                    newPanNode.connect(this.audioContext.destination);
 
-                // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
-                this.instruments[instrument] = {
-                    'name': instrument,
-                    'node': newMediaElementSrcNode,
-                    'vol': newGainNode,
-                    'pan': newPanNode,
-                    'gainVal': 0.5, // maybe make a json to hold this info + the audio file path and other metadata
-                    'panVal': 0.0,
-                    'audioElement': newAudioElement,
-                };
-                
-                // if this is the last instrument to load, unblock the play button
-                if(++count === numInstruments){
-                    this.updateUIState({
-                        "playButtonDisabled": false,
-                        "showLoadingMsg": false,
-                    });
+                    // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+                    this.instruments[instrument] = {
+                        'name': instrument,
+                        'node': newMediaElementSrcNode,
+                        'vol': newGainNode,
+                        'pan': newPanNode,
+                        'gainVal': 0.5, // maybe make a json to hold this info + the audio file path and other metadata
+                        'panVal': 0.0,
+                        'audioElement': newAudioElement,
+                    };
+                    
+                    // if this is the last instrument to load, unblock the play button
+                    if(++count === numInstruments){
+                        this.updateUIState({
+                            "playButtonDisabled": false,
+                            "showLoadingMsg": false,
+                        });
+                    }
                 }
             })
+            
         }
     }
     

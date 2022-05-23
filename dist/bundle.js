@@ -551,32 +551,34 @@ var AudioManager = /*#__PURE__*/function () {
             });
           }, false);
 
-          var newMediaElementSrcNode = _this.audioContext.createMediaElementSource(newAudioElement);
+          if (_this.audioContext.state !== "closed") {
+            var newMediaElementSrcNode = _this.audioContext.createMediaElementSource(newAudioElement);
 
-          var newGainNode = _this.audioContext.createGain();
+            var newGainNode = _this.audioContext.createGain();
 
-          var newPanNode = _this.audioContext.createStereoPanner();
+            var newPanNode = _this.audioContext.createStereoPanner();
 
-          newMediaElementSrcNode.connect(newGainNode);
-          newGainNode.connect(newPanNode);
-          newPanNode.connect(_this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
+            newMediaElementSrcNode.connect(newGainNode);
+            newGainNode.connect(newPanNode);
+            newPanNode.connect(_this.audioContext.destination); // TODO: what if two instruments share the same key name in the json? should we keep track of instrument names and keep a counter?
 
-          _this.instruments[instrument] = {
-            'name': instrument,
-            'node': newMediaElementSrcNode,
-            'vol': newGainNode,
-            'pan': newPanNode,
-            'gainVal': 0.5,
-            // maybe make a json to hold this info + the audio file path and other metadata
-            'panVal': 0.0,
-            'audioElement': newAudioElement
-          }; // if this is the last instrument to load, unblock the play button
+            _this.instruments[instrument] = {
+              'name': instrument,
+              'node': newMediaElementSrcNode,
+              'vol': newGainNode,
+              'pan': newPanNode,
+              'gainVal': 0.5,
+              // maybe make a json to hold this info + the audio file path and other metadata
+              'panVal': 0.0,
+              'audioElement': newAudioElement
+            }; // if this is the last instrument to load, unblock the play button
 
-          if (++count === numInstruments) {
-            _this.updateUIState({
-              "playButtonDisabled": false,
-              "showLoadingMsg": false
-            });
+            if (++count === numInstruments) {
+              _this.updateUIState({
+                "playButtonDisabled": false,
+                "showLoadingMsg": false
+              });
+            }
           }
         });
       };
@@ -966,7 +968,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_10__.AudioManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
     _this.reqId;
     _this.lastTime;
-    _this.mounted;
+    _this.mounted; // use to prevent updating state of an unmounted component
+
     return _this;
   }
 
@@ -1098,7 +1101,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         'prevPageButtonDisabled': false,
         'nextPageButtonDisabled': false
       });
-    }
+    } // https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
+
   }, {
     key: "updateState",
     value: function updateState(state) {
@@ -1109,9 +1113,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.mounted = true;
       this.pdfManager.setCanvas(document.getElementById('the-canvas'));
       this.importScore(this.scoreMetadataPath);
-      this.mounted = true;
     }
   }, {
     key: "componentWillUnmount",

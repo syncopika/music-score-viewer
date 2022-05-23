@@ -34,7 +34,7 @@ class ScoreDisplay extends React.Component {
         this.reqId;
         this.lastTime;
         
-        this.mounted;
+        this.mounted; // use to prevent updating state of an unmounted component
     }
     
     async importScore(scorePath){
@@ -47,6 +47,7 @@ class ScoreDisplay extends React.Component {
         await this.pdfManager.loadScore(data.scorePath, startPage);
         
         const playButton = document.getElementById('playMusic');
+        
         this.audioManager.loadInstrumentParts(data.trackPaths);
         
         if(this.mounted){
@@ -150,9 +151,9 @@ class ScoreDisplay extends React.Component {
     }
     
     componentDidMount(){
+        this.mounted = true;
         this.pdfManager.setCanvas(document.getElementById('the-canvas'));
         this.importScore(this.scoreMetadataPath);
-        this.mounted = true;
     }
     
     componentWillUnmount(){
