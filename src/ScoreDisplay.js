@@ -33,6 +33,8 @@ class ScoreDisplay extends React.Component {
         
         this.reqId;
         this.lastTime;
+        
+        this.mounted;
     }
     
     async importScore(scorePath){
@@ -47,10 +49,12 @@ class ScoreDisplay extends React.Component {
         const playButton = document.getElementById('playMusic');
         this.audioManager.loadInstrumentParts(data.trackPaths);
         
-        this.setState({
-            'scoreData': data,
-            'instruments': this.audioManager.instruments,
-        });
+        if(this.mounted){
+            this.setState({
+                'scoreData': data,
+                'instruments': this.audioManager.instruments,
+            });
+        }
     }
     
     // used with requestAnimationFrame
@@ -138,13 +142,17 @@ class ScoreDisplay extends React.Component {
         });
     }
     
+    // https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
     updateState(state){
-        this.setState(state);
+        if(this.mounted){
+            this.setState(state);
+        }
     }
     
     componentDidMount(){
         this.pdfManager.setCanvas(document.getElementById('the-canvas'));
         this.importScore(this.scoreMetadataPath);
+        this.mounted = true;
     }
     
     componentWillUnmount(){
@@ -153,7 +161,7 @@ class ScoreDisplay extends React.Component {
         this.audioManager.stop();
         this.audioManager.reset();
         this.audioManager.audioContext.close();
-        this.pdfManager.detach();
+        this.mounted = false;
     }
     
     render(){

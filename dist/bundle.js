@@ -628,9 +628,6 @@ var AudioManager = /*#__PURE__*/function () {
       this.currentlyPlaying = [];
       this.instruments = {};
       this.seekTime = 0;
-
-      this.updateUIState = function () {}; // make sure we don't attempt to update an unmounted component
-
     }
   }, {
     key: "stop",
@@ -848,11 +845,6 @@ var PdfManager = /*#__PURE__*/function () {
       return pageToBeOn;
     }
   }, {
-    key: "detach",
-    value: function detach() {
-      this.updateUiState = function () {};
-    }
-  }, {
     key: "loadScore",
     value: function () {
       var _loadScore = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(scorePath, pageToRenderInitially) {
@@ -974,6 +966,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     _this.audioManager = new _AudioManager_js__WEBPACK_IMPORTED_MODULE_10__.AudioManager(_this.updateState.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this)));
     _this.reqId;
     _this.lastTime;
+    _this.mounted;
     return _this;
   }
 
@@ -1000,10 +993,13 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
               case 6:
                 playButton = document.getElementById('playMusic');
                 this.audioManager.loadInstrumentParts(data.trackPaths);
-                this.setState({
-                  'scoreData': data,
-                  'instruments': this.audioManager.instruments
-                });
+
+                if (this.mounted) {
+                  this.setState({
+                    'scoreData': data,
+                    'instruments': this.audioManager.instruments
+                  });
+                }
 
               case 9:
               case "end":
@@ -1106,13 +1102,16 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "updateState",
     value: function updateState(state) {
-      this.setState(state);
+      if (this.mounted) {
+        this.setState(state);
+      }
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.pdfManager.setCanvas(document.getElementById('the-canvas'));
       this.importScore(this.scoreMetadataPath);
+      this.mounted = true;
     }
   }, {
     key: "componentWillUnmount",
@@ -1122,7 +1121,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       this.audioManager.stop();
       this.audioManager.reset();
       this.audioManager.audioContext.close();
-      this.pdfManager.detach();
+      this.mounted = false;
     }
   }, {
     key: "render",

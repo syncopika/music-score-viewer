@@ -37,3 +37,4 @@ https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-call
 arghhhhhhhhhh https://github.com/facebook/react/issues/10135 -> actually, all I had to do was change 'new InputEvent()' to 'new Event('input', {bubbles: true})' :O
 https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js
+https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
