@@ -1,0 +1,40 @@
+{
+    "name": "hibike_euphonium_op_orch_arr",
+    "scorePath": "music/hibike_euphonium_op/hibike_euphonium_op_orch_arr.pdf",
+    "trackPaths": {
+        "flutes": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-FLUTE.ogg",
+        "oboe": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-OBOE.ogg",
+        "clarinets": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-CLARINET.ogg",
+        "bassoon": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-BASSOON.ogg",
+        "trumpest": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-TRUMPET.ogg",
+        "horns": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-HORN.ogg",
+        "trombone": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-TROMBONE.ogg",
+        "tuba": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-TUBA.ogg",
+        "timpani": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-TIMPANI.ogg",
+        "harp": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-HARP.ogg",
+        "glockenspiel": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-GLOCK.ogg",
+        "percussion": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-PERCUSSION.ogg",
+        "violin1": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-VIOLIN1.ogg",
+        "violin2": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-VIOLIN2.ogg",
+        "violas": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-VIOLAS.ogg",
+        "cellos": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-CELLO.ogg",
+        "double basses": "music/hibike_euphonium_op/hibike-euphoniumOPorchestral-BASS.ogg" 
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「Dream Solister」, the ending song for the anime 響け！ ユーフォニアム.",
+        "The composer is 加藤裕介."
+    ],
+    "duration": 108,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 12,
+        "3": 22,
+        "4": 32,
+        "5": 47,
+        "6": 63,
+        "7": 78,
+        "8": 89,
+        "9": 104,
+        "10": 108
+    }
+}
