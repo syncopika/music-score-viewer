@@ -1150,7 +1150,11 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         onClick: this.pdfManager.onNextPage.bind(this.pdfManager)
       }, " next ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("canvas", {
         id: "the-canvas"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
+        onClick: function onClick() {
+          if (_this2.state.scoreData.scorePath) window.open(_this2.state.scoreData.scorePath);
+        }
+      }, " open score in another tab ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "toolbar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "buttons"
@@ -1376,7 +1380,7 @@ var ScoreRouter = function ScoreRouter(props) {
     className: "about"
   }, " Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", {
     className: "about"
-  }, "Please note that although I really enjoy arranging for piano, I am unfortunately not a pianist and so my arrangements for piano (and well, probably any other instrument except for trumpet) may be awkward and/or nonsensical. I'm sorry and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
+  }, "disclaimer: some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
       key: "div_" + scoreCategory
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {

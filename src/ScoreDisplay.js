@@ -176,6 +176,10 @@ class ScoreDisplay extends React.Component {
                     </div>
                     <br />
                     <canvas id="the-canvas"></canvas>
+                    <br />
+                    <button onClick={() => {
+                        if(this.state.scoreData.scorePath) window.open(this.state.scoreData.scorePath)
+                    }}> open score in another tab </button>
                 </div>
                 
                 <div id='toolbar'>
