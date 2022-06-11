@@ -1,0 +1,46 @@
+{
+    "name": "jinrui_wa_suitai_shimashita_ed_orch_arr",
+    "scorePath": "music/jinrui_wa_suitai_shimashita_ed/jinruiwasuitaishimashitaED-orcharr.pdf",
+    "trackPaths": {
+        "flutes": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-FLUTES.ogg",
+        "piccolo": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-PICCOLO.ogg",
+        "oboe": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-OBOE.ogg",
+        "clarinets": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-CLARINETS.ogg",
+        "bassoon": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-BASSOON.ogg",
+        "horns": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-HORNS.ogg",
+        "trombone": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-TROMBONE.ogg",
+        "tuba": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-TUBA.ogg",
+        "timpani": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-TIMPANI.ogg",
+        "harp": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-HARP.ogg",
+        "piano": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-PIANO.ogg",
+        "glockenspiel": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-GLOCKENSPIEL.ogg",
+        "percussion": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-PERCUSSION.ogg",
+        "violin1": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-VIOLINS1.ogg",
+        "violin2": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-VIOLINS2.ogg",
+        "violas": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-VIOLAS.ogg",
+        "cellos": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-CELLOS.ogg",
+        "double basses": "music/jinrui_wa_suitai_shimashita_ed/052922-jinruiwasuitaishimashitaED-arr-BASSES.ogg" 
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「ユメのなかノわたしのユメ」, the ending song for the anime 人類は衰退しました.",
+        "The composer is 伊藤真澄."
+    ],
+    "duration": 96,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 9,
+        "3": 18,
+        "4": 23,
+        "5": 31,
+        "6": 38,
+        "7": 44,
+        "8": 52,
+        "9": 58,
+        "10": 64,
+        "11": 69,
+        "12": 74,
+        "13": 76,
+        "14": 81,
+        "15": 96
+    }
+}
