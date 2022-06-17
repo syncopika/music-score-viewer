@@ -1,0 +1,16 @@
+{
+    "name": "anne_happy_ed",
+    "scorePath": "music/anne_happy_ed/anne_happy_ed_piano.pdf",
+    "trackPaths": {
+        "piano": "music/anne_happy_ed/annehappyEDpiano.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of the ending song 明日でいいから from the anime あんハピ. The composer is 広川恵一."
+    ],
+    "duration": 122,
+    "timeMarkers": {
+        "1": 64,
+        "2": 109,
+        "3": 122
+    }
+}
