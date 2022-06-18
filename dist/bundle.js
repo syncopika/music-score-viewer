@@ -1380,7 +1380,7 @@ var ScoreRouter = function ScoreRouter(props) {
     className: "about"
   }, " Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", {
     className: "about"
-  }, "disclaimer: some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
+  }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", {
       key: "div_" + scoreCategory
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {

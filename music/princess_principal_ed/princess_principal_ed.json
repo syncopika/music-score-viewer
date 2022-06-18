@@ -1,0 +1,36 @@
+{
+    "name": "princess_principal_ed",
+    "scorePath": "music/princess_principal_ed/princess_principal_ed_arr.pdf",
+    "trackPaths": {
+        "flute": "music/princess_principal_ed/princessprincipalEDarr-flute.ogg",
+        "alto flute": "music/princess_principal_ed/princessprincipalEDarr-altoflute.ogg",
+        "clarinet 1": "music/princess_principal_ed/princessprincipalEDarr-clarinet.ogg",
+        "clarinet 2": "music/princess_principal_ed/princessprincipalEDarr-clarinet2.ogg",
+        "bass clarinet": "music/princess_principal_ed/princessprincipalEDarr-bassclarinet.ogg",
+        "bassoon": "music/princess_principal_ed/princessprincipalEDarr-bassoon.ogg",
+        "tuba": "music/princess_principal_ed/princessprincipalEDarr-tuba.ogg",
+        "violin": "music/princess_principal_ed/princessprincipalEDarr-violin.ogg",
+        "cello": "music/princess_principal_ed/princessprincipalEDarr-cello.ogg"
+    },
+    "notes": [
+        "This is a mixed ensemble arrangement of \"A Page of My Story\", the ending song for the anime Princess Principal. The composer is 高橋 諒.",
+        "What you see/hear here is a bit different from my initial arrangement as posted on SoundCloud and YouTube because I had failed to arrange some parts (particularly the flute) in a realistic manner. I think this should be more suitable for an actual performance.",  
+        "Thanks to Mats Helgesson for the awesome Maestro Clarinet Base soundfont I'm using for the clarinet 1 part. (and of course thanks very much to the creators of the other soundfonts I'm using, whoever they may be)."
+    ],
+    "duration": 91,
+    "timeMarkers": {
+        "1": 7,
+        "2": 14,
+        "3": 21,
+        "4": 31,
+        "5": 35,
+        "6": 40,
+        "7": 45,
+        "8": 49,
+        "9": 59,
+        "10": 66,
+        "11": 73,
+        "12": 82,
+        "13": 91
+    }
+}
