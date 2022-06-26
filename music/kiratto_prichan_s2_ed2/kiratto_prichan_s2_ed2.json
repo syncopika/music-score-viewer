@@ -1,0 +1,26 @@
+{
+    "name": "kiratto_prichan_s2_ed2",
+    "scorePath": "music/kiratto_prichan_s2_ed2/kirattoprichanED2-woodwind-arr.pdf",
+    "trackPaths": {
+        "flute": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-flute1.ogg",
+        "alto flute": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-flute2.ogg",
+        "clarinet 1": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-clarinet1.ogg",
+        "clarinet 2": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-clarinet2.ogg",
+        "bassoon": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-bassoon.ogg",
+        "bass clarinet": "music/kiratto_prichan_s2_ed2/kirattoprichanS2ED2arr-bassclarinet.ogg"
+    },
+    "notes": [
+        "This is a woodwind sextet arrangement of the second ending song for the second season of the anime キラッとプリ☆チャン called 「Brand New Girls」. The composers are 栗原暁 and 前田佑.",
+        "Note that this arrangement is transposed a couple semitones higher than the original pitch of the song.",
+        "Also, thanks to Mats Helgesson for the clarinet soundfont I'm using for the clarinet 1 part. It's a bit hard to control though and so it's a bit overly quiet in many places because otherwise at higher volumes the timbre gets too abrasive for my taste."
+    ],
+    "duration": 90,
+    "timeMarkers": {
+        "1": 16,
+        "2": 32,
+        "3": 46,
+        "4": 60,
+        "5": 72,
+        "6": 90
+    }
+}
