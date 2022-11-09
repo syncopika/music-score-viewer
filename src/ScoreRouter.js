@@ -50,7 +50,7 @@ const ScoreRouter = (props) => {
                     currAboutState &&
                     <React.Fragment>
                         <p className='about'> Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. </p>
-                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) (feel free to make an issue in the GitHub repo for this project). </p>
+                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) Please feel free to make an issue in the GitHub repo for this project for any suggestions/corrections/constructive criticism. </p>
                     </React.Fragment>
                 }
                 <hr />
