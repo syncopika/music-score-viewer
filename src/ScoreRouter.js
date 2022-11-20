@@ -48,10 +48,10 @@ const ScoreRouter = (props) => {
                 <h2 className="aboutHeader" onClick={toggleAbout}>about</h2>
                 {
                     currAboutState &&
-                    <React.Fragment>
+                    <>
                         <p className='about'> Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. </p>
-                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) Please feel free to make an issue in the GitHub repo for this project for any suggestions/corrections/constructive criticism. </p>
-                    </React.Fragment>
+                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) Please feel free to make a new GitHub issue for any suggestions/corrections/constructive criticism. </p>
+                    </>
                 }
                 <hr />
                 <h2> score list </h2>
@@ -59,12 +59,13 @@ const ScoreRouter = (props) => {
                 <ul>
                 {
                     Object.keys(currScoreCategories).map((scoreCategory) => {
+                        const sortedList = currScoreCategories[scoreCategory].sort();
                         return (
                             <div key={"div_" + scoreCategory}>
                                 <li key={"li_" + scoreCategory}> {scoreCategory}:
                                     <ul>
                                     {
-                                        currScoreCategories[scoreCategory].map((scoreName) => {
+                                        sortedList.map((scoreName) => {
                                             return (
                                                 <li key={"li_" + scoreName}> 
                                                     <Link to={"/" + scoreName}>{scoreName}</Link>
