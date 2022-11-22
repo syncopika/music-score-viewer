@@ -1,0 +1,49 @@
+{
+    "name": "pokemon_yellow_op",
+    "scorePath": "music/pokemon_yellow_op/111922-pokemonyellowOParr.pdf",
+    "trackPaths": {
+        "bassoon": "music/pokemon_yellow_op/111922-pokemonyellowOParr-BASSOON.ogg",
+        "horns": "music/pokemon_yellow_op/111922-pokemonyellowOParr-HORNS.ogg",
+        "oboe 1": "music/pokemon_yellow_op/111922-pokemonyellowOParr-OBOE1.ogg",
+        "oboe 2": "music/pokemon_yellow_op/111922-pokemonyellowOParr-OBOE2.ogg",
+        "flute 1": "music/pokemon_yellow_op/111922-pokemonyellowOParr-FLUTE1.ogg",
+        "flute 2": "music/pokemon_yellow_op/111922-pokemonyellowOParr-FLUTE2.ogg",
+        "clarinet 1": "music/pokemon_yellow_op/111922-pokemonyellowOParr-CLARINET1.ogg",
+        "clarinet 2": "music/pokemon_yellow_op/111922-pokemonyellowOParr-CLARINET2.ogg",
+        "trombone": "music/pokemon_yellow_op/111922-pokemonyellowOParr-TROMBONE.ogg",
+        "tuba": "music/pokemon_yellow_op/111922-pokemonyellowOParr-TUBA.ogg",
+        "percussion": "music/pokemon_yellow_op/111922-pokemonyellowOParr-PERCUSSION.ogg",
+        "harp": "music/pokemon_yellow_op/111922-pokemonyellowOParr-HARP.ogg",
+        "timpani": "music/pokemon_yellow_op/111922-pokemonyellowOParr-TIMPANI.ogg",
+        "piano": "music/pokemon_yellow_op/111922-pokemonyellowOParr-PIANO.ogg",
+        "violins 1": "music/pokemon_yellow_op/111922-pokemonyellowOParr-VIOLINS1.ogg",
+        "violins 2": "music/pokemon_yellow_op/111922-pokemonyellowOParr-VIOLINS2.ogg",
+        "violas": "music/pokemon_yellow_op/111922-pokemonyellowOParr-VIOLAS.ogg",
+        "cellos": "music/pokemon_yellow_op/111922-pokemonyellowOParr-CELLOS.ogg",
+        "double basses": "music/pokemon_yellow_op/111922-pokemonyellowOParr-DOUBLEBASSES.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of the opening theme for the game Pokémon Yellow (ポケットモンスター ピカチュウ).",
+        "The composer is Junichi Masuda (増田 順一)."
+    ],
+    "duration": 64,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 6,
+        "3": 10,
+        "4": 14,
+        "5": 16,
+        "6": 20,
+        "7": 23,
+        "8": 26,
+        "9": 29,
+        "10": 33,
+        "11": 37,
+        "12": 42,
+        "13": 45,
+        "14": 48,
+        "15": 57,
+        "16": 60,
+        "17": 64
+    }
+}
