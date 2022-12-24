@@ -1,0 +1,25 @@
+{
+    "name": "slowloop_ed",
+    "scorePath": "music/slowloop_ed/122122-slowloopED-percussion-arr.pdf",
+    "trackPaths": {
+        "vibraphone": "music/slowloop_ed/122122-slowloopED-arr-VIBES.ogg",
+        "xylophone": "music/slowloop_ed/122122-slowloopED-arr-XYLOPHONE.ogg",
+        "marimba": "music/slowloop_ed/122122-slowloopED-arr-MARIMBA.ogg",
+        "harp": "music/slowloop_ed/122122-slowloopED-arr-HARP.ogg",
+        "glockenspiel": "music/slowloop_ed/122122-slowloopED-arr-GLOCKENSPIEL.ogg"
+    },
+    "notes": [
+        "This is a percussion arrangement for the ending song of the anime \"Slow Loop\" called 「シュワシュワ」. The composers are  杏沙子 and 石崎光. The original arranger is 伊賀拓郎."
+    ],
+    "duration": 97,
+    "timeMarkers": {
+        "1": 13,
+        "2": 26,
+        "3": 37,
+        "4": 52,
+        "5": 68,
+        "6": 77,
+        "7": 86,
+        "8": 97
+    }
+}
