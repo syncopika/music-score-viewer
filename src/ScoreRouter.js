@@ -16,16 +16,23 @@ const ScoreRouter = (props) => {
     const [currScoreCategories, setScoreCategories] = useState({});
     const [currAboutState, setAboutState] = useState(false);
     const [currMenuState, setMenuState] = useState("hide menu");
+	const [currSelectedScore, setSelectedScore] = useState("");
     
     function toggleAbout(){
         setAboutState(!currAboutState);
     }
+	
+	function selectScore(name){
+		return function(){
+			setSelectedScore(name);
+		}
+	}
     
     useEffect(() => {
         async function getScoreNames(){
-            let res = await fetch('src/scoreNames.json');
-            res = await res.json();
-            setScoreCategories(res);
+            const res = await fetch('src/scoreNames.json');
+            const data = await res.json();
+            setScoreCategories(data);
         }
         getScoreNames();
     }, []);
@@ -44,13 +51,13 @@ const ScoreRouter = (props) => {
                     }}
                 >{currMenuState}</button>
             </div>
-            <nav className={currMenuState === "hide menu" ? 'naviOn' : 'naviOff'}>
+            <nav className={currMenuState === "hide menu" ? "naviOn" : "naviOff"}>
                 <h2 className="aboutHeader" onClick={toggleAbout}>about</h2>
                 {
                     currAboutState &&
                     <>
                         <p className='about'> Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. </p>
-                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. I'm sorry in advance and welcome any feedback :) Please feel free to make a new GitHub issue for any suggestions/corrections/constructive criticism. </p>
+                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. </p>
                     </>
                 }
                 <hr />
@@ -67,8 +74,8 @@ const ScoreRouter = (props) => {
                                     {
                                         sortedList.map((scoreName) => {
                                             return (
-                                                <li key={"li_" + scoreName}> 
-                                                    <Link to={"/" + scoreName}>{scoreName}</Link>
+                                                <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
+                                                    <Link to={"/" + scoreName} onClick={selectScore(scoreName)}>{scoreName}</Link>
                                                 </li>
                                             )
                                         })
