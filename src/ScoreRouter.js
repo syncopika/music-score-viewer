@@ -16,17 +16,17 @@ const ScoreRouter = (props) => {
     const [currScoreCategories, setScoreCategories] = useState({});
     const [currAboutState, setAboutState] = useState(false);
     const [currMenuState, setMenuState] = useState("hide menu");
-	const [currSelectedScore, setSelectedScore] = useState("");
+    const [currSelectedScore, setSelectedScore] = useState("");
     
     function toggleAbout(){
         setAboutState(!currAboutState);
     }
 	
-	function selectScore(name){
-		return function(){
-			setSelectedScore(name);
-		}
-	}
+    function selectScore(name){
+        return function(){
+            setSelectedScore(name);
+        }
+    }
     
     useEffect(() => {
         async function getScoreNames(){
@@ -34,7 +34,12 @@ const ScoreRouter = (props) => {
             const data = await res.json();
             setScoreCategories(data);
         }
+        
         getScoreNames();
+        
+        // set currSelectedScore to score name in url (it'll be empty string if not present)
+        const urlScoreName = window.location.href.split('/').at(-1);
+        setSelectedScore(urlScoreName);
     }, []);
     
     return (
@@ -75,7 +80,7 @@ const ScoreRouter = (props) => {
                                         sortedList.map((scoreName) => {
                                             return (
                                                 <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
-                                                    <Link to={"/" + scoreName} onClick={selectScore(scoreName)}>{scoreName}</Link>
+                                                    <Link to={"/" + scoreName}>{scoreName}</Link>
                                                 </li>
                                             )
                                         })
@@ -96,7 +101,7 @@ const ScoreRouter = (props) => {
                     return currScoreCategories[scoreCategory].map((scoreName) => {
                         return (
                             <Route key={"route_" + scoreName} path={"/" + scoreName}>
-                                <ScoreDisplay scoreName={scoreName} />
+                                <ScoreDisplay scoreName={scoreName} callback={selectScore(scoreName)} />
                             </Route>
                         )
                     })

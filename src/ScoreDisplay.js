@@ -27,6 +27,7 @@ class ScoreDisplay extends React.Component {
         }
             
         this.scoreMetadataPath = `./music/${props.scoreName}/${props.scoreName}.json`;
+        this.callbackFn = props.callback; // callback function. in this case we want to update the currently selected score in the root component (see ScoreRouter.js)
         
         this.pdfManager = new PdfManager(this.updateState.bind(this));
         this.audioManager = new AudioManager(this.updateState.bind(this));
@@ -152,6 +153,7 @@ class ScoreDisplay extends React.Component {
     
     componentDidMount(){
         this.mounted = true;
+        this.callbackFn();
         this.pdfManager.setCanvas(document.getElementById('the-canvas'));
         this.importScore(this.scoreMetadataPath);
     }
