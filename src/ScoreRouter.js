@@ -4,16 +4,18 @@ import ReactDOM from 'react-dom';
 import {
   HashRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+import { useScoreCategories } from "./useScoreCategories.js";
 import { ScoreDisplay } from "./ScoreDisplay.js";
+import { ScoreList } from "./ScoreList.js";
 
 const ScoreRouter = (props) => {
     const audioManager = props.audioManager;
     const pdfManager = props.pdfManager;
     
-    const [currScoreCategories, setScoreCategories] = useState({});
+    const { currScoreCategories } = useScoreCategories(); // custom hook to get score data
+    
     const [currAboutState, setAboutState] = useState(false);
     const [currMenuState, setMenuState] = useState("hide menu");
     const [currSelectedScore, setSelectedScore] = useState("");
@@ -28,25 +30,11 @@ const ScoreRouter = (props) => {
         }
     }
     
-    useEffect(() => {
-        async function getScoreNames(){
-            const res = await fetch('src/scoreNames.json');
-            const data = await res.json();
-            setScoreCategories(data);
-        }
-        
-        getScoreNames();
-        
-        // set currSelectedScore to score name in url (it'll be empty string if not present)
-        const urlScoreName = window.location.href.split('/').at(-1);
-        setSelectedScore(urlScoreName);
-    }, []);
-    
     return (
         <Router>
             <div id='toggleSidebar'>
                 <button 
-                    className="toggleSidebarBtn" 
+                    className="toggleSidebarBtn"
                     onClick={() => {
                         if(currMenuState === "show menu"){
                             setMenuState("hide menu");
@@ -68,36 +56,12 @@ const ScoreRouter = (props) => {
                 <hr />
                 <h2> score list </h2>
                 <hr />
-                <ul>
-                {
-                    Object.keys(currScoreCategories).map((scoreCategory) => {
-                        const sortedList = currScoreCategories[scoreCategory].sort();
-                        return (
-                            <div key={"div_" + scoreCategory}>
-                                <li key={"li_" + scoreCategory}> {scoreCategory}:
-                                    <ul>
-                                    {
-                                        sortedList.map((scoreName) => {
-                                            return (
-                                                <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
-                                                    <Link to={"/" + scoreName}>{scoreName}</Link>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                    </ul>
-                                </li>
-                                <br />
-                            </div>
-                        )
-                    })
-                }
-                </ul>
+                <ScoreList currScoreCategories={currScoreCategories} currSelectedScore={currSelectedScore} />
             </nav>
             
             <Switch>
             {
-                Object.keys(currScoreCategories).map((scoreCategory) => {
+                currScoreCategories && Object.keys(currScoreCategories).map((scoreCategory) => {
                     return currScoreCategories[scoreCategory].map((scoreName) => {
                         return (
                             <Route key={"route_" + scoreName} path={"/" + scoreName}>
@@ -108,7 +72,7 @@ const ScoreRouter = (props) => {
                 })
             }
             </Switch>
-    </Router>
+        </Router>
     );
 }
 

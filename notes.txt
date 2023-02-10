@@ -39,3 +39,7 @@ arghhhhhhhhhh https://github.com/facebook/react/issues/10135 -> actually, all I 
 https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js
 https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
+
+note separation of concerns!
+https://www.freecodecamp.org/news/separation-of-concerns-react-container-and-presentational-components/
+https://dev.to/nicomartin/the-right-way-to-fetch-data-with-react-hooks-48gc
