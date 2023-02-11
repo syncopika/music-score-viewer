@@ -28,10 +28,9 @@
   },
   "homepage": "https://github.com/syncopika/music-score-viewer#readme",
   "dependencies": {
-    "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.8.1",
     "webpack": "^5.31.2"
   },
   "devDependencies": {
@@ -40,6 +39,7 @@
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
+    "express": "^4.18.2",
     "webpack-cli": "^4.6.0"
   }
 }

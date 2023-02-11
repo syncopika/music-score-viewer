@@ -43,3 +43,7 @@ https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentw
 note separation of concerns!
 https://www.freecodecamp.org/news/separation-of-concerns-react-container-and-presentational-components/
 https://dev.to/nicomartin/the-right-way-to-fetch-data-with-react-hooks-48gc
+
+react router 5 to 6
+- for v5, adding a unique key prop to each Route component allowed a remount of ScoreDisplay. for some reason in v6 that doesn't
+  seem to work anymore but putting the key prop on the ScoreDisplay component does.

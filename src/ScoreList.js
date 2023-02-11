@@ -18,7 +18,7 @@ export const ScoreList = (props) => {
                                 sortedList.map((scoreName) => {
                                     return (
                                         <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
-                                            <Link to={"/" + scoreName}>{scoreName}</Link>
+                                            <Link to={scoreName}>{scoreName}</Link>
                                         </li>
                                     )
                                 })
