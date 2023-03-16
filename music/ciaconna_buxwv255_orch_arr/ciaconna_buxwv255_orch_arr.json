@@ -1,0 +1,42 @@
+{
+    "name": "ciaconna_buxwv255_orch_arr",
+    "scorePath": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr.pdf",
+    "trackPaths": {
+        "strings": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-STRINGS.ogg",
+        "oboes": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-OBOE.ogg",
+        "flutes": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-FLUTE.ogg",
+        "clarinets": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-CLARINET.ogg",
+        "bassoons": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-BASSOON.ogg",
+        "horns": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-HORN.ogg",
+        "harp": "music/ciaconna_buxwv255_orch_arr/buxWV255-orch-arr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of one of my favorite ciaconnas - the first movement of Buxtehude's Sonata Op. 1 No. 4 in B flat (BuxWV 255)."
+    ],
+    "duration": 141,
+    "timeMarkers": {
+        "1": 8,
+        "2": 15,
+        "3": 19,
+        "4": 24,
+        "5": 29,
+        "6": 34,
+        "7": 38,
+        "8": 43,
+        "9": 49,
+        "10": 54,
+        "11": 60,
+        "12": 68,
+        "13": 73,
+        "14": 77,
+        "15": 84,
+        "16": 91,
+        "17": 98,
+        "18": 102,
+        "19": 108,
+        "20": 114,
+        "21": 121,
+        "22": 128,
+        "23": 141
+    }
+}

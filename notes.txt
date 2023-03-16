@@ -26,6 +26,8 @@ I have some issues that only seem to appear sometimes on the GitHub page of the 
 
 todo:
 - add more scores
+- tag, sort, search scores? 
+- separate anime and non-anime arrangements?
 
 
 // react references
