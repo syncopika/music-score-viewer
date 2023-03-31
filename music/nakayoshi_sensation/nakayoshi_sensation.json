@@ -1,0 +1,46 @@
+{
+    "name": "nakayoshi_sensation",
+    "scorePath": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr.pdf",
+    "trackPaths": {
+        "bassoon": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-BASSOON.ogg",
+        "trumpets": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-TRUMPETS.ogg",
+        "horns": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-HORNS.ogg",
+        "clarinets": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-CLARINETS.ogg",
+        "flutes": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-FLUTES.ogg",
+        "oboes": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-OBOES.ogg",
+        "contrabass clarinet": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-CONTRABASS-CLARINET.ogg",
+        "trombone": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-TROMBONE.ogg",
+        "tuba": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-TUBA.ogg",
+        "percussion": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-PERCUSSION.ogg",
+        "timpani": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-TIMPANI.ogg",
+        "chimes": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-TUBULAR-BELLS.ogg",
+        "strings": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-STRINGS.ogg",
+        "harp": "music/nakayoshi_sensation/032423-priconne-nakayoshi-sensation-orch-arr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of the song なかよしセンセーション from the 12th album of プリンセスコネクト! Re:Dive character songs. The composer is 大久保薫."
+    ],
+    "duration": 84,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 3,
+        "3": 8,
+        "4": 12,
+        "5": 17,
+        "6": 22,
+        "7": 29,
+        "8": 35,
+        "9": 41,
+        "10": 46,
+        "11": 49,
+        "12": 51,
+        "13": 54,
+        "14": 58,
+        "15": 62,
+        "16": 67,
+        "17": 72,
+        "18": 75,
+        "19": 80,
+        "20": 84
+    }
+}
