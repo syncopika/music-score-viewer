@@ -23,7 +23,9 @@ if __name__ == "__main__":
     json_template = {
         "name": score_name,
         "scorePath": f"music/{score_name}",
-        "trackPaths": {},
+        "trackPaths": {
+            "instrument": f"music/{score_name}/instrument.ogg",
+        },
         "notes": ["something"],
         "duration": 0,
         "timeMarkers": {},
