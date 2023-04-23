@@ -1,0 +1,34 @@
+{
+    "name": "090719bgmidea2",
+    "scorePath": "music/090719bgmidea2/090719bgmidea2.pdf",
+    "trackPaths": {
+        "piano 1": "music/090719bgmidea2/090719bgmidea2-PIANO1.ogg",
+        "piano 2": "music/090719bgmidea2/090719bgmidea2-PIANO2.ogg",
+        "clarinet": "music/090719bgmidea2/090719bgmidea2-CLARINET.ogg",
+        "piccolo": "music/090719bgmidea2/090719bgmidea2-PICCOLO.ogg",
+        "violin": "music/090719bgmidea2/090719bgmidea2-VIOLIN.ogg",
+        "double bass": "music/090719bgmidea2/090719bgmidea2-DOUBLEBASS.ogg",
+        "drums": "music/090719bgmidea2/090719bgmidea2-DRUMS.ogg"
+    },
+    "notes": [
+        "This is a musical idea I had (around 090719 it seems lol) that was inspired by Respighi's orchestral arrangement of Gianoncelli's Bergamasca from Respighi's Ancient Airs and Dances Suite No.2."
+    ],
+    "duration": 83,
+    "timeMarkers": {
+        "1": 6,
+        "2": 10,
+        "3": 14,
+        "4": 20,
+        "5": 26,
+        "6": 30,
+        "7": 34,
+        "8": 38,
+        "9": 42,
+        "10": 49,
+        "11": 55,
+        "12": 59,
+        "13": 65,
+        "14": 71,
+        "15": 83
+    }
+}
