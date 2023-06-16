@@ -1,0 +1,21 @@
+{
+    "name": "bokuyaba_op",
+    "scorePath": "music/bokuyaba_op/052723-bokunokokoronoyabaiyatsuOP-arr.pdf",
+    "trackPaths": {
+        "piano1": "music/bokuyaba_op/052723-bokunokokoronoyabaiyatsuOP-arr-PIANO1.ogg",
+        "piano2": "music/bokuyaba_op/052723-bokunokokoronoyabaiyatsuOP-arr-PIANO2.ogg"
+    },
+    "notes": [
+        "This is an arrangement for 2 pianos of the opening song 「斜陽」 from the anime 僕の心のヤバイやつ.",
+        "The composer is n-buna."
+    ],
+    "duration": 98,
+    "timeMarkers": {
+        "1": 24,
+        "2": 47,
+        "3": 61,
+        "4": 77,
+        "5": 91,
+        "6": 98
+    }
+}
