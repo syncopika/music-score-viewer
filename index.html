@@ -31,47 +31,14 @@
             margin-bottom: 10px;
         }
         
-        .naviOn {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            z-index: 1;
-            background-color: rgba(255, 255, 255, 0.97);
-            top: 0;
-            left: 0;
-            border-right: 2px solid #ccc;
-            transition: 0.5s;
-            text-align: center;
-            padding: 1%;
-            overflow-wrap: break-word;
-            overflow-y: auto;
-        }
-        
-        .naviOff {
-            width: 0px;
-            height: 100%;
-            position: fixed;
-            z-index: 1;
-            background-color: #fff;
-            top: 0;
-            left: -250px;
-            transition: 0.5s;
-            text-align: center;
-            padding: 1%;
-            overflow-wrap: break-word;
-        }
-        
         .about {
-            font-size: 12px;
+            font-size: 16px;
+            text-align: left;
         }
         
         .aboutHeader:hover {
             cursor: pointer;
         }
-		
-		.selected {
-			background-color: #b4e4fa; /* baby blue */
-		}
         
         #buttons {
             margin: 3%;
@@ -106,8 +73,6 @@
 </head>
 
 <body>
-    <h3> music score viewer <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
-
     <div id='root'>
     </div>
 </body>

@@ -5242,20 +5242,25 @@ __webpack_require__.r(__webpack_exports__);
 var ScoreList = function ScoreList(props) {
   var currScoreCategories = props.currScoreCategories;
   var currSelectedScore = props.currSelectedScore;
+  var scoreCategoryStyle = {
+    'textDecoration': 'underline',
+    'fontWeight': 'bold'
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
     var sortedList = currScoreCategories[scoreCategory].sort();
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       key: "div_" + scoreCategory
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      key: "li_" + scoreCategory
-    }, " ", scoreCategory, ":", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, sortedList.map(function (scoreName) {
+      key: "li_" + scoreCategory,
+      style: scoreCategoryStyle
+    }, " ", scoreCategory, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, sortedList.map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
         key: "li_" + scoreName,
         className: scoreName === currSelectedScore ? 'selected' : ''
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
         to: scoreName
       }, scoreName));
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null));
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null));
   }));
 };
 
@@ -5294,7 +5299,7 @@ var ScoreRouter = function ScoreRouter() {
       currScoreCategories = _useScoreCategories.currScoreCategories; // custom hook to get score data
 
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
       currSelectedScore = _useState2[0],
       setSelectedScore = _useState2[1];
@@ -5305,35 +5310,17 @@ var ScoreRouter = function ScoreRouter() {
     };
   }
 
-  var Sidebar = function Sidebar(props) {
+  var Homepage = function Homepage(props) {
     var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
         _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState3, 2),
         currAboutState = _useState4[0],
         setAboutState = _useState4[1];
 
-    var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("hide menu"),
-        _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
-        currMenuState = _useState6[0],
-        setMenuState = _useState6[1];
-
     function toggleAbout() {
       setAboutState(!currAboutState);
     }
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-      id: "toggleSidebar"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
-      className: "toggleSidebarBtn",
-      onClick: function onClick() {
-        if (currMenuState === "show menu") {
-          setMenuState("hide menu");
-        } else {
-          setMenuState("show menu");
-        }
-      }
-    }, currMenuState)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("nav", {
-      className: currMenuState === "hide menu" ? "naviOn" : "naviOff"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
       className: "aboutHeader",
       onClick: toggleAbout
     }, "about"), currAboutState && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
@@ -5343,27 +5330,31 @@ var ScoreRouter = function ScoreRouter() {
     }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreList_js__WEBPACK_IMPORTED_MODULE_5__.ScoreList, {
       currScoreCategories: props.currScoreCategories,
       currSelectedScore: props.currSelectedScore
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Outlet, null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Outlet, null));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    to: "/"
+  }, " music score viewer "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+    href: "https://github.com/syncopika/music-score-viewer"
+  }, "src"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
     path: "/",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Sidebar, {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Homepage, {
       currScoreCategories: currScoreCategories,
       currSelectedScore: currSelectedScore
     })
-  }, currScoreCategories && Object.keys(currScoreCategories).map(function (scoreCategory) {
+  }), currScoreCategories && Object.keys(currScoreCategories).map(function (scoreCategory) {
     return currScoreCategories[scoreCategory].map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
-        path: "/" + scoreName,
+        path: '/' + scoreName,
         element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_4__.ScoreDisplay, {
-          key: "route_" + scoreName,
+          key: 'route_' + scoreName,
           scoreName: scoreName,
           callback: selectScore(scoreName)
         })
       });
     });
-  }))));
+  })));
 };
 
 
