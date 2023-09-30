@@ -52,7 +52,7 @@ const ScoreRouter = () => {
 
     return (
         <HashRouter>
-            <h3> music score viewer <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
+            <h3><Link to='/'> music score viewer </Link><span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
             <Routes>
                 <Route path='/' element={<Homepage currScoreCategories={currScoreCategories} currSelectedScore={currSelectedScore} />} />
                 {
