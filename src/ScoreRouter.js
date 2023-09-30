@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   HashRouter,
+  Link,
   Outlet,
   Routes,
   Route
@@ -51,6 +52,7 @@ const ScoreRouter = () => {
 
     return (
         <HashRouter>
+            <h3><Link to='/'> music score viewer </Link><span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
             <Routes>
                 <Route path='/' element={<Homepage currScoreCategories={currScoreCategories} currSelectedScore={currSelectedScore} />} />
                 {

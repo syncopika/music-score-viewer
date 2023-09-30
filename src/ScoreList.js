@@ -6,8 +6,8 @@ export const ScoreList = (props) => {
     const currSelectedScore = props.currSelectedScore;
     
     const scoreCategoryStyle = {
-        'text-decoration': 'underline',
-        'font-weight': 'bold',
+        'textDecoration': 'underline',
+        'fontWeight': 'bold',
     };
     
     return (
