@@ -1,0 +1,34 @@
+{
+    "name": "route_47",
+    "scorePath": "music/route_47/pokemonroute47.pdf",
+    "trackPaths": {
+        "strings": "music/route_47/pokemonroute47-edit-STRINGS.ogg",
+        "flutes": "music/route_47/pokemonroute47-edit-FLUTES.ogg",
+        "clarinets": "music/route_47/pokemonroute47-edit-CLARINETS.ogg",
+        "horns": "music/route_47/pokemonroute47-edit-HORNS.ogg",
+        "bassoon": "music/route_47/pokemonroute47-edit-BASSOON.ogg",
+        "tuba": "music/route_47/pokemonroute47-edit-TUBA.ogg",
+        "piano": "music/route_47/pokemonroute47-edit-PIANO.ogg",
+        "harp": "music/route_47/pokemonroute47-edit-HARP.ogg",
+        "percussion": "music/route_47/pokemonroute47-edit-PERCUSSION.ogg",
+        "timpani": "music/route_47/pokemonroute47-edit-TIMPANI.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of the theme for Route 47 from Pokémon HeartGold/SoulSilver. The composer is Hitomi Sato (佐藤仁美)."
+    ],
+    "startPage": 2,
+    "duration": 99,
+    "timeMarkers": {
+        "2": 4,
+        "3": 11,
+        "4": 20,
+        "5": 30,
+        "6": 41,
+        "7": 56,
+        "8": 68,
+        "9": 72,
+        "10": 77,
+        "11": 84,
+        "12": 99
+    }
+}
