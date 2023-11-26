@@ -1,0 +1,43 @@
+{
+    "name": "kaguya_sama_ed",
+    "scorePath": "music/kaguya_sama_ed/kaguyasama-ed-orch-arr.pdf",
+    "trackPaths": {
+        "bassoon": "music/kaguya_sama_ed/kaguyasamaED-arr-BASSOON.ogg",
+        "flute": "music/kaguya_sama_ed/kaguyasamaED-arr-FLUTE.ogg",
+        "clarinet": "music/kaguya_sama_ed/kaguyasamaED-arr-CLARINET.ogg",
+        "oboe": "music/kaguya_sama_ed/kaguyasamaED-arr-OBOE.ogg",
+        "horns": "music/kaguya_sama_ed/kaguyasamaED-arr-HORNS.ogg",
+        "trombone": "music/kaguya_sama_ed/kaguyasamaED-arr-TROMBONE.ogg",
+        "tuba": "music/kaguya_sama_ed/kaguyasamaED-arr-TUBA.ogg",
+        "percussion": "music/kaguya_sama_ed/kaguyasamaED-arr-PERCUSSION.ogg",
+        "piano": "music/kaguya_sama_ed/kaguyasamaED-arr-PIANO.ogg",
+        "glockenspiel": "music/kaguya_sama_ed/kaguyasamaED-arr-GLOCKENSPIEL.ogg",
+        "chimes": "music/kaguya_sama_ed/kaguyasamaED-arr-CHIMES.ogg",
+        "timpani": "music/kaguya_sama_ed/kaguyasamaED-arr-TIMPANI.ogg",
+        "strings": "music/kaguya_sama_ed/kaguyasamaED-arr-STRINGS.ogg",
+        "harp": "music/kaguya_sama_ed/kaguyasamaED-arr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「センチメンタルクライシス」, the ED of the anime かぐや様は告らせたい〜天才たちの恋愛頭脳戦〜.",
+        "The composer is 山田 竜平."
+    ],
+    "duration": 104,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 12,
+        "3": 21,
+        "4": 26,
+        "5": 33,
+        "6": 37,
+        "7": 43,
+        "8": 53,
+        "9": 57,
+        "10": 63,
+        "11": 66,
+        "12": 72,
+        "13": 77,
+        "14": 83,
+        "15": 92,
+        "16": 104
+    }
+}
