@@ -1,0 +1,42 @@
+{
+    "name": "hataraku_saibou_ed",
+    "scorePath": "music/hataraku_saibou_ed/hatarakusaibouED-arr.pdf",
+    "trackPaths": {
+        "strings": "music/hataraku_saibou_ed/hatarakusaibouED-arr-STRINGS.ogg",
+        "flutes": "music/hataraku_saibou_ed/hatarakusaibouED-arr-FLUTES.ogg",
+        "clarinet": "music/hataraku_saibou_ed/hatarakusaibouED-arr-CLARINET.ogg",
+        "piccolos": "music/hataraku_saibou_ed/hatarakusaibouED-arr-PICCOLOS.ogg",
+        "oboe": "music/hataraku_saibou_ed/hatarakusaibouED-arr-OBOE.ogg",
+        "horns": "music/hataraku_saibou_ed/hatarakusaibouED-arr-HORNS.ogg",
+        "timpani": "music/hataraku_saibou_ed/hatarakusaibouED-arr-TIMPANI.ogg",
+        "piano": "music/hataraku_saibou_ed/hatarakusaibouED-arr-PIANO.ogg",
+        "harp": "music/hataraku_saibou_ed/hatarakusaibouED-arr-HARP.ogg",
+        "trombone": "music/hataraku_saibou_ed/hatarakusaibouED-arr-TROMBONE.ogg",
+        "tuba": "music/hataraku_saibou_ed/hatarakusaibouED-arr-TUBA.ogg",
+        "percussion": "music/hataraku_saibou_ed/hatarakusaibouED-arr-PERCUSSION.ogg",
+        "bassoon": "music/hataraku_saibou_ed/hatarakusaibouED-arr-BASSOON.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「CheerS」, the ending song of the anime はたらく細胞.", 
+        "The composer is megane (LIVE LAB.) and the original arranger is kegani (LIVE LAB.)."
+    ],
+    "duration": 95,
+    "startPage": 2,
+    "timeMarkers": {
+        "2": 6,
+        "3": 11,
+        "4": 16,
+        "5": 22,
+        "6": 29,
+        "7": 35,
+        "8": 40,
+        "9": 45,
+        "10": 51,
+        "11": 56,
+        "12": 60,
+        "13": 65,
+        "14": 73,
+        "15": 78,
+        "16": 95
+    }
+}
