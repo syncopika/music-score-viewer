@@ -1,0 +1,36 @@
+{
+    "name": "bluevale-town-theme",
+    "scorePath": "music/bluevale-town-theme/fantasytalesonline-bluevaletowntheme.pdf",
+    "trackPaths": {
+        "cello": "music/bluevale-town-theme/FTObgmidea7-1-CELLO.ogg",
+        "double bass": "music/bluevale-town-theme/FTObgmidea7-1-DOUBLEBASS.ogg",
+        "clarinet": "music/bluevale-town-theme/FTObgmidea7-1-CLARINET.ogg",
+        "flute": "music/bluevale-town-theme/FTObgmidea7-1-FLUTE.ogg",
+        "piccolo": "music/bluevale-town-theme/FTObgmidea7-1-PICCOLO.ogg",
+        "percussion": "music/bluevale-town-theme/FTObgmidea7-1-PERCUSSION.ogg",
+        "bassoon": "music/bluevale-town-theme/FTObgmidea7-1-BASSOON.ogg",
+        "strings": "music/bluevale-town-theme/FTObgmidea7-1-STRINGS.ogg"
+    },
+    "notes": [
+        "This is the theme for Bluevale Town from the game <a href='https://store.steampowered.com/app/442710/Fantasy_Tales_Online/'>Fantasy Tales Online</a>, which I had the honor of composing music for!",
+        "You can listen to more of the soundtrack for Fantasy Tales Online <a href='https://soundcloud.com/green_bear_music/sets/fantasy-tales-online-soundtrack'>here</a>."
+    ],
+    "duration": 94,
+    "timeMarkers": {
+      "1": 5,
+      "2": 13,
+      "3": 18,
+      "4": 23,
+      "5": 29,
+      "6": 34,
+      "7": 42,
+      "8": 49,
+      "9": 56,
+      "10": 63,
+      "11": 71,
+      "12": 76,
+      "13": 84,
+      "14": 91,
+      "15": 94
+    }
+}
