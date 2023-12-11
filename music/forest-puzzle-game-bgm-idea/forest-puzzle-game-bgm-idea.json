@@ -1,0 +1,28 @@
+{
+    "name": "forest-puzzle-game-bgm-idea",
+    "scorePath": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart.pdf",
+    "trackPaths": {
+        "piano1": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-PIANO1.ogg",
+        "piano2": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-PIANO2.ogg",
+        "guitar1": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-GUITAR1.ogg",
+        "guitar2": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-GUITAR2.ogg",
+        "harp1": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-HARP1.ogg",
+        "harp2": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-HARP2.ogg",
+        "flute": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-FLUTE.ogg",
+        "percussion": "music/forest-puzzle-game-bgm-idea/112317-puzzlegamebgmidea5-verhaart-PERCUSSION.ogg"
+    },
+    "notes": [
+        "This is some BGM I wrote for a forest-themed puzzle game by <a href='https://wolff95.weebly.com/wolffware.html'>WolffWare</a> back in 2017."
+    ],
+    "duration": 102,
+    "timeMarkers": {
+      "1": 11,
+      "2": 23,
+      "3": 35,
+      "4": 48,
+      "5": 54,
+      "6": 61,
+      "7": 74,
+      "8": 109
+    }
+}
