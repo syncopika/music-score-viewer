@@ -1,0 +1,41 @@
+{
+    "name": "weakest_tamer_op",
+    "scorePath": "music/weakest_tamer_op/011924weakesttamerOP-orcharr.pdf",
+    "trackPaths": {
+        "bassoon": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-BASSOON.ogg",
+        "flute": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-FLUTE.ogg",
+        "oboe": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-OBOE.ogg",
+        "clarinet": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-CLARINET.ogg",
+        "strings": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-STRINGS.ogg",
+        "horns": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-HORNS.ogg",
+        "trombone": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-TROMBONE.ogg",
+        "tuba": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-TUBA.ogg",
+        "harp": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-HARP.ogg",
+        "piano": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-PIANO.ogg",
+        "glockenspiel": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-GLOCKENSPIEL.ogg",
+        "percussion": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-PERCUSSION.ogg",
+        "timpani": "music/weakest_tamer_op/011924weakesttamerOP-orcharr-TIMPANI.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「果てのない旅」, the OP for the anime 「最弱テイマーはゴミ拾いの旅を始めした。」.",
+        "The composer is 夢見 クジラ and the original arrangers are 夢見 クジラ and 大沢 圭一."
+    ],
+    "startPage": 2,
+    "duration": 90,
+    "timeMarkers": {
+      "2": 13,
+      "3": 22,
+      "4": 29,
+      "5": 35,
+      "6": 42,
+      "7": 46,
+      "8": 51,
+      "9": 57,
+      "10": 62,
+      "11": 66,
+      "12": 70,
+      "13": 75,
+      "14": 80,
+      "15": 90
+    }
+}
