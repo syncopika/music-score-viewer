@@ -9,7 +9,7 @@
         "glockenspiel": "music/slowloop_ed/122122-slowloopED-arr-GLOCKENSPIEL.ogg"
     },
     "notes": [
-        "This is a percussion arrangement for the ending song of the anime \"Slow Loop\" called 「シュワシュワ」. The composers are  杏沙子 and 石崎光. The original arranger is 伊賀拓郎."
+        "This is a percussion arrangement for the ending song of the anime \"Slow Loop\" called 「シュワシュワ」. The composers are 杏沙子 and 石崎光. The original arranger is 伊賀拓郎."
     ],
     "duration": 97,
     "timeMarkers": {
@@ -20,5 +20,15 @@
         "5": 68,
         "6": 80,
         "7": 97
-    }
+    },
+    "tags": [
+        "anime",
+        "percussion",
+        "slow loop",
+        "スローループ",
+        "シュワシュワ",
+        "杏沙子",
+        "石崎光",
+        "伊賀拓郎"
+    ]
 }

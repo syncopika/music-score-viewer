@@ -21,7 +21,7 @@
         "double basses": "music/bocchi_the_rock_ed2/120722-karakara-bocchitherock-ED2-arr-DOUBLEBASSES.ogg"
     },
     "notes": [
-        "This is an orchestral arrangement of the 2nd ending song for the anime ぼっち・ざ・ろっく! called 「カラカラ」. The composer is 三井 律郎 and the original arranger is 中嶋郁美."
+        "This is an orchestral arrangement of the 2nd ending song for the anime ぼっち・ざ・ろっく! called 「カラカラ」. The composer is 三井律郎 and the original arranger is 中嶋郁美."
     ],
     "duration": 138,
     "startPage": 2,
@@ -55,5 +55,17 @@
         "28": 120,
         "29": 128,
         "30": 138
-    }
+    },
+    "tags": [
+        "カラカラ",
+        "karakara",
+        "ぼっち・ざ・ろっく!",
+        "bocchi",
+        "bocchi the rock",
+        "三井律郎",
+        "中嶋郁美",
+        "ぼざろ",
+        "orchestra",
+        "anime"
+    ]
 }
