@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const ScoreList = (props) => {
     const currScoreCategories = props.currScoreNames.categories;
     const currSelectedScore = props.currSelectedScore;
-    const scoreTags = props.currScoreNames.tags;
+    const scoreTags = props.currScoreNames.tags; // note that we're only looking at tags for arrangements atm!
     const currSearchText = props.currSearchText;
     
     const scoreCategoryStyle = {

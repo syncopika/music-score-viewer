@@ -5323,7 +5323,8 @@ __webpack_require__.r(__webpack_exports__);
 var ScoreList = function ScoreList(props) {
   var currScoreCategories = props.currScoreNames.categories;
   var currSelectedScore = props.currSelectedScore;
-  var scoreTags = props.currScoreNames.tags;
+  var scoreTags = props.currScoreNames.tags; // note that we're only looking at tags for arrangements atm!
+
   var currSearchText = props.currSearchText;
   var scoreCategoryStyle = {
     'textDecoration': 'underline',
