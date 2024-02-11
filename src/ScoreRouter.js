@@ -8,13 +8,13 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import { useScoreCategories } from './useScoreCategories.js';
+import { useGetScoreNames } from './useGetScoreNames.js';
 import { ScoreDisplay } from './ScoreDisplay.js';
 import { ScoreList } from './ScoreList.js';
 
 const ScoreRouter = () => {
-    
-    const { currScoreCategories } = useScoreCategories(); // custom hook to get score data
+
+    const {currScoreNames} = useGetScoreNames(); // custom hook to get score data
     const [currSelectedScore, setSelectedScore] = useState('');
 
     function selectScore(name){
@@ -25,9 +25,14 @@ const ScoreRouter = () => {
     
     const Homepage = (props) => {
         const [currAboutState, setAboutState] = useState(false);
+        const [currSearchText, setCurrSearchText] = useState('');
 
         function toggleAbout(){
             setAboutState(!currAboutState);
+        }
+        
+        function setSearchText(evt){
+            setCurrSearchText(evt.target.value);
         }
 
         return (
@@ -36,14 +41,23 @@ const ScoreRouter = () => {
                 {
                     currAboutState &&
                     <>
-                        <p className='about'> Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. </p>
-                        <p className='about'>disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. </p>
+                        <p className='about'> 
+                            Thanks for visiting! This is a place for me to display some of my music work and arrangements. 
+                            I hope you'll find something interesting. 
+                        </p>
+                        <p className='about'>
+                            disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. 
+                            There are probably errors as well. 
+                            Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. 
+                        </p>
                     </>
                 }
+                
                 <hr />
-                <h2> score list </h2>
-                <hr />
-                <ScoreList currScoreCategories={props.currScoreCategories} currSelectedScore={props.currSelectedScore} />
+                
+                <label htmlFor='search'>search: </label><input id='search' type='text' onInput={setSearchText} />
+                
+                <ScoreList currSearchText={currSearchText} currScoreNames={props.currScoreNames} currSelectedScore={props.currSelectedScore} />
 
                 <Outlet />
             </>
@@ -54,14 +68,16 @@ const ScoreRouter = () => {
         <HashRouter>
             <h3><Link to='/'> music score viewer </Link><span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
             <Routes>
-                <Route path='/' element={<Homepage currScoreCategories={currScoreCategories} currSelectedScore={currSelectedScore} />} />
+                <Route path='/' element={<Homepage currScoreNames={currScoreNames} currSelectedScore={currSelectedScore} />} />
                 {
-                    currScoreCategories && Object.keys(currScoreCategories).map((scoreCategory) => {
-                        return currScoreCategories[scoreCategory].map((scoreName) => {
+                    currScoreNames.categories && Object.keys(currScoreNames.categories).map(scoreCategory => {
+                        return currScoreNames.categories[scoreCategory].map(scoreName => {
                             return (
                                 <Route
                                     path={'/' + scoreName}
-                                    element={<ScoreDisplay key={'route_' + scoreName} scoreName={scoreName} callback={selectScore(scoreName)} />}
+                                    element={
+                                        <ScoreDisplay key={'route_' + scoreName} scoreName={scoreName} callback={selectScore(scoreName)} />
+                                    }
                                 />
                             )
                         })

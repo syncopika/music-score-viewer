@@ -3,7 +3,6 @@ import { PdfManager } from './PdfManager.js';
 import { AudioManager } from './AudioManager.js';
 
 class ScoreDisplay extends React.Component {
-
     constructor(props){
         super(props);
         
@@ -24,7 +23,7 @@ class ScoreDisplay extends React.Component {
             'nextPageButtonDisabled': false,
             'playButtonDisabled': true,
             'isPlaying': false,
-        }
+        };
             
         this.scoreMetadataPath = `./music/${props.scoreName}/${props.scoreName}.json`;
         this.callbackFn = props.callback; // callback function. in this case we want to update the currently selected score in the root component (see ScoreRouter.js)
@@ -36,6 +35,43 @@ class ScoreDisplay extends React.Component {
         this.lastTime;
         
         this.mounted; // use to prevent updating state of an unmounted component
+        
+        this.instrumentCategories = {
+            'winds': [
+                'clarinet',
+                'flute',
+                'oboe',
+                'bassoon',
+                'trumpet',
+                'horn',
+                'trombone',
+                'tuba',
+                'piccolo',
+                'recorder',
+            ],
+            'strings': [
+                'violin',
+                'viola',
+                'cello',
+                'double bass',
+                'contrabass',
+                'guitar',
+                'strings',
+            ],
+            'percussion': [
+                'timpani',
+                'percussion',
+                'chimes',
+                'piano',
+                'harp',
+                'vibes',
+                'vibraphone',
+                'xylophone',
+                'marimba',
+                'glockenspiel',
+                'drums',
+            ],
+        };
     }
     
     async importScore(scorePath){
@@ -94,7 +130,6 @@ class ScoreDisplay extends React.Component {
         }
         
         if(!this.state.isPlaying){
-            
             evt.target.textContent = "pause";
             
             this.setState({
@@ -141,6 +176,33 @@ class ScoreDisplay extends React.Component {
         this.setState({
             'prevPageButtonDisabled': false,
             'nextPageButtonDisabled': false,
+        });
+    }
+    
+    toggleInstrumentPreset(evt){
+        const instCategoryToToggle = evt.target.value;
+        const instrumentsInCategory = this.instrumentCategories[instCategoryToToggle];
+        Object.keys(this.state.instruments).forEach(inst => {
+            const volSlider = document.getElementById(`${inst}_vol_slider`);
+            let newVal = 0;
+            for(let i of instrumentsInCategory){
+                if(inst.includes(i)){
+                    // if this instrument is in the selected category
+                    if(evt.target.checked){
+                        // turn on
+                        newVal = 0.5;
+                    }else{
+                        // otherwise turn off
+                        newVal = 0.0;
+                    }
+                    break;
+                }
+            }
+            
+            this.state.instruments[inst].gainVal = newVal;
+            this.state.instruments[inst].vol.gain.setValueAtTime(newVal, 0);
+            volSlider.value = newVal;
+            volSlider.dispatchEvent(new Event('change'));
         });
     }
     
@@ -241,6 +303,38 @@ class ScoreDisplay extends React.Component {
                     }
                     
                     <div>
+                        <div>
+                          <p> instrument group toggle: </p>
+                          <label htmlFor='stringsPreset'>strings:</label>
+                          <input
+                              className='checkbox'
+                              id='stringsPreset' 
+                              type='checkbox' 
+                              onChange={this.toggleInstrumentPreset.bind(this)} 
+                              value='strings'
+                          />
+                          
+                          <label htmlFor='windsPreset'>winds:</label>
+                          <input
+                              className='checkbox'
+                              id='windsPreset' 
+                              type='checkbox' 
+                              onChange={this.toggleInstrumentPreset.bind(this)} 
+                              value='winds'
+                          />
+                          
+                          <label htmlFor='percussionPreset'>percussion:</label>
+                          <input
+                              className='checkbox'
+                              id='percussionPreset' 
+                              type='checkbox' 
+                              onChange={this.toggleInstrumentPreset.bind(this)} 
+                              value='percussion'
+                          />
+                        </div>
+                        
+                        <br />
+                        
                         <table>
                             <tbody>
                             {

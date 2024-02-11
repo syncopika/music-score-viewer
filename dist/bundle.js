@@ -4873,6 +4873,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__.default)(this, result); }; }
 
@@ -4920,6 +4927,11 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
     _this.lastTime;
     _this.mounted; // use to prevent updating state of an unmounted component
 
+    _this.instrumentCategories = {
+      'winds': ['clarinet', 'flute', 'oboe', 'bassoon', 'trumpet', 'horn', 'trombone', 'tuba', 'piccolo', 'recorder'],
+      'strings': ['violin', 'viola', 'cello', 'double bass', 'contrabass', 'guitar', 'strings'],
+      'percussion': ['timpani', 'percussion', 'chimes', 'piano', 'harp', 'vibes', 'vibraphone', 'xylophone', 'marimba', 'glockenspiel', 'drums']
+    };
     return _this;
   }
 
@@ -5051,6 +5063,51 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         'prevPageButtonDisabled': false,
         'nextPageButtonDisabled': false
       });
+    }
+  }, {
+    key: "toggleInstrumentPreset",
+    value: function toggleInstrumentPreset(evt) {
+      var _this2 = this;
+
+      var instCategoryToToggle = evt.target.value;
+      var instrumentsInCategory = this.instrumentCategories[instCategoryToToggle];
+      Object.keys(this.state.instruments).forEach(function (inst) {
+        var volSlider = document.getElementById("".concat(inst, "_vol_slider"));
+        var newVal = 0;
+
+        var _iterator = _createForOfIteratorHelper(instrumentsInCategory),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var i = _step.value;
+
+            if (inst.includes(i)) {
+              // if this instrument is in the selected category
+              if (evt.target.checked) {
+                // turn on
+                newVal = 0.5;
+              } else {
+                // otherwise turn off
+                newVal = 0.0;
+              }
+
+              break;
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        _this2.state.instruments[inst].gainVal = newVal;
+
+        _this2.state.instruments[inst].vol.gain.setValueAtTime(newVal, 0);
+
+        volSlider.value = newVal;
+        volSlider.dispatchEvent(new Event('change'));
+      });
     } // https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
 
   }, {
@@ -5081,7 +5138,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "container"
@@ -5104,7 +5161,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "open-score-in-tab",
         onClick: function onClick() {
-          if (_this2.state.scoreData.scorePath) window.open(_this2.state.scoreData.scorePath);
+          if (_this3.state.scoreData.scorePath) window.open(_this3.state.scoreData.scorePath);
         }
       }, " open score in another tab ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "toolbar"
@@ -5141,7 +5198,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         onInput: function onInput(evt) {
           var newVal = evt.target.value;
           document.getElementById('currTimeLabel').textContent = newVal;
-          _this2.audioManager.seekTime = parseInt(evt.target.value);
+          _this3.audioManager.seekTime = parseInt(evt.target.value);
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
         id: "durationLabel",
@@ -5150,9 +5207,33 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         }
       }, " ", this.state.scoreData.duration, " sec ")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
         id: "loadingMsg"
-      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tbody", null, // instrument sliders here
+      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, " instrument group toggle: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+        htmlFor: "stringsPreset"
+      }, "strings:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        className: "checkbox",
+        id: "stringsPreset",
+        type: "checkbox",
+        onChange: this.toggleInstrumentPreset.bind(this),
+        value: "strings"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+        htmlFor: "windsPreset"
+      }, "winds:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        className: "checkbox",
+        id: "windsPreset",
+        type: "checkbox",
+        onChange: this.toggleInstrumentPreset.bind(this),
+        value: "winds"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+        htmlFor: "percussionPreset"
+      }, "percussion:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        className: "checkbox",
+        id: "percussionPreset",
+        type: "checkbox",
+        onChange: this.toggleInstrumentPreset.bind(this),
+        value: "percussion"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tbody", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
-        var instrument = _this2.audioManager.instruments[instrumentName];
+        var instrument = _this3.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tr", {
           key: instrumentName + index,
           style: {
@@ -5240,20 +5321,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ScoreList = function ScoreList(props) {
-  var currScoreCategories = props.currScoreCategories;
+  var currScoreCategories = props.currScoreNames.categories;
   var currSelectedScore = props.currSelectedScore;
+  var scoreTags = props.currScoreNames.tags;
+  var currSearchText = props.currSearchText;
   var scoreCategoryStyle = {
     'textDecoration': 'underline',
     'fontWeight': 'bold'
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, Object.keys(currScoreCategories).map(function (scoreCategory) {
+
+  function matchScoreName(text, scoreName) {
+    return scoreName.replace('_', ' ').toLowerCase().includes(text.toLowerCase()) || scoreName.toLowerCase().includes(text.toLowerCase());
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, currScoreCategories && Object.keys(currScoreCategories).map(function (scoreCategory) {
     var sortedList = currScoreCategories[scoreCategory].sort();
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       key: "div_" + scoreCategory
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
       key: "li_" + scoreCategory,
       style: scoreCategoryStyle
-    }, " ", scoreCategory, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, sortedList.map(function (scoreName) {
+    }, " ", scoreCategory, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, sortedList.filter(function (scoreName) {
+      if (currSearchText) {
+        var matchFound = matchScoreName(currSearchText, scoreName);
+
+        if (scoreTags[scoreName]) {
+          matchFound |= scoreTags[scoreName].some(function (tag) {
+            return tag.toLowerCase().includes(currSearchText.toLowerCase());
+          });
+        }
+
+        return matchFound;
+      }
+
+      return true;
+    }).map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
         key: "li_" + scoreName,
         className: scoreName === currSelectedScore ? 'selected' : ''
@@ -5282,7 +5384,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var _useScoreCategories_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useScoreCategories.js */ "./src/useScoreCategories.js");
+/* harmony import */ var _useGetScoreNames_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useGetScoreNames.js */ "./src/useGetScoreNames.js");
 /* harmony import */ var _ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScoreDisplay.js */ "./src/ScoreDisplay.js");
 /* harmony import */ var _ScoreList_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ScoreList.js */ "./src/ScoreList.js");
 
@@ -5295,8 +5397,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ScoreRouter = function ScoreRouter() {
-  var _useScoreCategories = (0,_useScoreCategories_js__WEBPACK_IMPORTED_MODULE_3__.useScoreCategories)(),
-      currScoreCategories = _useScoreCategories.currScoreCategories; // custom hook to get score data
+  var _useGetScoreNames = (0,_useGetScoreNames_js__WEBPACK_IMPORTED_MODULE_3__.useGetScoreNames)(),
+      currScoreNames = _useGetScoreNames.currScoreNames; // custom hook to get score data
 
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
@@ -5316,8 +5418,17 @@ var ScoreRouter = function ScoreRouter() {
         currAboutState = _useState4[0],
         setAboutState = _useState4[1];
 
+    var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+        _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
+        currSearchText = _useState6[0],
+        setCurrSearchText = _useState6[1];
+
     function toggleAbout() {
       setAboutState(!currAboutState);
+    }
+
+    function setSearchText(evt) {
+      setCurrSearchText(evt.target.value);
     }
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
@@ -5325,10 +5436,17 @@ var ScoreRouter = function ScoreRouter() {
       onClick: toggleAbout
     }, "about"), currAboutState && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
       className: "about"
-    }, " Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+    }, "Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
       className: "about"
-    }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, " score list "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreList_js__WEBPACK_IMPORTED_MODULE_5__.ScoreList, {
-      currScoreCategories: props.currScoreCategories,
+    }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
+      htmlFor: "search"
+    }, "search: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+      id: "search",
+      type: "text",
+      onInput: setSearchText
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreList_js__WEBPACK_IMPORTED_MODULE_5__.ScoreList, {
+      currSearchText: currSearchText,
+      currScoreNames: props.currScoreNames,
       currSelectedScore: props.currSelectedScore
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Outlet, null));
   };
@@ -5340,11 +5458,11 @@ var ScoreRouter = function ScoreRouter() {
   }, "src"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
     path: "/",
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Homepage, {
-      currScoreCategories: currScoreCategories,
+      currScoreNames: currScoreNames,
       currSelectedScore: currSelectedScore
     })
-  }), currScoreCategories && Object.keys(currScoreCategories).map(function (scoreCategory) {
-    return currScoreCategories[scoreCategory].map(function (scoreName) {
+  }), currScoreNames.categories && Object.keys(currScoreNames.categories).map(function (scoreCategory) {
+    return currScoreNames.categories[scoreCategory].map(function (scoreName) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
         path: '/' + scoreName,
         element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_4__.ScoreDisplay, {
@@ -5361,16 +5479,16 @@ var ScoreRouter = function ScoreRouter() {
 
 /***/ }),
 
-/***/ "./src/useScoreCategories.js":
-/*!***********************************!*\
-  !*** ./src/useScoreCategories.js ***!
-  \***********************************/
+/***/ "./src/useGetScoreNames.js":
+/*!*********************************!*\
+  !*** ./src/useGetScoreNames.js ***!
+  \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useScoreCategories": () => (/* binding */ useScoreCategories)
+/* harmony export */   "useGetScoreNames": () => (/* binding */ useGetScoreNames)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
@@ -5381,11 +5499,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function useScoreCategories() {
+function useGetScoreNames() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({}),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState, 2),
-      currScoreCategories = _useState2[0],
-      setScoreCategories = _useState2[1];
+      currScoreNames = _useState2[0],
+      setScoreNames = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     function getScoreNames() {
@@ -5393,30 +5511,67 @@ function useScoreCategories() {
     }
 
     function _getScoreNames() {
-      _getScoreNames = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
-        var res, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+      _getScoreNames = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
+        var res, data, scoreNameData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return fetch('src/scoreNames.json');
 
               case 2:
-                res = _context.sent;
-                _context.next = 5;
+                res = _context2.sent;
+                _context2.next = 5;
                 return res.json();
 
               case 5:
-                data = _context.sent;
-                setScoreCategories(data);
+                data = _context2.sent;
+                scoreNameData = {
+                  'categories': data,
+                  'tags': {} // field to store any tags for each arrangement for searching
 
-              case 7:
+                };
+                data.arrangements.forEach( /*#__PURE__*/function () {
+                  var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee(arr) {
+                    var arrJson, jsonData;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return fetch("music/".concat(arr, "/").concat(arr, ".json"));
+
+                          case 2:
+                            arrJson = _context.sent;
+                            _context.next = 5;
+                            return arrJson.json();
+
+                          case 5:
+                            jsonData = _context.sent;
+                            scoreNameData.tags[arr] = jsonData.tags;
+
+                          case 7:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }()); //console.log(scoreNameData);
+
+                setScoreNames(scoreNameData);
+
+              case 9:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
       return _getScoreNames.apply(this, arguments);
     }
@@ -5424,7 +5579,7 @@ function useScoreCategories() {
     getScoreNames();
   }, []);
   return {
-    currScoreCategories: currScoreCategories
+    currScoreNames: currScoreNames
   };
 }
 
