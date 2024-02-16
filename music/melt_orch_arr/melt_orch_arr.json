@@ -1,0 +1,57 @@
+{
+    "name": "melt_orch_arr",
+    "scorePath": "music/melt_orch_arr/melt-orcharr.pdf",
+    "trackPaths": {
+        "bassoons": "music/melt_orch_arr/melt-miku-orcharr-020724edit-BASSOONS.ogg",
+        "strings": "music/melt_orch_arr/melt-miku-orcharr-020724edit-STRINGS.ogg",
+        "clarinets": "music/melt_orch_arr/melt-miku-orcharr-020724edit-CLARINETS.ogg",
+        "flutes": "music/melt_orch_arr/melt-miku-orcharr-020724edit-FLUTES.ogg",
+        "oboes": "music/melt_orch_arr/melt-miku-orcharr-020724edit-OBOES.ogg",
+        "horns": "music/melt_orch_arr/melt-miku-orcharr-020724edit-HORNS.ogg",
+        "trombone": "music/melt_orch_arr/melt-miku-orcharr-020724edit-TROMBONE.ogg",
+        "tuba": "music/melt_orch_arr/melt-miku-orcharr-020724edit-TUBA.ogg",
+        "trumpet": "music/melt_orch_arr/melt-miku-orcharr-020724edit-TRUMPET.ogg",
+        "percussion": "music/melt_orch_arr/melt-miku-orcharr-020724edit-PERCUSSION.ogg",
+        "timpani": "music/melt_orch_arr/melt-miku-orcharr-020724edit-TIMPANI.ogg",
+        "piano": "music/melt_orch_arr/melt-miku-orcharr-020724edit-PIANO.ogg",
+        "glockenspiel": "music/melt_orch_arr/melt-miku-orcharr-020724edit-GLOCKENSPIEL.ogg",
+        "harp": "music/melt_orch_arr/melt-miku-orcharr-020724edit-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of the famous Vocaloid song 「Melt」. The composer is ryo."
+    ],
+    "duration": 116,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 6,
+      "3": 10,
+      "4": 13,
+      "5": 19,
+      "6": 26,
+      "7": 34,
+      "8": 39,
+      "9": 45,
+      "10": 52,
+      "11": 60,
+      "12": 62,
+      "13": 64,
+      "14": 69,
+      "15": 76,
+      "16": 82,
+      "17": 88,
+      "18": 94,
+      "19": 99,
+      "20": 103,
+      "21": 108,
+      "22": 116
+    },
+    "tags": [
+      "vocaloid",
+      "melt",
+      "hatsune miku",
+      "ryo",
+      "メルト",
+      "supercell",
+      "ボーカロイド"
+    ]
+}
