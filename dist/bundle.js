@@ -4907,7 +4907,8 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         "trackPaths": {},
         "notes": [],
         "duration": 0,
-        "timeMarkers": {}
+        "timeMarkers": {},
+        "tags": []
       },
       'showLoadingMsg': false,
       'instruments': {},
@@ -5235,17 +5236,15 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this3.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tr", {
-          key: instrumentName + index,
+          key: "".concat(instrumentName).concat(index),
           style: {
             'marginBottom': '3px'
           },
           className: "instrumentSlider"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
-          style: {
-            'fontWeight': 'bold'
-          }
+          id: "instrumentName"
         }, instrument.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, "vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
-          id: instrument.name + '_vol_slider',
+          id: "".concat(instrument.name, "_vol_slider"),
           type: "range",
           min: "0",
           max: "1.5",
@@ -5254,14 +5253,14 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           onChange: function onChange(evt) {
             // update volume value
             var newVal = evt.target.value;
-            document.getElementById(instrument.name + '_vol_value').textContent = newVal;
+            document.getElementById("".concat(instrument.name, "_vol_value")).textContent = newVal;
             instrument.gainVal = newVal;
             instrument.vol.gain.setValueAtTime(newVal, 0);
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
-          id: instrument.name + '_vol_value'
+          id: "".concat(instrument.name, "_vol_value")
         }, instrument.gainVal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
-          id: instrument.name + '_pan_slider',
+          id: "".concat(instrument.name, "_pan_slider"),
           type: "range",
           min: "-1",
           max: "1",
@@ -5270,31 +5269,25 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           onInput: function onInput(evt) {
             // update pan value
             var newVal = evt.target.value;
-            document.getElementById(instrument.name + '_pan_value').textContent = newVal;
+            document.getElementById("".concat(instrument.name, "_pan_value")).textContent = newVal;
             instrument.panVal = newVal;
             instrument.pan.pan.setValueAtTime(newVal, 0);
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
-          id: instrument.name + '_pan_value'
+          id: "".concat(instrument.name, "_pan_value")
         }, "0")));
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
-        id: "notesContainer",
-        style: {
-          'textAlign': 'left',
-          'padding': '2%'
-        }
+        id: "notesContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
-        style: {
-          'fontWeight': 'bold'
-        }
+        id: "notesHeader"
       }, " notes: "), this.state.scoreData.notes.map(function (note, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
           dangerouslySetInnerHTML: {
             __html: note
           },
-          key: "note" + index
+          key: "".concat(note).concat(index)
         });
-      }))));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, " tags: ", this.state.scoreData.tags.join(", "), " "))));
     }
   }]);
 

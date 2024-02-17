@@ -57,7 +57,11 @@ const ScoreRouter = () => {
                 
                 <label htmlFor='search'>search: </label><input id='search' type='text' onInput={setSearchText} />
                 
-                <ScoreList currSearchText={currSearchText} currScoreNames={props.currScoreNames} currSelectedScore={props.currSelectedScore} />
+                <ScoreList 
+                    currSearchText={currSearchText} 
+                    currScoreNames={props.currScoreNames} 
+                    currSelectedScore={props.currSelectedScore} 
+                />
 
                 <Outlet />
             </>

@@ -13,7 +13,8 @@ class ScoreDisplay extends React.Component {
                 "trackPaths": {},
                 "notes": [],
                 "duration": 0,
-                "timeMarkers": {}
+                "timeMarkers": {},
+                "tags": [],
             },
             'showLoadingMsg': false,
             'instruments': {},
@@ -343,12 +344,12 @@ class ScoreDisplay extends React.Component {
                                     const instrument = this.audioManager.instruments[instrumentName];
                                     return (
                                         <tr
-                                            key={instrumentName + index}
+                                            key={`${instrumentName}${index}`}
                                             style={{'marginBottom': '3px'}}
                                             className='instrumentSlider'
                                         >
                                             <td>
-                                                <p style={{'fontWeight': 'bold'}}>
+                                                <p id='instrumentName'>
                                                     {instrument.name}
                                                 </p>
                                             </td>
@@ -357,7 +358,7 @@ class ScoreDisplay extends React.Component {
                                                 <label>vol: </label>
                                                 
                                                 <input
-                                                    id={instrument.name + '_vol_slider'}
+                                                    id={`${instrument.name}_vol_slider`}
                                                     type='range'
                                                     min='0'
                                                     max='1.5'
@@ -367,14 +368,14 @@ class ScoreDisplay extends React.Component {
                                                         function(evt){
                                                             // update volume value
                                                             const newVal = evt.target.value;
-                                                            document.getElementById(instrument.name+'_vol_value').textContent = newVal;
+                                                            document.getElementById(`${instrument.name}_vol_value`).textContent = newVal;
                                                             instrument.gainVal = newVal;
                                                             instrument.vol.gain.setValueAtTime(newVal, 0);
                                                         }
                                                     }
                                                 ></input>
                                                 
-                                                <label id={instrument.name + '_vol_value'}>
+                                                <label id={`${instrument.name}_vol_value`}>
                                                     {instrument.gainVal}
                                                 </label>
                                             </td>
@@ -383,7 +384,7 @@ class ScoreDisplay extends React.Component {
                                                 <label> pan: </label>
                                                 
                                                 <input
-                                                    id={instrument.name + '_pan_slider'}
+                                                    id={`${instrument.name}_pan_slider`}
                                                     type='range'
                                                     min='-1'
                                                     max='1'
@@ -393,14 +394,14 @@ class ScoreDisplay extends React.Component {
                                                         function(evt){
                                                             // update pan value
                                                             const newVal = evt.target.value;
-                                                            document.getElementById(instrument.name+'_pan_value').textContent = newVal;
+                                                            document.getElementById(`${instrument.name}_pan_value`).textContent = newVal;
                                                             instrument.panVal = newVal;
                                                             instrument.pan.pan.setValueAtTime(newVal, 0);
                                                         }
                                                     }
                                                 ></input>
                                                 
-                                                <label id={instrument.name + '_pan_value'}>0</label>
+                                                <label id={`${instrument.name}_pan_value`}>0</label>
                                             </td>
                                         
                                         </tr>
@@ -411,13 +412,17 @@ class ScoreDisplay extends React.Component {
                         </table>
                     </div>
                     
-                    <div id='notesContainer' style={{'textAlign': 'left', 'padding': '2%'}}>
-                        <p style={{'fontWeight': 'bold'}}> notes: </p>
+                    <div id='notesContainer'>
+                        <p id='notesHeader'> notes: </p>
                         {
                             this.state.scoreData.notes.map((note, index) => {
-                                return <p dangerouslySetInnerHTML={{__html: note}} key={"note" + index} />;
+                                return <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />;
                             })
                         }
+                        
+                        <br />
+                        
+                        <p> tags: {this.state.scoreData.tags.join(", ")} </p>
                     </div>
                     
                 </div>
