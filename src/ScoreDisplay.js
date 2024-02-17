@@ -90,7 +90,7 @@ class ScoreDisplay extends React.Component {
         
         if(this.mounted){
             this.setState({
-                'scoreData': data,
+                'scoreData': Object.assign(this.state.scoreData, data),
                 'instruments': this.audioManager.instruments,
             });
         }
