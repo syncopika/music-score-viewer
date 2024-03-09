@@ -1,0 +1,45 @@
+{
+    "name": "bokuyaba2-ed-arr",
+    "scorePath": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr.pdf",
+    "trackPaths": {
+        "bassoon": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-BASSOON.ogg",
+        "chimes": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-CHIMES.ogg",
+        "clarinet": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-CLARINET.ogg",
+        "flute": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-FLUTE.ogg",
+        "harp": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-HARP.ogg",
+        "horn": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-HORN.ogg",
+        "oboe": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-OBOE.ogg",
+        "percussion": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-PERCUSSION.ogg",
+        "strings": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-STRINGS.ogg",
+        "timpani": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-TIMPANI.ogg",
+        "trombone": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-TROMBONE.ogg",
+        "tuba": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-TUBA.ogg",
+        "vibraphone": "music/bokuyaba2-ed-arr/030224-bokuyaba2-ed-arr-VIBRAPHONE.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「恋してる自分すら愛せるんだ」, the ED of the second season of the anime 「僕の心のヤバイやつ」.",
+        "The composer is KERENMI and the original arrangers are KERENMI and KOHD."
+    ],
+    "duration": 99,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 8,
+      "3": 18,
+      "4": 28,
+      "5": 47,
+      "6": 54,
+      "7": 62,
+      "8": 68,
+      "9": 73,
+      "10": 78,
+      "11": 85,
+      "12": 99
+    },
+    "tags": [
+      "bokuyaba",
+      "the dangers in my heart",
+      "恋してる自分すら愛せるんだ",
+      "僕の心のヤバイやつ",
+      "anime"
+    ]
+}
