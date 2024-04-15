@@ -1,0 +1,53 @@
+{
+    "name": "henjin_no_salad_bowl_ed",
+    "scorePath": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr.pdf",
+    "trackPaths": {
+        "bassoon": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-BASSOON.ogg",
+        "clarinet": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-CLARINET.ogg",
+        "flute": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-FLUTE.ogg",
+        "glockenspiel": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-GLOCKENSPIEL.ogg",
+        "harp": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-HARP.ogg",
+        "horn": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-HORN.ogg",
+        "oboe": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-OBOE.ogg",
+        "percussion": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-PERCUSSION.ogg",
+        "piano": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-PIANO.ogg",
+        "piccolo": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-PICCOLO.ogg",
+        "strings": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-STRINGS.ogg",
+        "timpani": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-TIMPANI.ogg",
+        "trombone": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-TROMBONE.ogg",
+        "tuba": "music/henjin_no_salad_bowl_ed/041224-henjinnosaladbowl-ed-orcharr-TUBA.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「今晩の喧嘩」, the ending song for the anime 変人のサラダボウル.",
+        "The composer is けっさく."
+    ],
+    "startPage": 2,
+    "duration": 100,
+    "timeMarkers": {
+        "2": 7,
+        "3": 13,
+        "4": 19,
+        "5": 26,
+        "6": 32,
+        "7": 36,
+        "8": 42,
+        "9": 48,
+        "10": 54,
+        "11": 58,
+        "12": 64,
+        "13": 69,
+        "14": 75,
+        "15": 79,
+        "16": 83,
+        "17": 89,
+        "18": 94,
+        "19": 100
+    },
+    "tags": [
+        "今晩の喧嘩", 
+        "変人のサラダボウル", 
+        "henjin no salad bowl", 
+        "anime",
+        "orchestra"
+    ]
+}
