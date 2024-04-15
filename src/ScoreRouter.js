@@ -37,42 +37,59 @@ const ScoreRouter = () => {
 
         return (
             <>
-                <h2 className='aboutHeader' onClick={toggleAbout}>about</h2>
-                {
-                    currAboutState &&
-                    <>
-                        <p className='about'> 
-                            Thanks for visiting! This is a place for me to display some of my music work and arrangements. 
-                            I hope you'll find something interesting. 
-                        </p>
-                        <p className='about'>
-                            disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. 
-                            There are probably errors as well. 
-                            Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism. 
-                        </p>
-                    </>
-                }
+                <header>
+                    <h2>
+                        <Link to='/'> music score viewer </Link>
+                        <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span>
+                    </h2>
+                    <h3 className='aboutHeader' onClick={toggleAbout}>about</h3>
+                    {
+                        currAboutState &&
+                        <>
+                            <p className='about'>
+                                Thanks for visiting! This is a place for me to display
+                                some of my music work and arrangements.
+                                I hope you'll find something interesting.
+                            </p>
+                            <p className='about'>
+                                disclaimer: As much as I try to write playable stuff,
+                                some of my arrangements may be awkward and/or nonsensical.
+                                There are probably errors as well.
+                                Apologies in advance and any feedback is welcome and would be well-appreciated
+                                via GitHub issue for any suggestions/corrections/constructive criticism.
+                            </p>
+                        </>
+                    }
+                    <hr />
+                </header>
                 
-                <hr />
-                
-                <label htmlFor='search'>search: </label><input id='search' type='text' onInput={setSearchText} />
-                
-                <ScoreList 
-                    currSearchText={currSearchText} 
-                    currScoreNames={props.currScoreNames} 
-                    currSelectedScore={props.currSelectedScore} 
-                />
+                <main>
+                    <label htmlFor='search'>search: </label>
+                    <input id='search' type='text' onInput={setSearchText} />
+                    
+                    <ScoreList
+                        currSearchText={currSearchText}
+                        currScoreNames={props.currScoreNames}
+                        currSelectedScore={props.currSelectedScore}
+                    />
 
-                <Outlet />
+                    <Outlet />
+                </main>
             </>
         );
     };
 
     return (
         <HashRouter>
-            <h3><Link to='/'> music score viewer </Link><span><a href="https://github.com/syncopika/music-score-viewer">src</a></span></h3>
             <Routes>
-                <Route path='/' element={<Homepage currScoreNames={currScoreNames} currSelectedScore={currSelectedScore} />} />
+                <Route
+                    path='/'
+                    element={
+                        <Homepage
+                            currScoreNames={currScoreNames}
+                            currSelectedScore={currSelectedScore} />
+                    }
+                />
                 {
                     currScoreNames.categories && Object.keys(currScoreNames.categories).map(scoreCategory => {
                         return currScoreNames.categories[scoreCategory].map(scoreName => {
@@ -80,7 +97,10 @@ const ScoreRouter = () => {
                                 <Route
                                     path={'/' + scoreName}
                                     element={
-                                        <ScoreDisplay key={'route_' + scoreName} scoreName={scoreName} callback={selectScore(scoreName)} />
+                                        <ScoreDisplay
+                                            key={'route_' + scoreName}
+                                            scoreName={scoreName}
+                                            callback={selectScore(scoreName)} />
                                     }
                                 />
                             )

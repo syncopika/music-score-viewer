@@ -234,21 +234,41 @@ class ScoreDisplay extends React.Component {
         return(
             <div id='container'>
                 <div id='content'>
-                    <div>
-                      <button id="prevPage" disabled={this.state.prevPageButtonDisabled} onClick={this.pdfManager.onPrevPage.bind(this.pdfManager)}>previous</button>
-                      <span> page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span></span>
-                      <button id="nextPage" disabled={this.state.nextPageButtonDisabled} onClick={this.pdfManager.onNextPage.bind(this.pdfManager)}> next </button>
-                    </div>
+                    <section>
+                      <button
+                          id="prevPage"
+                          disabled={this.state.prevPageButtonDisabled}
+                          onClick={this.pdfManager.onPrevPage.bind(this.pdfManager)}
+                      >
+                          previous
+                      </button>
+                      
+                      <span>
+                          page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span>
+                      </span>
+                      
+                      <button
+                          id="nextPage"
+                          disabled={this.state.nextPageButtonDisabled}
+                          onClick={this.pdfManager.onNextPage.bind(this.pdfManager)}
+                      >
+                          next
+                      </button>
+                    </section>
+                    
                     <br />
+                    
                     <canvas id="the-canvas"></canvas>
+                    
                     <br />
+                    
                     <button id="open-score-in-tab" onClick={() => {
                         if(this.state.scoreData.scorePath) window.open(this.state.scoreData.scorePath)
                     }}> open score in another tab </button>
                 </div>
                 
                 <div id='toolbar'>
-                    <div id='buttons'>
+                    <section id='buttons'>
                         <button
                             id='playMusic' 
                             data-playing={this.state.isPlaying}
@@ -266,17 +286,18 @@ class ScoreDisplay extends React.Component {
                         >
                             stop
                         </button>
-                    </div>
+                    </section>
                     
-                    <div id='playbackSeek' style={{'marginBottom': '2%'}}>
-                        <label> seek: </label>
-                        
-                        <label 
-                            id='currTimeLabel' 
+                    <section id='playbackSeek' style={{'marginBottom': '2%'}}>
+                        <label
+                            id='currTimeLabel'
+                            htmlFor='playbackSeekSlider'
                             style={{'marginRight': '1%'}}
-                        >0</label>
+                        >
+                            seek: 0
+                        </label>
                         
-                        <input 
+                        <input
                             id='playbackSeekSlider'
                             type='range'
                             min='0'
@@ -286,134 +307,130 @@ class ScoreDisplay extends React.Component {
                             onInput={
                                 (evt) => {
                                     const newVal = evt.target.value;
-                                    document.getElementById('currTimeLabel').textContent = newVal;
+                                    document.getElementById('currTimeLabel').textContent = `seek: ${newVal}`;
                                     this.audioManager.seekTime = parseInt(evt.target.value);
                                 }
                             }
                         ></input>
                         
-                        <label 
+                        <span
                             id='durationLabel'
                             style={{'marginLeft': '1%'}}
-                        > {this.state.scoreData.duration} sec </label>
-                    </div>
+                        >
+                            {this.state.scoreData.duration} sec
+                        </span>
+                    </section>
                     
                     {
                         this.state.showLoadingMsg &&
                         <h3 id='loadingMsg'>loading instruments...</h3>
                     }
                     
-                    <div>
-                        <div>
-                          <p> instrument group toggle: </p>
-                          <label htmlFor='stringsPreset'>strings:</label>
-                          <input
-                              className='checkbox'
-                              id='stringsPreset' 
-                              type='checkbox' 
-                              onChange={this.toggleInstrumentPreset.bind(this)} 
-                              value='strings'
-                          />
-                          
-                          <label htmlFor='windsPreset'>winds:</label>
-                          <input
-                              className='checkbox'
-                              id='windsPreset' 
-                              type='checkbox' 
-                              onChange={this.toggleInstrumentPreset.bind(this)} 
-                              value='winds'
-                          />
-                          
-                          <label htmlFor='percussionPreset'>percussion:</label>
-                          <input
-                              className='checkbox'
-                              id='percussionPreset' 
-                              type='checkbox' 
-                              onChange={this.toggleInstrumentPreset.bind(this)} 
-                              value='percussion'
-                          />
-                        </div>
-                        
-                        <br />
-                        
-                        <table>
-                            <tbody>
-                            {
-                                // instrument sliders here
-                                Object.keys(this.state.instruments).map((instrumentName, index) => {
-                                    const instrument = this.audioManager.instruments[instrumentName];
-                                    return (
-                                        <tr
-                                            key={`${instrumentName}${index}`}
-                                            style={{'marginBottom': '3px'}}
-                                            className='instrumentSlider'
-                                        >
-                                            <td>
-                                                <p id='instrumentName'>
-                                                    {instrument.name}
-                                                </p>
-                                            </td>
-                                            
-                                            <td> 
-                                                <label>vol: </label>
-                                                
-                                                <input
-                                                    id={`${instrument.name}_vol_slider`}
-                                                    type='range'
-                                                    min='0'
-                                                    max='1.5'
-                                                    step='0.1'
-                                                    defaultValue={instrument.gainVal}
-                                                    onChange={
-                                                        function(evt){
-                                                            // update volume value
-                                                            const newVal = evt.target.value;
-                                                            document.getElementById(`${instrument.name}_vol_value`).textContent = newVal;
-                                                            instrument.gainVal = newVal;
-                                                            instrument.vol.gain.setValueAtTime(newVal, 0);
-                                                        }
-                                                    }
-                                                ></input>
-                                                
-                                                <label id={`${instrument.name}_vol_value`}>
-                                                    {instrument.gainVal}
-                                                </label>
-                                            </td>
-                                            
-                                            <td>
-                                                <label> pan: </label>
-                                                
-                                                <input
-                                                    id={`${instrument.name}_pan_slider`}
-                                                    type='range'
-                                                    min='-1'
-                                                    max='1'
-                                                    step='0.1'
-                                                    defaultValue={instrument.panVal}
-                                                    onInput={
-                                                        function(evt){
-                                                            // update pan value
-                                                            const newVal = evt.target.value;
-                                                            document.getElementById(`${instrument.name}_pan_value`).textContent = newVal;
-                                                            instrument.panVal = newVal;
-                                                            instrument.pan.pan.setValueAtTime(newVal, 0);
-                                                        }
-                                                    }
-                                                ></input>
-                                                
-                                                <label id={`${instrument.name}_pan_value`}>0</label>
-                                            </td>
-                                        
-                                        </tr>
-                                    );
-                                })
-                            }
-                            </tbody>
-                        </table>
-                    </div>
+                    <p> instrument group toggle: </p>
+                    <label htmlFor='stringsPreset'>strings:</label>
+                    <input
+                        className='checkbox'
+                        id='stringsPreset'
+                        type='checkbox'
+                        onChange={this.toggleInstrumentPreset.bind(this)}
+                        value='strings'
+                    />
                     
-                    <div id='notesContainer'>
-                        <p id='notesHeader'> notes: </p>
+                    <label htmlFor='windsPreset'>winds:</label>
+                    <input
+                        className='checkbox'
+                        id='windsPreset'
+                        type='checkbox'
+                        onChange={this.toggleInstrumentPreset.bind(this)}
+                        value='winds'
+                    />
+                    
+                    <label htmlFor='percussionPreset'>percussion:</label>
+                    <input
+                        className='checkbox'
+                        id='percussionPreset'
+                        type='checkbox'
+                        onChange={this.toggleInstrumentPreset.bind(this)}
+                        value='percussion'
+                    />
+                    
+                    <table id='instrumentControls'>
+                        <tbody>
+                        {
+                            // instrument sliders here
+                            Object.keys(this.state.instruments).map((instrumentName, index) => {
+                                const instrument = this.audioManager.instruments[instrumentName];
+                                return (
+                                    <tr
+                                        key={`${instrumentName}${index}`}
+                                        style={{'marginBottom': '3px'}}
+                                        className='instrumentSlider'
+                                    >
+                                        <td>
+                                            <p id='instrumentName'>
+                                                {instrument.name}
+                                            </p>
+                                        </td>
+                                        
+                                        <td>
+                                            <label htmlFor={`${instrument.name}_vol_slider`}>vol: </label>
+                                            
+                                            <input
+                                                id={`${instrument.name}_vol_slider`}
+                                                type='range'
+                                                min='0'
+                                                max='1.5'
+                                                step='0.1'
+                                                defaultValue={instrument.gainVal}
+                                                onChange={
+                                                    function(evt){
+                                                        // update volume value
+                                                        const newVal = evt.target.value;
+                                                        document.getElementById(`${instrument.name}_vol_value`).textContent = newVal;
+                                                        instrument.gainVal = newVal;
+                                                        instrument.vol.gain.setValueAtTime(newVal, 0);
+                                                    }
+                                                }
+                                            ></input>
+                                            
+                                            <span id={`${instrument.name}_vol_value`}>
+                                                {instrument.gainVal}
+                                            </span>
+                                        </td>
+                                        
+                                        <td>
+                                            <label htmlFor={`${instrument.name}_pan_slider`}> pan: </label>
+                                            
+                                            <input
+                                                id={`${instrument.name}_pan_slider`}
+                                                type='range'
+                                                min='-1'
+                                                max='1'
+                                                step='0.1'
+                                                defaultValue={instrument.panVal}
+                                                onInput={
+                                                    function(evt){
+                                                        // update pan value
+                                                        const newVal = evt.target.value;
+                                                        document.getElementById(`${instrument.name}_pan_value`).textContent = newVal;
+                                                        instrument.panVal = newVal;
+                                                        instrument.pan.pan.setValueAtTime(newVal, 0);
+                                                    }
+                                                }
+                                            ></input>
+                                            
+                                            <span id={`${instrument.name}_pan_value`}>0</span>
+                                        </td>
+                                    
+                                    </tr>
+                                );
+                            })
+                        }
+                        </tbody>
+                    </table>
+                    
+                    <section id='notesContainer'>
+                        <h3 id='notesHeader'> notes: </h3>
                         {
                             this.state.scoreData.notes.map((note, index) => {
                                 return <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />;
@@ -423,7 +440,7 @@ class ScoreDisplay extends React.Component {
                         <br />
                         
                         <p> tags: {this.state.scoreData.tags.join(", ")} </p>
-                    </div>
+                    </section>
                     
                 </div>
             </div>
