@@ -5145,11 +5145,11 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         id: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "prevPage",
         disabled: this.state.prevPageButtonDisabled,
         onClick: this.pdfManager.onPrevPage.bind(this.pdfManager)
-      }, "previous"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", null, " page: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
+      }, "previous"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", null, "page: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
         id: "page_num"
       }, this.state.currPage), " / ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
         id: "page_count"
@@ -5157,7 +5157,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         id: "nextPage",
         disabled: this.state.nextPageButtonDisabled,
         onClick: this.pdfManager.onNextPage.bind(this.pdfManager)
-      }, " next ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("canvas", {
+      }, "next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("canvas", {
         id: "the-canvas"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "open-score-in-tab",
@@ -5166,7 +5166,7 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         }
       }, " open score in another tab ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
         id: "toolbar"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("section", {
         id: "buttons"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("button", {
         id: "playMusic",
@@ -5179,17 +5179,18 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         id: "stopMusic",
         "aria-checked": "false",
         onClick: this.stop.bind(this)
-      }, "stop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+      }, "stop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("section", {
         id: "playbackSeek",
         style: {
           'marginBottom': '2%'
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " seek: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
         id: "currTimeLabel",
+        htmlFor: "playbackSeekSlider",
         style: {
           'marginRight': '1%'
         }
-      }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+      }, "seek: 0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
         id: "playbackSeekSlider",
         type: "range",
         min: "0",
@@ -5198,17 +5199,17 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         defaultValue: "0",
         onInput: function onInput(evt) {
           var newVal = evt.target.value;
-          document.getElementById('currTimeLabel').textContent = newVal;
+          document.getElementById('currTimeLabel').textContent = "seek: ".concat(newVal);
           _this3.audioManager.seekTime = parseInt(evt.target.value);
         }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
         id: "durationLabel",
         style: {
           'marginLeft': '1%'
         }
-      }, " ", this.state.scoreData.duration, " sec ")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
+      }, this.state.scoreData.duration, " sec")), this.state.showLoadingMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
         id: "loadingMsg"
-      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, " instrument group toggle: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+      }, "loading instruments..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", null, " instrument group toggle: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
         htmlFor: "stringsPreset"
       }, "strings:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
         className: "checkbox",
@@ -5232,7 +5233,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
         type: "checkbox",
         onChange: this.toggleInstrumentPreset.bind(this),
         value: "percussion"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tbody", null, // instrument sliders here
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("table", {
+        id: "instrumentControls"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tbody", null, // instrument sliders here
       Object.keys(this.state.instruments).map(function (instrumentName, index) {
         var instrument = _this3.audioManager.instruments[instrumentName];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("tr", {
@@ -5243,7 +5246,9 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
           className: "instrumentSlider"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
           id: "instrumentName"
-        }, instrument.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, "vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        }, instrument.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+          htmlFor: "".concat(instrument.name, "_vol_slider")
+        }, "vol: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: "".concat(instrument.name, "_vol_slider"),
           type: "range",
           min: "0",
@@ -5257,9 +5262,11 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
             instrument.gainVal = newVal;
             instrument.vol.gain.setValueAtTime(newVal, 0);
           }
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
           id: "".concat(instrument.name, "_vol_value")
-        }, instrument.gainVal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", null, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
+        }, instrument.gainVal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+          htmlFor: "".concat(instrument.name, "_pan_slider")
+        }, " pan: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("input", {
           id: "".concat(instrument.name, "_pan_slider"),
           type: "range",
           min: "-1",
@@ -5273,12 +5280,12 @@ var ScoreDisplay = /*#__PURE__*/function (_React$Component) {
             instrument.panVal = newVal;
             instrument.pan.pan.setValueAtTime(newVal, 0);
           }
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("label", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("span", {
           id: "".concat(instrument.name, "_pan_value")
         }, "0")));
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("div", {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("section", {
         id: "notesContainer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("h3", {
         id: "notesHeader"
       }, " notes: "), this.state.scoreData.notes.map(function (note, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8__.createElement("p", {
@@ -5376,8 +5383,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _useGetScoreNames_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useGetScoreNames.js */ "./src/useGetScoreNames.js");
 /* harmony import */ var _ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScoreDisplay.js */ "./src/ScoreDisplay.js");
 /* harmony import */ var _ScoreList_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ScoreList.js */ "./src/ScoreList.js");
@@ -5425,14 +5432,18 @@ var ScoreRouter = function ScoreRouter() {
       setCurrSearchText(evt.target.value);
     }
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+      to: "/"
+    }, " music score viewer "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
+      href: "https://github.com/syncopika/music-score-viewer"
+    }, "src"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", {
       className: "aboutHeader",
       onClick: toggleAbout
     }, "about"), currAboutState && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
       className: "about"
     }, "Thanks for visiting! This is a place for me to display some of my music work and arrangements. I hope you'll find something interesting."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
       className: "about"
-    }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Sorry in advance and any feedback is welcome via GitHub issue for any suggestions/corrections/constructive criticism.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
+    }, "disclaimer: As much as I try to write playable stuff, some of my arrangements may be awkward and/or nonsensical. There are probably errors as well. Apologies in advance and any feedback is welcome and would be well-appreciated via GitHub issue for any suggestions/corrections/constructive criticism.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("hr", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
       htmlFor: "search"
     }, "search: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
       id: "search",
@@ -5442,14 +5453,10 @@ var ScoreRouter = function ScoreRouter() {
       currSearchText: currSearchText,
       currScoreNames: props.currScoreNames,
       currSelectedScore: props.currSelectedScore
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Outlet, null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Outlet, null)));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-    to: "/"
-  }, " music score viewer "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
-    href: "https://github.com/syncopika/music-score-viewer"
-  }, "src"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
     path: "/",
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Homepage, {
       currScoreNames: currScoreNames,
@@ -5457,7 +5464,7 @@ var ScoreRouter = function ScoreRouter() {
     })
   }), currScoreNames.categories && Object.keys(currScoreNames.categories).map(function (scoreCategory) {
     return currScoreNames.categories[scoreCategory].map(function (scoreName) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: '/' + scoreName,
         element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScoreDisplay_js__WEBPACK_IMPORTED_MODULE_4__.ScoreDisplay, {
           key: 'route_' + scoreName,
