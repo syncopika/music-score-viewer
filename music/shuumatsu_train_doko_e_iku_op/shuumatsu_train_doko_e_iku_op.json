@@ -1,0 +1,50 @@
+{
+    "name": "shuumatsu_train_doko_e_iku_op",
+    "scorePath": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr.pdf",
+    "trackPaths": {
+        "bassoon": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-BASSOON.ogg",
+        "oboe": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-OBOE.ogg",
+        "clarinet": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-CLARINET.ogg",
+        "flute": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-FLUTE.ogg",
+        "strings": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-STRINGS.ogg",
+        "harp": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-HARP.ogg",
+        "piano": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-PIANO.ogg",
+        "horns": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-HORNS.ogg",
+        "trombone": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-TROMBONE.ogg",
+        "tuba": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-TUBA.ogg",
+        "percussion": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-PERCUSSION.ogg",
+        "timpani": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-TIMPANI.ogg",
+        "vibraphone": "music/shuumatsu_train_doko_e_iku_op/050124-shuumatsutraindokoeikuOP-arr-VIBRAPHONE.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「GA-TAN GO-TON」, the OP of the anime 終末トレインどこへいく？",
+        "The composers are 姉田ウ夢ヤ and 堀下さゆり."
+    ],
+    "startPage": 2,
+    "duration": 96,
+    "timeMarkers": {
+      "2": 10,
+      "3": 17,
+      "4": 23,
+      "5": 29,
+      "6": 38,
+      "7": 45,
+      "8": 51,
+      "9": 57,
+      "10": 62,
+      "11": 65,
+      "12": 68,
+      "13": 72,
+      "14": 78,
+      "15": 90,
+      "16": 96
+    },
+    "tags": [
+      "anime",
+      "終末トレインどこへいく",
+      "shuumatsu train doko e iku",
+      "ga-tan",
+      "go-ton",
+      "アニメ"
+    ]
+}
