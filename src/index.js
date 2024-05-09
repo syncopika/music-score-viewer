@@ -3,6 +3,6 @@ import ReactDOM from 'react-dom';
 import { ScoreRouter } from './ScoreRouter.js';
 
 ReactDOM.render(
-    <ScoreRouter />,
-    document.getElementById('root')
+  <ScoreRouter />,
+  document.getElementById('root')
 );
