@@ -252,7 +252,7 @@ class ScoreDisplay extends React.Component {
               disabled={this.state.nextPageButtonDisabled}
               onClick={this.pdfManager.onNextPage.bind(this.pdfManager)}
             >
-                          next
+              next
             </button>
           </section>
                     
@@ -294,7 +294,7 @@ class ScoreDisplay extends React.Component {
               htmlFor='playbackSeekSlider'
               style={{'marginRight': '1%'}}
             >
-                            seek: 0
+              seek: 0
             </label>
                         
             <input
@@ -323,7 +323,7 @@ class ScoreDisplay extends React.Component {
                     
           {
             this.state.showLoadingMsg &&
-                        <h3 id='loadingMsg'>loading instruments...</h3>
+            <h3 id='loadingMsg'>loading instruments...</h3>
           }
                     
           <p> instrument group toggle: </p>
