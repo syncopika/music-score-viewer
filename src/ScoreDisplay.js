@@ -240,11 +240,11 @@ class ScoreDisplay extends React.Component {
               disabled={this.state.prevPageButtonDisabled}
               onClick={this.pdfManager.onPrevPage.bind(this.pdfManager)}
             >
-                          previous
+              previous
             </button>
                       
             <span>
-                          page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span>
+              page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span>
             </span>
                       
             <button
@@ -284,7 +284,7 @@ class ScoreDisplay extends React.Component {
               aria-checked="false"
               onClick={this.stop.bind(this)}
             >
-                            stop
+              stop
             </button>
           </section>
                     

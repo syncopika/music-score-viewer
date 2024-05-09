@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <style>
-        body, #content, #toolbar {
+        body {
             text-align: center;
             font-family: 'Open Sans', sans-serif;
         }
@@ -58,6 +58,11 @@
         table {
             margin: 0 auto;
             width: 80%;
+            border-collapse: collapse
+        }
+        
+        table, th, td {
+            border: 1px solid;
         }
         
         span {
@@ -94,8 +99,8 @@
 <body>
     <div id='root'>
     </div>
+    
+    <script src="dist/bundle.js"></script>
 </body>
-
-<script src="dist/bundle.js"></script>
 
 </html>
