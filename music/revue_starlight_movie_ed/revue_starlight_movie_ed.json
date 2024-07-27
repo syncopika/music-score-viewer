@@ -1,0 +1,62 @@
+{
+    "name": "revue_starlight_movie_ed",
+    "scorePath": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit.pdf",
+    "trackPaths": {
+        "bassoon": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-BASSOON.ogg",
+        "horn": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-HORN.ogg",
+        "chimes": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-CHIMES.ogg",
+        "percussion": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-PERCUSSION.ogg",
+        "glockenspiel": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-GLOCKENSPIEL.ogg",
+        "clarinet": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-CLARINET.ogg",
+        "strings": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-STRINGS.ogg",
+        "tuba": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-TUBA.ogg",
+        "trombone": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-TROMBONE.ogg",
+        "piano": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-PIANO.ogg",
+        "timpani": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-TIMPANI.ogg",
+        "flutes & piccolo": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-FLUTE_PICCOLO.ogg",
+        "oboe": "music/revue_starlight_movie_ed/070324-revuestarlightmovieED-arr-edit-OBOE.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「私たちはもう舞台の上」, the ending theme for the 少女☆歌劇 レヴュースタァライト movie.",
+        "The composer of the intro (measures 1-13 I believe) is 本多友紀 and the composer of the song itself is 佐藤純一.",
+        "I also tried including a bit of 「舞台少女心得」 and 「wi(l)d-screen baroque」 in this arrangement, whose composers are 本多友紀 and 三好 啓太, respectively."
+    ],
+    "duration": 141,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 5,
+      "3": 9,
+      "4": 12,
+      "5": 16,
+      "6": 23,
+      "7": 27,
+      "8": 31,
+      "9": 34,
+      "10": 40,
+      "11": 45,
+      "12": 51,
+      "13": 56,
+      "14": 62,
+      "15": 68,
+      "16": 74,
+      "17": 81,
+      "18": 85,
+      "19": 87,
+      "20": 91,
+      "21": 95,
+      "22": 99,
+      "23": 103,
+      "24": 109,
+      "25": 118,
+      "26": 126,
+      "27": 132,
+      "28": 141
+    },
+    "tags": [
+      "revue",
+      "starlight",
+      "anime",
+      "私たちはもう舞台の上",
+      "レヴュースタァライト"
+    ]
+}
