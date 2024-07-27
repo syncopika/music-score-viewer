@@ -14,7 +14,7 @@ export const ScoreList = (props) => {
     
   function matchScoreName(text, scoreName){
     return scoreName.replace('_', ' ').toLowerCase().includes(text.toLowerCase()) ||
-               scoreName.toLowerCase().includes(text.toLowerCase());
+           scoreName.toLowerCase().includes(text.toLowerCase());
   }
     
   return (

@@ -45,20 +45,20 @@ const ScoreRouter = () => {
           <h3 className='aboutHeader' onClick={toggleAbout}>about</h3>
           {
             currAboutState &&
-                        <>
-                          <p className='about'>
-                                Thanks for visiting! This is a place for me to display
-                                some of my music work and arrangements.
-                                I hope you'll find something interesting.
-                          </p>
-                          <p className='about'>
-                                disclaimer: As much as I try to write playable stuff,
-                                some of my arrangements may be awkward and/or nonsensical.
-                                There are probably errors as well.
-                                Apologies in advance and any feedback is welcome and would be well-appreciated
-                                via GitHub issue for any suggestions/corrections/constructive criticism.
-                          </p>
-                        </>
+            <>
+              <p className='about'>
+                Thanks for visiting! This is a place for me to display
+                some of my music work and arrangements.
+                I hope you'll find something interesting.
+              </p>
+              <p className='about'>
+                disclaimer: As much as I try to write playable stuff,
+                some of my arrangements may be awkward and/or nonsensical.
+                There are probably errors as well.
+                Apologies in advance and any feedback (suggestions/corrections/constructive criticism)
+                is welcome and would be well-appreciated via GitHub issue.
+              </p>
+            </>
           }
           <hr />
         </header>
