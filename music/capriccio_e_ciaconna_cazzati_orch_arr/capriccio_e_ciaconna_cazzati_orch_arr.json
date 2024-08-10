@@ -1,0 +1,38 @@
+{
+    "name": "capriccio_e_ciaconna_cazzati_orch_arr",
+    "scorePath": "music/capriccio_e_ciaconna_cazzati_orch_arr/cazatti-capriccio-e-ciaconna-orcharr.pdf",
+    "trackPaths": {
+        "piano": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-piano.ogg",
+        "horn": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-horn.ogg",
+        "strings": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-strings.ogg",
+        "flute": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-flute.ogg",
+        "clarinet": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-clarinet.ogg",
+        "bassoon": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-bassoon.ogg",
+        "oboe": "music/capriccio_e_ciaconna_cazzati_orch_arr/capriccio-e-ciaconna-orch-arr-oboe.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of an excerpt of \"Capriccio e ciaconna\" from Jean Tubéry's \"Un Concert pour Mazarin\". I believe I only arranged the capriccio part. Interestingly, this particular piece of music seems to have only been recorded by Jean Tubéry and I can't seem to find any records (no sheets, no other recordings, no historical info) of this piece anywhere.",
+        "The composer is Maurizio Cazzati (1616-1678)."
+    ],
+    "startPage": 2,
+    "duration": 132,
+    "timeMarkers": {
+      "2": 15,
+      "3": 25,
+      "4": 35,
+      "5": 41,
+      "6": 47,
+      "7": 56,
+      "8": 62,
+      "9": 68,
+      "10": 72,
+      "11": 78,
+      "12": 87,
+      "13": 95,
+      "14": 104,
+      "15": 112,
+      "16": 119,
+      "17": 123,
+      "18": 132
+    }
+}
