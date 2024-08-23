@@ -209,7 +209,7 @@ class ScoreDisplay extends React.Component {
       
       if(activeInstruments.has(inst)){
         // if this instrument is in the selected category
-        newVal = 0.5;          
+        newVal = 0.5;
       }
       
       this.state.instruments[inst].gainVal = newVal;
