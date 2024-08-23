@@ -13,10 +13,12 @@ export function useGetScoreNames(){
         'tags': {}, // field to store any tags for each arrangement for searching
       };
             
-      data.arrangements.forEach(async (arr) => {
-        const arrJson = await fetch(`music/${arr}/${arr}.json`);
-        const jsonData = await arrJson.json();
-        scoreNameData.tags[arr] = jsonData.tags;
+      Object.keys(data).forEach(arrCategory => {
+        data[arrCategory].forEach(async (arr) => {
+          const arrJson = await fetch(`music/${arr}/${arr}.json`);
+          const jsonData = await arrJson.json();
+          scoreNameData.tags[arr] = jsonData.tags;
+        });
       });
             
       //console.log(scoreNameData);
