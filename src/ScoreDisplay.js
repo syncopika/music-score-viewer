@@ -7,25 +7,25 @@ class ScoreDisplay extends React.Component {
     super(props);
         
     this.state = {
-      'scoreData': {
-        "name": "",
-        "scorePath": "",
-        "trackPaths": {},
-        "notes": [],
-        "duration": 0,
-        "timeMarkers": {},
-        "tags": [],
+      scoreData: {
+        name: "",
+        scorePath: "",
+        trackPaths: {},
+        notes: [],
+        duration: 0,
+        timeMarkers: {},
+        tags: [],
       },
-      'showLoadingMsg': false,
-      'instruments': {},
-      'currPage': 1,
-      'totalPages': 0,
-      'prevPageButtonDisabled': false,
-      'nextPageButtonDisabled': false,
-      'playButtonDisabled': true,
-      'isPlaying': false,
+      showLoadingMsg: false,
+      instruments: {},
+      currPage: 1,
+      totalPages: 0,
+      prevPageButtonDisabled: false,
+      nextPageButtonDisabled: false,
+      playButtonDisabled: true,
+      isPlaying: false,
     };
-            
+    
     this.scoreMetadataPath = `./music/${props.scoreName}/${props.scoreName}.json`;
     this.callbackFn = props.callback; // callback function. in this case we want to update the currently selected score in the root component (see ScoreRouter.js)
         
@@ -73,6 +73,8 @@ class ScoreDisplay extends React.Component {
         'drums',
       ],
     };
+    
+    this.selectedPresets = new Set();
   }
     
   async importScore(scorePath){
@@ -179,27 +181,37 @@ class ScoreDisplay extends React.Component {
       'nextPageButtonDisabled': false,
     });
   }
+  
+  selectPreset(evt){
+    const presetName = evt.target.value;
+    if(this.selectedPresets.has(presetName)){
+      this.selectedPresets.delete(presetName);
+    }else{
+      this.selectedPresets.add(presetName);
+    }
     
-  toggleInstrumentPreset(evt){
-    const instCategoryToToggle = evt.target.value;
-    const instrumentsInCategory = this.instrumentCategories[instCategoryToToggle];
+    this.toggleInstrumentPresets();
+  }
+    
+  toggleInstrumentPresets(){
+    const activeInstruments = new Set();
+    
+    this.selectedPresets.forEach(instCategoryToToggle => {
+      this.instrumentCategories[instCategoryToToggle].forEach(inst => {
+        activeInstruments.add(inst);
+      });
+    });
+      
     Object.keys(this.state.instruments).forEach(inst => {
       const volSlider = document.getElementById(`${inst}_vol_slider`);
+      
       let newVal = 0;
-      for(const i of instrumentsInCategory){
-        if(inst.includes(i)){
-          // if this instrument is in the selected category
-          if(evt.target.checked){
-            // turn on
-            newVal = 0.5;
-          }else{
-            // otherwise turn off
-            newVal = 0.0;
-          }
-          break;
-        }
+      
+      if(activeInstruments.has(inst)){
+        // if this instrument is in the selected category
+        newVal = 0.5;          
       }
-            
+      
       this.state.instruments[inst].gainVal = newVal;
       this.state.instruments[inst].vol.gain.setValueAtTime(newVal, 0);
       volSlider.value = newVal;
@@ -332,7 +344,7 @@ class ScoreDisplay extends React.Component {
             className='checkbox'
             id='stringsPreset'
             type='checkbox'
-            onChange={this.toggleInstrumentPreset.bind(this)}
+            onChange={this.selectPreset.bind(this)}
             value='strings'
           />
                     
@@ -341,7 +353,7 @@ class ScoreDisplay extends React.Component {
             className='checkbox'
             id='windsPreset'
             type='checkbox'
-            onChange={this.toggleInstrumentPreset.bind(this)}
+            onChange={this.selectPreset.bind(this)}
             value='winds'
           />
                     
@@ -350,7 +362,7 @@ class ScoreDisplay extends React.Component {
             className='checkbox'
             id='percussionPreset'
             type='checkbox'
-            onChange={this.toggleInstrumentPreset.bind(this)}
+            onChange={this.selectPreset.bind(this)}
             value='percussion'
           />
                     

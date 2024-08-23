@@ -6,9 +6,8 @@
         "bluevale-town-theme",
         "forest-puzzle-game-bgm-idea"
     ],
-    "arrangements": [
+    "anime arrangements": [
         "amagami_ss_plus_op",
-        "antigravity_girl",
         "bocchi_the_rock_ed2",
         "princess_connect_op",
         "senryuu_shoujo_ed",
@@ -23,25 +22,28 @@
         "kiratto_prichan_s2_ed2",
         "softenni_op_orch_arr",
         "hiruyasumi_to_helmet_to_doukyusei",
-        "hanayori_dorm_intro_song",
-        "pokemon_yellow_op",
         "slowloop_ed",
-        "ciaconna_buxwv255_orch_arr",
-        "nakayoshi_sensation",
         "bokuyaba_op",
-        "flaglife_piano_arr",
-        "slateport_city",
-        "route_47",
         "haganai_op",
         "kaguya_sama_ed",
         "hataraku_saibou_ed",
         "weakest_tamer_op",
-        "melt_orch_arr",
         "nichijou_ed",
         "bokuyaba2-ed-arr",
         "henjin_no_salad_bowl_ed",
         "shuumatsu_train_doko_e_iku_op",
-        "revue_starlight_movie_ed",
+        "revue_starlight_movie_ed"
+    ],
+    "non-anime arrangements": [
+        "antigravity_girl",
+        "hanayori_dorm_intro_song",
+        "pokemon_yellow_op",
+        "ciaconna_buxwv255_orch_arr",
+        "nakayoshi_sensation",
+        "flaglife_piano_arr",
+        "slateport_city",
+        "route_47",
+        "melt_orch_arr",
         "capriccio_e_ciaconna_cazzati_orch_arr"
     ]
 }
