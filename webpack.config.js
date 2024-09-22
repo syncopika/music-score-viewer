@@ -10,7 +10,7 @@ module.exports = {
 	  ],
   },
   resolve: {
-    extensions: [".webpack.js", ".web.js", ".js"]
+    extensions: [".webpack.js", ".js"]
   },
   output: {
     path: __dirname + '/dist',
@@ -18,6 +18,5 @@ module.exports = {
     filename: 'bundle.js'
   },
   // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
-	
+  //devtool: "source-map",
 };

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ScoreList = (props) => {
   const currScoreCategories = props.currScoreNames.categories;
   const currSelectedScore = props.currSelectedScore;
-  const scoreTags = props.currScoreNames.tags; // note that we're only looking at tags for arrangements atm!
+  const scoreTags = props.currScoreNames.tags;
   const currSearchText = props.currSearchText;
     
   const scoreCategoryStyle = {
@@ -24,8 +24,8 @@ export const ScoreList = (props) => {
           const sortedList = currScoreCategories[scoreCategory].sort();
           return (
             <div key={"div_" + scoreCategory}>
-              <li key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
               <ul>
+                <li key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
                 {
                   sortedList
                     .filter(scoreName => {
@@ -33,7 +33,9 @@ export const ScoreList = (props) => {
                         let matchFound = matchScoreName(currSearchText, scoreName);
                                 
                         if(scoreTags[scoreName]){
-                          matchFound |= scoreTags[scoreName].some(tag => tag.toLowerCase().includes(currSearchText.toLowerCase()));
+                          matchFound |= scoreTags[scoreName].some(
+                            tag => tag.toLowerCase().includes(currSearchText.toLowerCase())
+                          );
                         }
                                 
                         return matchFound;
@@ -43,7 +45,10 @@ export const ScoreList = (props) => {
                     })
                     .map(scoreName => {
                       return (
-                        <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
+                        <li 
+                          key={"li_" + scoreName} 
+                          className={scoreName === currSelectedScore ? 'selected' : ''}
+                        > 
                           <Link to={scoreName}>{scoreName}</Link>
                         </li>
                       );
