@@ -1,6 +1,5 @@
 // component for displaying the score and instruments
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 import {
   HashRouter,
   Link,
@@ -11,7 +10,7 @@ import { useGetScoreNames } from './useGetScoreNames.js';
 import { ScoreDisplay } from './ScoreDisplay.js';
 import { Homepage } from './HomePage.js';
 
-const ScoreRouter = () => {
+export const ScoreRouter = () => {
   const {currScoreNames} = useGetScoreNames(); // custom hook to get score data
   const [currSelectedScore, setSelectedScore] = useState('');
 
@@ -52,8 +51,4 @@ const ScoreRouter = () => {
       </Routes>
     </HashRouter>
   );
-};
-
-export {
-  ScoreRouter
 };
