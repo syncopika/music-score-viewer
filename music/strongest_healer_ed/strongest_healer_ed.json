@@ -1,0 +1,22 @@
+{
+    "name": "strongest_healer_ed",
+    "scorePath": "music/strongest_healer_ed/100824-The Healer Who was Banished From His Party is Actually the Strongest-ED-arr-pianoedit.pdf",
+    "trackPaths": {
+        "piano": "music/strongest_healer_ed/100824-The Healer Who was Banished From His Party is Actually the Strongest-ED-arr-pianoedit.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of 「Only」, the ending song for the anime パーティーから追放されたその治癒師、実は最強につき.",
+        "Note that this arrangement is pitched 2 semitones above the original (the original is in the key of G).",
+        "The composer is Shunryu and the original arranger is Fujinaga Ryutaro (Elements Garden).",
+        "You can hear the original song <a href='https://www.youtube.com/watch?v=CjXceQNzxUQ'>here</a>."
+    ],
+    "duration": 95,
+    "timeMarkers": {
+      "1": 54,
+      "2": 95
+    },
+    "tags": [
+      "パーティーから追放されたその治癒師、実は最強につき",
+      "The Healer Who Was Banished From His Party, Is, in Fact, the Strongest"
+    ]
+}
