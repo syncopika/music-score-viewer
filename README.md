@@ -12,7 +12,7 @@ If, on initial page load the audio sounds out of sync, stopping and replaying sh
     
 ### notes:    
 - in /src I have a json file that will be used to figure out the contents of score list in the sidebar menu.
-- all the scores are in /music. each score has its own folder and in each folder is a json file. this file contains the information to know what instrument sliders need to be created, where the score file is, etc.
+- all the scores are in /music. each score has its own folder and in each folder is a json file. this file contains the information to know what instrument sliders need to be created, where the score file is, when to turn the score page, etc.
     
 ### main dependencies:    
 pdf.js (https://mozilla.github.io/pdf.js/)    
