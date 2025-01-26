@@ -38,10 +38,10 @@ const ScoreRouter = () => {
     return (
       <>
         <header>
-          <h2>
-            <Link to='/'> music score viewer </Link>
+          <h1>
+            music score viewer
             <span><a href="https://github.com/syncopika/music-score-viewer">src</a></span>
-          </h2>
+          </h1>
           <h3 className='aboutHeader' onClick={toggleAbout}>about</h3>
           {
             currAboutState &&

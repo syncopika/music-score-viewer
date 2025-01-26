@@ -20,4 +20,4 @@ React
     
 ### running locally:    
 Run `npm install` to get the dependencies (super annoying, I know. sorry!)    
-Then run `npm run dev` from this directory and go to `http://localhost:5173/`.    
+Then make sure `<script type="module" src="src/index.js"></script>` is uncommented in `index.html`, run `npm run dev` from this directory and go to `http://localhost:5173/`.    
