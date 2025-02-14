@@ -1,0 +1,16 @@
+{
+    "name": "minamo_amagami_ss_piano_arr",
+    "scorePath": "music/minamo_amagami_ss_piano_arr/minamo-pianoarr.pdf",
+    "trackPaths": {
+        "piano": "music/minamo_amagami_ss_piano_arr/020425-amagamiss-minamo-piano.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of 「minamo」, an insert song for Ai Nanasaki's arc from the anime 「アマガミSS」."
+    ],
+    "duration": 116,
+    "timeMarkers": {
+      "1": 58,
+      "2": 116
+    },
+    "tags": ["anime", "amagami ss", "アマガミSS"]
+}
