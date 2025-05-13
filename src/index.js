@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ScoreRouter } from './ScoreRouter.js';
 
-ReactDOM.render(
-  <ScoreRouter />,
-  document.getElementById('root')
-);
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<ScoreRouter />);
