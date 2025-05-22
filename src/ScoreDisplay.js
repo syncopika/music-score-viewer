@@ -454,7 +454,7 @@ class ScoreDisplay extends React.Component {
                 return <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />;
               })
             }
-            <p> tags: {this.state.scoreData.tags.join(", ")} </p>
+            <p> tags: {this.state.scoreData.tags.join(', ')} </p>
           </section>
                     
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const ScoreList = (props) => {
   const currScoreCategories = props.currScoreNames.categories;
@@ -23,8 +23,8 @@ export const ScoreList = (props) => {
         currScoreCategories && Object.keys(currScoreCategories).map(scoreCategory => {
           const sortedList = currScoreCategories[scoreCategory].sort();
           return (
-            <div key={"div_" + scoreCategory}>
-              <p key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </p>
+            <div key={'div_' + scoreCategory}>
+              <p key={'li_' + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </p>
               <ul>
                 {
                   sortedList
@@ -43,7 +43,7 @@ export const ScoreList = (props) => {
                     })
                     .map(scoreName => {
                       return (
-                        <li key={"li_" + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
+                        <li key={'li_' + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
                           <Link to={scoreName}>{scoreName}</Link>
                         </li>
                       );

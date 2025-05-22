@@ -23,7 +23,7 @@ class AudioManager {
             
       const audioDataPath = trackPaths[instrument];
       this.updateUIState({
-        "showLoadingMsg": true,
+        'showLoadingMsg': true,
       });
             
       fetch(audioDataPath)
@@ -38,13 +38,13 @@ class AudioManager {
           newAudioElement.src = objectURL;
                 
           // ideally when one audio element ends, it should be representative of all the current audio elements
-          newAudioElement.addEventListener("ended", () => {
+          newAudioElement.addEventListener('ended', () => {
             this.updateUIState({
-              "isPlaying": false,
+              'isPlaying': false,
             });
           }, false);
                 
-          if(this.audioContext.state !== "closed"){
+          if(this.audioContext.state !== 'closed'){
             const newMediaElementSrcNode = this.audioContext.createMediaElementSource(newAudioElement);
             const newGainNode = this.audioContext.createGain();
             const newPanNode = this.audioContext.createStereoPanner();
@@ -67,8 +67,8 @@ class AudioManager {
             // if this is the last instrument to load, unblock the play button
             if(++count === numInstruments){
               this.updateUIState({
-                "playButtonDisabled": false,
-                "showLoadingMsg": false,
+                'playButtonDisabled': false,
+                'showLoadingMsg': false,
               });
             }
           }
@@ -95,7 +95,7 @@ class AudioManager {
         instrument.promise.then(_ => {
           this.instruments[instrument.name].audioElement.pause();
         }).catch(err => {
-          console.log("there was an error trying to play: " + instrument.name);
+          console.log('there was an error trying to play: ' + instrument.name);
         });
       }
     });
@@ -117,7 +117,7 @@ class AudioManager {
     this.pause();
     for(const instrument in this.instruments){
       this.instruments[instrument].audioElement.currentTime = 0;
-      this.instruments[instrument].audioElement.dispatchEvent(new Event("ended"));
+      this.instruments[instrument].audioElement.dispatchEvent(new Event('ended'));
     }
     this.seekTime = 0;
     this.currentlyPlaying = [];
