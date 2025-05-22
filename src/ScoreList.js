@@ -24,7 +24,7 @@ export const ScoreList = (props) => {
           const sortedList = currScoreCategories[scoreCategory].sort();
           return (
             <div key={"div_" + scoreCategory}>
-              <li key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
+              <p key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </p>
               <ul>
                 {
                   sortedList
@@ -50,7 +50,6 @@ export const ScoreList = (props) => {
                     })
                 }
               </ul>
-              <br />
             </div>
           );
         })
