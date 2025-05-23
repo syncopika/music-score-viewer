@@ -3,8 +3,7 @@
 // If absolute URL from the remote server is provided, configure the CORS
 // header on that server.
 
-class PdfManager {
-
+export class PdfManager {
   constructor(updateStateFunc){
     this.pdfDoc = null;
     this.pageNum = 1;
@@ -30,9 +29,9 @@ class PdfManager {
   }
 
   /**
-     * Get page info from document, resize canvas accordingly, and render page.
-     * @param num Page number.
-     */
+   * Get page info from document, resize canvas accordingly, and render page.
+   * @param num Page number.
+   */
   renderPage(num) {
     this.pageRendering = true;
       
@@ -75,9 +74,9 @@ class PdfManager {
   }
 
   /**
-     * If another page rendering in progress, waits until the rendering is
-     * finished. Otherwise, executes rendering immediately.
-     */
+   * If another page rendering in progress, waits until the rendering is
+   * finished. Otherwise, executes rendering immediately.
+   */
   queueRenderPage(num) {
     if (this.pageRendering) {
       this.pageNumPending = num;
@@ -87,8 +86,8 @@ class PdfManager {
   }
 
   /**
-     * Displays previous page.
-    */
+   * Displays previous page.
+   */
   onPrevPage() {
     if (this.pageNum <= 1) {
       return;
@@ -98,8 +97,8 @@ class PdfManager {
   }
 
   /**
-     * Displays next page.
-    */
+   * Displays next page.
+   */
   onNextPage() {
     if (this.pageNum >= this.pdfDoc.numPages) {
       return;
@@ -148,7 +147,3 @@ class PdfManager {
     });
   }
 }
-
-export {
-  PdfManager
-};

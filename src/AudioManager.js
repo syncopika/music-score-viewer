@@ -1,5 +1,4 @@
-class AudioManager {
-
+export class AudioManager {
   constructor(updateStateFunc){
     this.instruments = {};
     this.currentlyPlaying = []; // keep track of which instruments are currently playing
@@ -27,13 +26,13 @@ class AudioManager {
       });
             
       fetch(audioDataPath)
-        .then((res) => {
+        .then(res => {
           if(!res.ok){
             throw new Error(`${res.status}: loading ${audioDataPath} failed! sorry :(`); 
           }
           return res.blob();
         })
-        .then((res) => {
+        .then(res => {
           const objectURL = URL.createObjectURL(res);
           newAudioElement.src = objectURL;
                 
@@ -92,10 +91,10 @@ class AudioManager {
   pause(){
     this.currentlyPlaying.forEach((instrument) => {
       if(instrument.promise !== undefined){
-        instrument.promise.then(_ => {
+        instrument.promise.then(() => {
           this.instruments[instrument.name].audioElement.pause();
         }).catch(err => {
-          console.log('there was an error trying to play: ' + instrument.name);
+          console.log(`${err.message} - there was an error trying to play: ${instrument.name}`);
         });
       }
     });
@@ -130,7 +129,3 @@ class AudioManager {
   }
 
 }
-
-export {
-  AudioManager
-};

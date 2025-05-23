@@ -2,7 +2,7 @@ import React from 'react';
 import { PdfManager } from './PdfManager.js';
 import { AudioManager } from './AudioManager.js';
 
-class ScoreDisplay extends React.Component {
+export class ScoreDisplay extends React.Component {
   constructor(props){
     super(props);
         
@@ -86,8 +86,6 @@ class ScoreDisplay extends React.Component {
     // load the score
     await this.pdfManager.loadScore(data.scorePath, startPage);
         
-    const playButton = document.getElementById('playMusic');
-        
     this.audioManager.loadInstrumentParts(data.trackPaths);
         
     if(this.mounted){
@@ -99,8 +97,8 @@ class ScoreDisplay extends React.Component {
   }
     
   // used with requestAnimationFrame
-  step(timestamp){
-    // we don't care about the timestamp requestAnimationFrame uses
+  step(){
+    // note we don't care about the timestamp requestAnimationFrame uses
     // since we'll rely on audioContext's timer instead
     const diff = this.audioManager.audioContext.currentTime - this.lastTime; // updating audioManager's seekTime is dependent on this
     const seekSlider = document.getElementById('playbackSeekSlider');
@@ -171,7 +169,7 @@ class ScoreDisplay extends React.Component {
     }
   }
     
-  stop(evt){
+  stop(){
     // stop playing and rewind audio to the beginning
     cancelAnimationFrame(this.reqId);
     this.audioManager.stop();
@@ -316,7 +314,7 @@ class ScoreDisplay extends React.Component {
                 step='1'
                 defaultValue='0'
                 onInput={
-                  (evt) => {
+                  evt => {
                     const newVal = evt.target.value;
                     document.getElementById('currTimeLabel').textContent = `seek: ${newVal}`;
                     this.audioManager.seekTime = parseInt(evt.target.value);
@@ -400,7 +398,7 @@ class ScoreDisplay extends React.Component {
                             step='0.1'
                             defaultValue={instrument.gainVal}
                             onChange={
-                              function(evt){
+                              evt => {
                                 // update volume value
                                 const newVal = evt.target.value;
                                 document.getElementById(`${instrument.name}_vol_value`).textContent = newVal;
@@ -426,7 +424,7 @@ class ScoreDisplay extends React.Component {
                             step='0.1'
                             defaultValue={instrument.panVal}
                             onInput={
-                              function(evt){
+                              evt => {
                                 // update pan value
                                 const newVal = evt.target.value;
                                 document.getElementById(`${instrument.name}_pan_value`).textContent = newVal;
@@ -450,9 +448,9 @@ class ScoreDisplay extends React.Component {
           <section id='notesContainer'>
             <h3 id='notesHeader'> notes: </h3>
             {
-              this.state.scoreData.notes.map((note, index) => {
-                return <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />;
-              })
+              this.state.scoreData.notes.map((note, index) => (
+                <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />
+              ))
             }
             <p> tags: {this.state.scoreData.tags.join(', ')} </p>
           </section>
@@ -463,7 +461,3 @@ class ScoreDisplay extends React.Component {
   }
 
 }
-
-export {
-  ScoreDisplay
-};
