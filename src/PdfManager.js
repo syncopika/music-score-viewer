@@ -21,7 +21,7 @@ class PdfManager {
     this.pdfjsLib = window['pdfjs-dist/build/pdf'];
 
     // The workerSrc property shall be specified.
-    this.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
   }
     
   setCanvas(canvasElement){
@@ -61,7 +61,7 @@ class PdfManager {
           
         // Update page counters
         this.updateUiState({
-          "currPage": num,
+          'currPage': num,
         });
       
         if (this.pageNumPending !== null) {
@@ -138,7 +138,7 @@ class PdfManager {
     return this.pdfjsLib.getDocument(scorePath).promise.then((pdfDoc_) => {
       this.pdfDoc = pdfDoc_;
           
-      this.updateUiState({"totalPages": this.pdfDoc.numPages});
+      this.updateUiState({'totalPages': this.pdfDoc.numPages});
 
       // Initial/first page rendering
       this.pageNum = pageToRenderInitially;

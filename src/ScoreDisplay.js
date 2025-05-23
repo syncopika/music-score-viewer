@@ -8,8 +8,8 @@ class ScoreDisplay extends React.Component {
         
     this.state = {
       scoreData: {
-        name: "",
-        scorePath: "",
+        name: '',
+        scorePath: '',
         trackPaths: {},
         notes: [],
         duration: 0,
@@ -103,7 +103,7 @@ class ScoreDisplay extends React.Component {
     // we don't care about the timestamp requestAnimationFrame uses
     // since we'll rely on audioContext's timer instead
     const diff = this.audioManager.audioContext.currentTime - this.lastTime; // updating audioManager's seekTime is dependent on this
-    const seekSlider = document.getElementById("playbackSeekSlider");
+    const seekSlider = document.getElementById('playbackSeekSlider');
     seekSlider.value = diff;
     seekSlider.dispatchEvent(new Event('input', { bubbles: true })); // trigger event so label will get updated. React didn't like 'new InputEvent()' for some reason it seems?
 
@@ -133,7 +133,7 @@ class ScoreDisplay extends React.Component {
     }
         
     if(!this.state.isPlaying){
-      evt.target.textContent = "pause";
+      evt.target.textContent = 'pause';
             
       this.setState({
         'prevPageButtonDisabled': true,
@@ -160,7 +160,7 @@ class ScoreDisplay extends React.Component {
       this.reqId = requestAnimationFrame(this.step.bind(this));
     }else{
       this.audioManager.pause();
-      evt.target.textContent = "play";
+      evt.target.textContent = 'play';
       cancelAnimationFrame(this.reqId);
 
       this.setState({
@@ -229,7 +229,7 @@ class ScoreDisplay extends React.Component {
   componentDidMount(){
     this.mounted = true;
     this.callbackFn();
-    this.pdfManager.setCanvas(document.getElementById('the-canvas'));
+    this.pdfManager.setCanvas(document.getElementById('theCanvas'));
     this.importScore(this.scoreMetadataPath);
   }
     
@@ -248,7 +248,7 @@ class ScoreDisplay extends React.Component {
         <div id='content'>
           <section>
             <button
-              id="prevPage"
+              id='prevPage'
               disabled={this.state.prevPageButtonDisabled}
               onClick={this.pdfManager.onPrevPage.bind(this.pdfManager)}
             >
@@ -256,11 +256,11 @@ class ScoreDisplay extends React.Component {
             </button>
                       
             <span>
-              page: <span id="page_num">{this.state.currPage}</span> / <span id="page_count">{this.state.totalPages}</span>
+              page: <span id='pageNum'>{this.state.currPage}</span> / <span id='pageCount'>{this.state.totalPages}</span>
             </span>
                       
             <button
-              id="nextPage"
+              id='nextPage'
               disabled={this.state.nextPageButtonDisabled}
               onClick={this.pdfManager.onNextPage.bind(this.pdfManager)}
             >
@@ -268,13 +268,9 @@ class ScoreDisplay extends React.Component {
             </button>
           </section>
                     
-          <br />
+          <canvas id='theCanvas'></canvas>
                     
-          <canvas id="the-canvas"></canvas>
-                    
-          <br />
-                    
-          <button id="openScoreInTab" onClick={() => {
+          <button id='openScoreInTab' onClick={() => {
             if(this.state.scoreData.scorePath) window.open(this.state.scoreData.scorePath);
           }}> open score in another tab </button>
         </div>
@@ -285,8 +281,8 @@ class ScoreDisplay extends React.Component {
               <button
                 id='playMusic' 
                 data-playing={this.state.isPlaying}
-                role="switch" 
-                aria-checked="false"
+                role='switch'
+                aria-checked='false'
                 disabled={this.state.playButtonDisabled}
                 onClick={this.play.bind(this)}
               >
@@ -294,7 +290,7 @@ class ScoreDisplay extends React.Component {
               </button>
               <button
                 id='stopMusic' 
-                aria-checked="false"
+                aria-checked='false'
                 onClick={this.stop.bind(this)}
               >
                 stop
@@ -327,7 +323,7 @@ class ScoreDisplay extends React.Component {
                   }
                 }
               ></input>
-                          
+              
               <span
                 id='durationLabel'
                 style={{'marginLeft': '1%'}}
@@ -458,10 +454,7 @@ class ScoreDisplay extends React.Component {
                 return <p dangerouslySetInnerHTML={{__html: note}} key={`${note}${index}`} />;
               })
             }
-                        
-            <br />
-                        
-            <p> tags: {this.state.scoreData.tags.join(", ")} </p>
+            <p> tags: {this.state.scoreData.tags.join(', ')} </p>
           </section>
                     
         </div>
