@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-=======
 import React from 'react';
->>>>>>> improving linting a bit more, minor code adjustments
 import { Link } from 'react-router-dom';
 
 export const ScoreList = (props) => {
@@ -27,12 +23,7 @@ export const ScoreList = (props) => {
         currScoreCategories && Object.keys(currScoreCategories).map(scoreCategory => {
           const sortedList = currScoreCategories[scoreCategory].sort();
           return (
-<<<<<<< HEAD
-            <div key={'div_' + scoreCategory}>
-              <p key={'li_' + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </p>
-=======
             <div key={"div_" + scoreCategory}>
->>>>>>> improving linting a bit more, minor code adjustments
               <ul>
                 <li key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
                 {
@@ -45,23 +36,14 @@ export const ScoreList = (props) => {
                           matchFound |= scoreTags[scoreName].some(
                             tag => tag.toLowerCase().includes(currSearchText.toLowerCase())
                           );
-                        }
-                                
+                        }         
                         return matchFound;
                       }
-                              
                       return true;
                     })
                     .map(scoreName => {
                       return (
-<<<<<<< HEAD
                         <li key={'li_' + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
-=======
-                        <li 
-                          key={"li_" + scoreName} 
-                          className={scoreName === currSelectedScore ? 'selected' : ''}
-                        > 
->>>>>>> improving linting a bit more, minor code adjustments
                           <Link to={scoreName}>{scoreName}</Link>
                         </li>
                       );

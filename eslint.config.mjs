@@ -5,9 +5,6 @@ import js from '@eslint/js';
 
 export default [
   {
-    plugins: {
-      react: reactPlugin,
-    },
     rules: {
       'semi': 'error',
       'prefer-const': 'error',
