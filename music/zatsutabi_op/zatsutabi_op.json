@@ -1,0 +1,21 @@
+{
+    "name": "zatsutabi_op",
+    "scorePath": "music/zatsutabi_op/「旅しよ！don't_you？」-mallet-arrangement.pdf",
+    "trackPaths": {
+        "marimba 1": "music/zatsutabi_op/070825-zatsutabiOParr-marimba1.mp3",
+        "marimba 2": "music/zatsutabi_op/070825-zatsutabiOParr-marimba2.mp3",
+        "vibraphone": "music/zatsutabi_op/070825-zatsutabiOParr-vibraphone.mp3"
+    },
+    "notes": [
+        "This is a mallet arrangement of 「旅しよ！don't you？」, the OP for the anime ざつ旅 -That's Journey-.",
+        "The composer is 田中隼人."
+    ],
+    "tags": ["percussion", "mallet"],
+    "duration": 96,
+    "timeMarkers": {
+      "1": 30,
+      "2": 56,
+      "3": 88,
+      "4": 96
+    }
+}
