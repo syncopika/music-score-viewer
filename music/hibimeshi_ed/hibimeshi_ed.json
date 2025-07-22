@@ -1,0 +1,17 @@
+{
+    "name": "hibimeshi_ed",
+    "scorePath": "music/hibimeshi_ed/071525-hibimeshiEDarr.pdf",
+    "trackPaths": {
+        "piano": "music/hibimeshi_ed/071525-hibimeshiEDarr.mp3"
+    },
+    "notes": [
+        "This is a piano arrangement of 「味噌汁とバター」, the ending song of the anime 日々は過ぎれど飯うまし.",
+        "The composer is Ushio Reira and the original arranger is nobuaki tanaka."
+    ],
+    "duration": 134,
+    "timeMarkers": {
+      "1": 63,
+      "2": 104,
+      "3": 134
+    }
+}
