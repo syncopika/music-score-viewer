@@ -1,0 +1,33 @@
+{
+    "name": "takopi_no_genzai_op",
+    "scorePath": "music/takopi_no_genzai_op/080325-takopiOPorcharr.pdf",
+    "trackPaths": {
+        "bassoon": "music/takopi_no_genzai_op/080325takopiiOParr-bassoon.mp3",
+        "clarinet": "music/takopi_no_genzai_op/080325takopiiOParr-clarinet.mp3",
+        "flute": "music/takopi_no_genzai_op/080325takopiiOParr-flute.mp3",
+        "oboe": "music/takopi_no_genzai_op/080325takopiiOParr-oboe.mp3",
+        "horn": "music/takopi_no_genzai_op/080325takopiiOParr-horn.mp3",
+        "harp": "music/takopi_no_genzai_op/080325takopiiOParr-harp.mp3",
+        "percussion": "music/takopi_no_genzai_op/080325takopiiOParr-percussion.mp3",
+        "timpani": "music/takopi_no_genzai_op/080325takopiiOParr-timpani.mp3",
+        "strings": "music/takopi_no_genzai_op/080325takopiiOParr-strings.mp3",
+        "trombone": "music/takopi_no_genzai_op/080325takopiiOParr-trombone.mp3",
+        "tuba": "music/takopi_no_genzai_op/080325takopiiOParr-tuba.mp3"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 「ハッピーラッキーチャッピー」, the OP for the anime タコピーの原罪.",
+        "The composer is ano and the original arranger is TAKU INOUE."
+    ],
+    "duration": 91,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 9,
+      "3": 23,
+      "4": 38,
+      "5": 49,
+      "6": 60,
+      "7": 70,
+      "8": 80,
+      "9": 91
+    }
+}
