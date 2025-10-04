@@ -1,0 +1,45 @@
+{
+    "name": "turkey_op_orch_arr",
+    "scorePath": "music/turkey_op_orch_arr/turkey_op_orch_arr.pdf",
+    "trackPaths": {
+        "strings": "music/turkey_op_orch_arr/090725turkeyOPorcharr-STRINGS.ogg",
+        "piano": "music/turkey_op_orch_arr/090725turkeyOPorcharr-PIANO.ogg",
+        "oboe": "music/turkey_op_orch_arr/090725turkeyOPorcharr-OBOE.ogg",
+        "flute": "music/turkey_op_orch_arr/090725turkeyOPorcharr-FLUTE.ogg",
+        "bassoon": "music/turkey_op_orch_arr/090725turkeyOPorcharr-BASSOON.ogg",
+        "clarinet": "music/turkey_op_orch_arr/090725turkeyOPorcharr-CLARINET.ogg",
+        "horn": "music/turkey_op_orch_arr/090725turkeyOPorcharr-HORN.ogg",
+        "trombone": "music/turkey_op_orch_arr/090725turkeyOPorcharr-TROMBONE.ogg",
+        "tuba": "music/turkey_op_orch_arr/090725turkeyOPorcharr-TUBA.ogg",
+        "percussion": "music/turkey_op_orch_arr/090725turkeyOPorcharr-PERCUSSION.ogg",
+        "timpani": "music/turkey_op_orch_arr/090725turkeyOPorcharr-TIMPANI.ogg",
+        "harp": "music/turkey_op_orch_arr/090725turkeyOPorcharr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of 『ヒャクニチソウ』, the OP of the anime 「Turkey!」.",
+        "The composer is 北澤ゆうほ and the original arranger is 川口圭太."
+    ],
+    "duration": 98,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 6,
+      "3": 10,
+      "4": 14,
+      "5": 21,
+      "6": 27,
+      "7": 31,
+      "8": 37,
+      "9": 44,
+      "10": 50,
+      "11": 56,
+      "12": 62,
+      "13": 67,
+      "14": 70,
+      "15": 73,
+      "16": 74,
+      "17": 77,
+      "18": 84,
+      "19": 91,
+      "20": 98
+    }
+}
