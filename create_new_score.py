@@ -28,6 +28,7 @@ if __name__ == "__main__":
         },
         "notes": ["something"],
         "duration": 0,
+        "startPage": 1,
         "timeMarkers": {},
     }
     
