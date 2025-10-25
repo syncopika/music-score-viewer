@@ -1,0 +1,20 @@
+{
+    "name": "alma_chan_wa_kazoku_ni_naritai_ed",
+    "scorePath": "music/alma_chan_wa_kazoku_ni_naritai_ed/102125-almachanwakazokuninaritaiED-arr.pdf",
+    "trackPaths": {
+        "piano": "music/alma_chan_wa_kazoku_ni_naritai_ed/102125-almachanwakazokuninaritaiED-arr-PIANO.ogg",
+        "violin": "music/alma_chan_wa_kazoku_ni_naritai_ed/102125-almachanwakazokuninaritaiED-arr-VIOLIN.ogg",
+        "cello": "music/alma_chan_wa_kazoku_ni_naritai_ed/102125-almachanwakazokuninaritaiED-arr-CELLO.ogg"
+    },
+    "notes": [
+        "This is a piano trio (piano, violin, cello) arrangement of 「ありふれてたい」, the ending song of the anime 『アルマちゃんは家族になりたい』.",
+        "The composers are Mr. Adventure / MILKEY and the original arranger is 松田純一."
+    ],
+    "duration": 95,
+    "startPage": 1,
+    "timeMarkers": {
+      "1": 23,
+      "2": 57,
+      "3": 95
+    }
+}
