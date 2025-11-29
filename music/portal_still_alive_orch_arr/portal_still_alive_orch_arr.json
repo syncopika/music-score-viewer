@@ -1,0 +1,43 @@
+{
+    "name": "portal_still_alive_orch_arr",
+    "scorePath": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr.pdf",
+    "trackPaths": {
+        "strings": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-STRINGS.ogg",
+        "oboe": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-OBOE.ogg",
+        "flute": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-FLUTE.ogg",
+        "clarinet": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-CLARINET.ogg",
+        "bassoon": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-BASSOON.ogg",
+        "horn": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-HORN.ogg",
+        "trombone": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-TROMBONE.ogg",
+        "tuba": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-TUBA.ogg",
+        "percussion": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-PERCUSSION.ogg",
+        "glockenspiel": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-GLOCKENSPIEL.ogg",
+        "piano": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-PIANO.ogg",
+        "harp": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of \"Still Alive\", the ending credits song for the game \"Portal\".",
+        "The composer is Jonathon Coulton."
+    ],
+    "duration": 132,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 8,
+      "3": 16,
+      "4": 24,
+      "5": 32,
+      "6": 38,
+      "7": 44,
+      "8": 51,
+      "9": 58,
+      "10": 66,
+      "11": 74,
+      "12": 82,
+      "13": 88,
+      "14": 99,
+      "15": 108,
+      "16": 117,
+      "17": 125,
+      "18": 132
+    }
+}
