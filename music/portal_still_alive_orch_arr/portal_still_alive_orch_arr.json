@@ -13,7 +13,8 @@
         "percussion": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-PERCUSSION.ogg",
         "glockenspiel": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-GLOCKENSPIEL.ogg",
         "piano": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-PIANO.ogg",
-        "harp": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-HARP.ogg"
+        "harp": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-HARP.ogg",
+        "timpani": "music/portal_still_alive_orch_arr/103025-portalED-stillalive-orcharr-TIMPANI.ogg"
     },
     "notes": [
         "This is an orchestral arrangement of \"Still Alive\", the ending credits song for the game \"Portal\".",
