@@ -1,0 +1,19 @@
+{
+    "name": "menishukirush_piano_arr",
+    "scorePath": "music/menishukirush_piano_arr/030126-めにしゅき♡ラッシュっしゅ!-arr.pdf",
+    "trackPaths": {
+        "piano": "music/menishukirush_piano_arr/030126-めにしゅき♡ラッシュっしゅ!-arr.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of the song 「めにしゅき♡ラッシュっしゅ︕」, featured in the popular game 『ウマ娘 プリティーダービー』.",
+        "The composer is 市橋 卓也."
+    ],
+    "duration": 168,
+    "timeMarkers": {
+      "1": 32,
+      "2": 66,
+      "3": 108,
+      "4": 139,
+      "5": 168
+    }
+}
