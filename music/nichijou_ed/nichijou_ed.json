@@ -1,25 +1,24 @@
 {
     "name": "nichijou_ed",
-    "scorePath": "music/nichijou_ed/091023-nichijouED-zzz-arr.pdf",
+    "scorePath": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit.pdf",
     "trackPaths": {
-        "bassoon": "music/nichijou_ed/091023-nichijouED-zzz-arr-BASSOON.ogg",
-        "bass clarinet": "music/nichijou_ed/091023-nichijouED-zzz-arr-BASSCLARINET.ogg",
-        "flute": "music/nichijou_ed/091023-nichijouED-zzz-arr-FLUTE.ogg",
-        "oboe": "music/nichijou_ed/091023-nichijouED-zzz-arr-OBOE.ogg",
-        "clarinet": "music/nichijou_ed/091023-nichijouED-zzz-arr-CLARINET.ogg"
+        "bassoon": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit-BASSOON.ogg",
+        "bass clarinet": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit-BASSCLARINET.ogg",
+        "flute": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit-FLUTE.ogg",
+        "oboe": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit-OBOE.ogg",
+        "clarinet": "music/nichijou_ed/091023-nichijouED-zzz-arr-edit-CLARINET.ogg"
     },
     "notes": [
         "This is a woodwind quintet arrangement of 「Zzz」, the ending song of the anime 「日常」.",
         "The composer is 前山田 健一."
     ],
-    "duration": 93,
+    "duration": 96,
     "timeMarkers": {
-      "1": 16,
+      "1": 13,
       "2": 32,
-      "3": 50,
-      "4": 67,
-      "5": 81,
-      "6": 93
+      "3": 52,
+      "4": 74,
+      "5": 96
     },
     "tags": [
       "anime",
