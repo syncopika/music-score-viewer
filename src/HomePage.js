@@ -30,12 +30,14 @@ export const Homepage = (props) => {
             <p className='about'>
               Thanks for visiting! This is a place for me to display
               some of my music work and arrangements.
-              I hope you'll find something interesting.
+              I hope you'll find/hear something interesting.
             </p>
             <p className='about'>
-              disclaimer: As much as I try to write playable stuff,
+              <span style={{'fontWeight': 'bold', 'fontSize': '16px'}}>disclaimer:</span> As much as I try to write playable stuff,
               some of my arrangements may be awkward and/or nonsensical.
-              There are probably errors as well.
+              There are probably (many) errors as well.
+            </p>
+            <p className='about'> 
               Apologies in advance and any feedback (suggestions/corrections/constructive criticism)
               is welcome and would be well-appreciated via GitHub issue.
             </p>
@@ -51,7 +53,6 @@ export const Homepage = (props) => {
         <ScoreList
           currSearchText={currSearchText}
           currScoreNames={props.currScoreNames}
-          currSelectedScore={props.currSelectedScore}
         />
 
         <Outlet />
