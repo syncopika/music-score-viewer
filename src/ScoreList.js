@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 export const ScoreList = (props) => {
   const currScoreCategories = props.currScoreNames.categories;
-  const currSelectedScore = props.currSelectedScore;
   const scoreTags = props.currScoreNames.tags;
   const currSearchText = props.currSearchText;
     
@@ -43,7 +42,7 @@ export const ScoreList = (props) => {
                     })
                     .map(scoreName => {
                       return (
-                        <li key={'li_' + scoreName} className={scoreName === currSelectedScore ? 'selected' : ''}> 
+                        <li key={'li_' + scoreName}> 
                           <Link to={scoreName}>{scoreName}</Link>
                         </li>
                       );

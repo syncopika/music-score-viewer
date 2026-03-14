@@ -4,7 +4,7 @@ import {
   HashRouter,
   Link,
   Routes,
-  Route
+  Route,
 } from 'react-router-dom';
 import { useGetScoreNames } from './useGetScoreNames.js';
 import { ScoreDisplay } from './ScoreDisplay.js';
@@ -27,8 +27,7 @@ export const ScoreRouter = () => {
           path='/'
           element={
             <Homepage
-              currScoreNames={currScoreNames}
-              currSelectedScore={currSelectedScore} />
+              currScoreNames={currScoreNames} />
           }
         />
         {
@@ -40,8 +39,7 @@ export const ScoreRouter = () => {
                   element={
                     <ScoreDisplay
                       key={'route_' + scoreName}
-                      scoreName={scoreName}
-                      callback={selectScore(scoreName)} />
+                      scoreName={scoreName} />
                   }
                 />
               );

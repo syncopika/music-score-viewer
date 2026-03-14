@@ -27,7 +27,6 @@ export class ScoreDisplay extends React.Component {
     };
     
     this.scoreMetadataPath = `./music/${props.scoreName}/${props.scoreName}.json`;
-    this.callbackFn = props.callback; // callback function. in this case we want to update the currently selected score in the root component (see ScoreRouter.js)
         
     this.pdfManager = new PdfManager(this.updateState.bind(this));
     this.audioManager = new AudioManager(this.updateState.bind(this));
@@ -226,7 +225,6 @@ export class ScoreDisplay extends React.Component {
     
   componentDidMount(){
     this.mounted = true;
-    this.callbackFn();
     this.pdfManager.setCanvas(document.getElementById('theCanvas'));
     this.importScore(this.scoreMetadataPath);
   }
@@ -239,12 +237,21 @@ export class ScoreDisplay extends React.Component {
     this.audioManager.audioContext.close();
     this.mounted = false;
   }
-    
+  
+  // home svg icon is from https://iconoir.com/ ('home' icon)
+  // since we're using a hash router, and there should only ever be one hash in the url, we know the first part before the hash should be our homepage url
   render(){
     return(
       <div id='container'>
         <div id='content'>
           <section>
+            <button 
+              id='goHome'
+              style={{'float': 'left', 'backgroundColor': '#fff'}}
+              onClick={() => window.location.href = window.location.href.split('#')[0]}
+            >
+              <svg width="24px" height="24px" viewBox="0 0 24 24" strokeWidth="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+            </button>
             <button
               id='prevPage'
               disabled={this.state.prevPageButtonDisabled}

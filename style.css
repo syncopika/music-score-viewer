@@ -12,6 +12,10 @@ button {
     margin-right: 1%;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
