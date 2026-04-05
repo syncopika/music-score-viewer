@@ -1,0 +1,21 @@
+{
+    "name": "polska_efter_per_jonas_lang_piano_arr",
+    "scorePath": "music/polska_efter_per_jonas_lang_piano_arr/013026-polskaefterperjonaslang-arr.pdf",
+    "trackPaths": {
+        "piano": "music/polska_efter_per_jonas_lang_piano_arr/013026-polskaefterperjonaslang-arr.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of \"Polska efter Per Jonas Lång\".",
+        "I believe it is a traditional Swedish folk song but unfortunately I have not been able to find much information about it and I don't know who the composer is (or who Per Jonas Lång is) :(.",
+        "This particular arrangment is based on this <a href='https://www.youtube.com/watch?v=rYVfkiwLw-8'>MUJI BGM vol. 8 recording</a> but there are a couple fantastic performances that are quite similar on YouTube as well, such as <a href='https://www.youtube.com/watch?v=0AIp7H-Mvcg'>here (Polska efter Per Jonas Lång – Markus Mattsson & Simon Sidén)</a> and <a href='https://www.youtube.com/watch?v=hWjXEWEhVG0'>here (Polska efter Per-Jonas Lång - Haverö)</a>."
+    ],
+    "duration": 200,
+    "startPage": 1,
+    "timeMarkers": {
+      "1": 39,
+      "2": 82,
+      "3": 125,
+      "4": 166,
+      "5": 200
+    }
+}
