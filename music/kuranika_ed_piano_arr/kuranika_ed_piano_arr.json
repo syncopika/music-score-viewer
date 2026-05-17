@@ -1,0 +1,17 @@
+{
+    "name": "kuranika_ed_piano_arr",
+    "scorePath": "music/kuranika_ed_piano_arr/051526-クラスで2番目に可愛い女の子と友だちになったED-arr.pdf",
+    "trackPaths": {
+        "piano": "music/kuranika_ed_piano_arr/051526-クラスで2番目に可愛い女の子と友だちになったED-arr.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of 「ずっと１番にしてね」, the ending song of the anime クラスで2番目に可愛い女の子と友だちになった.",
+        "The composer is コレサワ and the original arranger is 鈴木daichi秀行."
+    ],
+    "duration": 103,
+    "startPage": 1,
+    "timeMarkers": {
+      "1": 55,
+      "2": 103
+    }
+}
