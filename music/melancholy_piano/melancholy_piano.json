@@ -1,0 +1,15 @@
+{
+    "name": "melancholy_piano",
+    "scorePath": "music/melancholy_piano/112416melancholypianobgm-2026edit.pdf",
+    "trackPaths": {
+        "instrument": "music/melancholy_piano/112416melancholypianobgm-2026edit-PIANO.ogg"
+    },
+    "notes": [
+        "This is a melancholic piano piece idea I had around 11/24/16 it seems, which I revised a bit in May 2026 (mainly just extended it lol).",
+        "Sorry about all the accidentals! I'm still not sure what key we're supposed to be in 😅.",
+        "I also posted the original version on <a href=\"https://opengameart.org/content/melancholy-piano-bgm\">OpenGameArt</a>."
+    ],
+    "duration": 118,
+    "startPage": 1,
+    "timeMarkers": {}
+}
