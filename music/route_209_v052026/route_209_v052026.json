@@ -1,0 +1,45 @@
+{
+    "name": "route_209_v052026",
+    "scorePath": "music/route_209_v052026/053026route209arr.pdf",
+    "trackPaths": {
+        "strings": "music/route_209_v052026/053026route209arr-STRINGS.ogg",
+        "clarinets": "music/route_209_v052026/053026route209arr-CLARINETS.ogg",
+        "bassoon": "music/route_209_v052026/053026route209arr-BASSOON.ogg",
+        "flutes": "music/route_209_v052026/053026route209arr-FLUTES.ogg",
+        "oboes": "music/route_209_v052026/053026route209arr-OBOES.ogg",
+        "piccolo": "music/route_209_v052026/053026route209arr-PICCOLO.ogg",
+        "horns": "music/route_209_v052026/053026route209arr-HORNS.ogg",
+        "trombones": "music/route_209_v052026/053026route209arr-TROMBONES.ogg",
+        "tuba": "music/route_209_v052026/053026route209arr-TUBA.ogg",
+        "timpani": "music/route_209_v052026/053026route209arr-TIMPANI.ogg",
+        "percussion": "music/route_209_v052026/053026route209arr-PERC.ogg",
+        "harp": "music/route_209_v052026/053026route209arr-HARP.ogg"
+    },
+    "notes": [
+        "This is an orchestral arrangement of the Route 209 theme from Pokémon Diamond/Pearl/Platinum that I made around May 2026.",
+        "The composer is Hitomi Sato."
+    ],
+    "duration": 114,
+    "startPage": 2,
+    "timeMarkers": {
+      "2": 6,
+      "3": 11,
+      "4": 16,
+      "5": 23,
+      "6": 29,
+      "7": 36,
+      "8": 41,
+      "9": 47,
+      "10": 52,
+      "11": 55,
+      "12": 63,
+      "13": 72,
+      "14": 78,
+      "15": 84,
+      "16": 91,
+      "17": 96,
+      "18": 99,
+      "19": 105,
+      "20": 114
+    }
+}
