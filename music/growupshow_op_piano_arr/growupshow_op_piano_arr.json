@@ -1,0 +1,18 @@
+{
+    "name": "growupshow_op_piano_arr",
+    "scorePath": "music/growupshow_op_piano_arr/080926growupshowhimawaricircus-OP-arr.pdf",
+    "trackPaths": {
+        "piano": "music/growupshow_op_piano_arr/080926growupshowhimawaricircus-OP-arr.ogg"
+    },
+    "notes": [
+        "This is a piano arrangement of 「ユラリユレル」, the opening song for the anime 「グロウアップショウ ～ひまわりのサーカス団～」.",
+        "The composer is ツミキ."
+    ],
+    "duration": 96,
+    "startPage": 1,
+    "timeMarkers": {
+      "1": 31,
+      "2": 63,
+      "3": 96
+    }
+}
