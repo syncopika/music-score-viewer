@@ -2,7 +2,7 @@
     "name": "melancholy_piano",
     "scorePath": "music/melancholy_piano/112416melancholypianobgm-2026edit.pdf",
     "trackPaths": {
-        "instrument": "music/melancholy_piano/112416melancholypianobgm-2026edit-PIANO.ogg"
+        "piano": "music/melancholy_piano/112416melancholypianobgm-2026edit-PIANO.ogg"
     },
     "notes": [
         "This is a melancholic piano piece idea I had around 11/24/16 it seems, which I revised a bit in May 2026 (mainly just extended it lol).",
