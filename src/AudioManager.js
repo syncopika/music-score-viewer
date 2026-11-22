@@ -15,11 +15,6 @@ export class AudioManager {
 
     // import audio data via trackPaths, which should be an object mapping instrument names to paths to audio files
     for(const instrument in trackPaths){
-      // get the audio data
-      const newAudioElement = document.createElement('audio');
-      newAudioElement.currentTime = 0;
-      newAudioElement.id = instrument;
-            
       const audioDataPath = trackPaths[instrument];
       this.updateUIState({
         'showLoadingMsg': true,
