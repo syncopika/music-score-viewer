@@ -22,9 +22,9 @@ export const ScoreList = (props) => {
         currScoreCategories && Object.keys(currScoreCategories).map(scoreCategory => {
           const sortedList = currScoreCategories[scoreCategory].sort();
           return (
-            <div key={"div_" + scoreCategory}>
+            <div key={'div_' + scoreCategory}>
               <ul>
-                <li key={"li_" + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
+                <li key={'li_' + scoreCategory} style={scoreCategoryStyle}> {scoreCategory}: </li>
                 {
                   sortedList
                     .filter(scoreName => {
