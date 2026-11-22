@@ -96,17 +96,19 @@ export class AudioManager {
       const inst = this.instruments[instrument];
       // since buffer nodes are one-time use only, just stop and disconnect them as they'll
       // need to be recreated on next playback
-      inst.sourceNode.stop();
-      inst.sourceNode.disconnect();
+      try{
+        if(inst.sourceNode){
+          inst.sourceNode.stop();
+          inst.sourceNode.disconnect();
+        }
+      }catch(err){
+        console.log(err);
+      }
     }
   }
     
   reset(){
-    for(const instrument in this.instruments){
-      const inst = this.instruments[instrument];
-      this.instruments[instrument.name].sourceNode.stop();
-      this.instruments[instrument.name].sourceNode.disconnect();
-    }
+    this.pause();
     this.instruments = {};
     this.seekTime = 0;
   }
