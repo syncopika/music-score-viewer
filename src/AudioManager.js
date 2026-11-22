@@ -1,7 +1,6 @@
 export class AudioManager {
   constructor(updateStateFunc){
     this.instruments = {};
-    this.currentlyPlaying = []; // keep track of which instruments are currently playing
     this.audioContext = new AudioContext();
     this.updateUIState = updateStateFunc; // use this function to update the state of ScoreDisplay
   }
